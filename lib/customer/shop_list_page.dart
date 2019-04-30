@@ -6,39 +6,41 @@ class ShopListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("build");
-    return Container(
-      padding: EdgeInsets.only(top: 30.0, left: 12.0, right: 12.0),
-      color: CommonColors.bgGray,
-      child: Column(
-        children: <Widget>[
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Icon(Icons.location_on, color: Colors.grey),
-                Text("55楼"),
-              ],
+    return SafeArea(
+      child: Container(
+        padding: EdgeInsets.only(top: 30.0, left: 12.0, right: 12.0),
+        color: CommonColors.bgGray,
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Icon(Icons.location_on, color: Colors.grey),
+                  Text("55楼"),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 20.0),
-          Expanded(
-            child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 20.0),
-                    child: ShopItem(
-                      showName: "Shop $index",
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                          return ShopDetailPage(shopName: "Shop $index");
-                        }));
-                      },
-                    ),
-                  );
-                }),
-          ),
-        ],
+            SizedBox(height: 20.0),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 20.0),
+                      child: ShopItem(
+                        showName: "Shop $index",
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                            return ShopDetailPage(shopName: "Shop $index");
+                          }));
+                        },
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }
