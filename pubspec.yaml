@@ -21,6 +21,15 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_redux: ^0.5.3
   timeline_list:
+  tuple: ^1.0.1
+  latlong: ^0.6.1
+  positioned_tap_detector: ^1.0.1
+  transparent_image: ^0.1.0
+  async: ^2.0.8
+  flutter_image: ^1.0.0
+  cached_network_image: ^0.5.1
+  flutter_map: any
+
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:hair/model/dart.dart';
 import 'package:hair/utils/enum.dart';
+import 'package:latlong/latlong.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
@@ -18,15 +20,44 @@ class _TimelinePageState extends State<TimelinePage> {
 
   @override
   Widget build(BuildContext context) {
+    var markers = <Marker>[
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: LatLng(51.5, -0.09),
+        builder: (ctx) => Container(
+              child: FlutterLogo(),
+            ),
+      ),
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: LatLng(53.3498, -6.2603),
+        builder: (ctx) => Container(
+              child: FlutterLogo(
+                colors: Colors.green,
+              ),
+            ),
+      ),
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: LatLng(48.8566, 2.3522),
+        builder: (ctx) => Container(
+              child: FlutterLogo(colors: Colors.purple),
+            ),
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: timelineModel(TimelinePosition.Left),
+      body: timelineModel(TimelinePosition.Left, markers),
     );
   }
 
-  List<Doodle> _buildDoodles() {
+  List<Doodle> _buildDoodles(markers) {
     List<Doodle> list = [];
     for (int i = 0; i < 7; i++) {
       list.add(
@@ -34,7 +65,22 @@ class _TimelinePageState extends State<TimelinePage> {
           title: OrderStatusValue[i],
           time: "${DateTime.now()}",
           child: Container(
-            child: Text('fdfdsfs'),
+//            child: Text('fdfdsfs'),
+            width: double.infinity,
+            height: 150.0,
+            child: FlutterMap(
+              options: MapOptions(
+                center: LatLng(51.5, -0.09),
+                zoom: 5.0,
+              ),
+              layers: [
+                TileLayerOptions(
+                  urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  subdomains: ['a', 'b', 'c'],
+                ),
+                MarkerLayerOptions(markers: markers)
+              ],
+            ),
           ),
           icon: Icon(Icons.check, color: Colors.white),
           iconBackground: Colors.cyan,
@@ -45,8 +91,8 @@ class _TimelinePageState extends State<TimelinePage> {
   }
 
   List<Doodle> doodles;
-  timelineModel(TimelinePosition position) {
-    doodles = _buildDoodles();
+  timelineModel(TimelinePosition position, markers) {
+    doodles = _buildDoodles(markers);
     return Timeline.builder(
       reverse: true,
       itemBuilder: centerTimelineBuilder,
