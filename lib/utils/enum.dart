@@ -1,15 +1,39 @@
-const List<String> OrderStatusValue = ['已创建', '等待接单', '已接单', '已联系', '已到达', '上传成功', '已完成'];
+const List<String> OrderStatusValue = ['创建订单', '待服务', '进行中', '待评价', '已评价', '已取消'];
 
 enum OrderStatus {
-  create, //订单创建
-  waiting, //等待接单
-  received, //已接单
-  contacted, //已联系客户
-  arrived, //已到达
-  uploaded, //上传服务凭证
-  finished, //订单完成
+  created, //创建订单 0
+  waiting, //待服务 1
+  processing, //进行中 2
+  commenting, //已完成待评价 3
+  commented, //已完成已评价 4
+  canceled, //已取消 5
 }
 
-OrderStatus buildOrderStatus(int value) {
+OrderStatus buildOrderStatusType(int value) {
   return OrderStatus.values[value];
+}
+
+String getOrderStatusText(OrderStatus status) {
+  String text = '';
+  switch (status) {
+    case OrderStatus.created:
+      text = '创建订单';
+      break;
+    case OrderStatus.waiting:
+      text = '待服务';
+      break;
+    case OrderStatus.processing:
+      text = '进行中';
+      break;
+    case OrderStatus.commenting:
+      text = '待评价';
+      break;
+    case OrderStatus.commented:
+      text = '已评价';
+      break;
+    case OrderStatus.canceled:
+      text = '已取消';
+      break;
+  }
+  return text;
 }

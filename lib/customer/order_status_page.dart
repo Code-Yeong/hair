@@ -59,7 +59,7 @@ class _TimelinePageState extends State<TimelinePage> {
 
   List<Doodle> _buildDoodles(markers) {
     List<Doodle> list = [];
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < OrderStatusValue.length; i++) {
       list.add(
         Doodle(
           title: OrderStatusValue[i],
