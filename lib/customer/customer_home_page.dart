@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hair/customer/menu_page.dart';
 import 'package:hair/customer/shop_list_page.dart';
 import 'package:hair/customer/user_info_page.dart';
 import 'package:hair/utils/common_colors.dart';
@@ -9,7 +10,7 @@ class CustomerHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
           body: TabBarView(children: <Widget>[
             Container(
@@ -17,8 +18,12 @@ class CustomerHomePage extends StatelessWidget {
               child: ShopListPage(),
             ),
             Container(
-              height: 200.0,
               key: PageStorageKey("page2"),
+              child: MenuPage(),
+            ),
+            Container(
+              height: 200.0,
+              key: PageStorageKey("page3"),
               child: TimelinePage(
                 title: "timeline",
               ),
@@ -30,7 +35,7 @@ class CustomerHomePage extends StatelessWidget {
 //              ),
             ),
             Container(
-              key: PageStorageKey("page3"),
+              key: PageStorageKey("page4"),
               child: UserInfoPage(),
             ),
           ]),
@@ -56,6 +61,10 @@ class CustomerHomePage extends StatelessWidget {
                 ),
                 Tab(
                   text: '造型库',
+                  icon: Icon(Icons.menu),
+                ),
+                Tab(
+                  text: '订单',
                   icon: Icon(Icons.calendar_today),
                 ),
                 Tab(
