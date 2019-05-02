@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/component/stars_widget.dart';
+import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class ShopDetailPage extends StatelessWidget {
@@ -11,120 +13,125 @@ class ShopDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          color: CommonColors.bgGray,
-          child: Stack(
-            children: <Widget>[
-              Column(
+        body: StoreConnector<AppState, int>(
+          converter: (store) => 9,
+          builder: (context, model) {
+            return Container(
+              color: CommonColors.bgGray,
+              child: Stack(
                 children: <Widget>[
-                  Container(
+                  Column(
+                    children: <Widget>[
+                      Container(
 //                  height: 150.0,
-                    color: Colors.grey,
-                    child: Image.asset(
-                      "assets/images/shop2.jpg",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0, bottom: 6.0),
-                          alignment: Alignment.centerLeft,
-                          height: 20.0,
-                          child: Text(
-                            "$shopName",
-                            style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
-                          ),
+                        color: Colors.grey,
+                        child: Image.asset(
+                          "assets/images/shop2.jpg",
+                          fit: BoxFit.cover,
                         ),
-                        Container(
-                          height: 70.0,
-                          padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0, bottom: 6.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[Icon(Icons.format_line_spacing), Text("4.7")],
-                              ),
-                              Container(
-                                child: Text("236单"),
-                              ),
-                              Row(
-                                children: <Widget>[Icon(Icons.location_on), Text("1.3km")],
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                      child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (_, index) {
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 20.0),
-                            child: BarberItem(
-                              avatar: 'assets/images/barber.jpg',
-                              name: 'Jackson',
-                              score: 3.5,
-                              orderCount: 34,
-                              onTap: () {},
-                            ),
-                          );
-                        },
                       ),
-                    ),
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0, bottom: 6.0),
+                              alignment: Alignment.centerLeft,
+                              height: 20.0,
+                              child: Text(
+                                "$shopName",
+                                style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Container(
+                              height: 70.0,
+                              padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0, bottom: 6.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[Icon(Icons.format_line_spacing), Text("4.7")],
+                                  ),
+                                  Container(
+                                    child: Text("236单"),
+                                  ),
+                                  Row(
+                                    children: <Widget>[Icon(Icons.location_on), Text("1.3km")],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(left: 12.0, right: 12.0),
+                          child: ListView.builder(
+                            itemCount: 5,
+                            itemBuilder: (_, index) {
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 20.0),
+                                child: BarberItem(
+                                  avatar: 'assets/images/barber.jpg',
+                                  name: 'Jackson',
+                                  score: 3.5,
+                                  orderCount: 34,
+                                  onTap: () {},
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 70.0,
+                        padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Checkbox(
+                                  value: true,
+                                  onChanged: null,
+                                  checkColor: Colors.white,
+                                  activeColor: Colors.white,
+                                ),
+                                Text('上门'),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Checkbox(
+                                  value: false,
+                                  onChanged: null,
+                                  checkColor: Colors.white,
+                                  activeColor: Colors.white,
+                                ),
+                                Text('到店'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Container(
-                    height: 70.0,
-                    padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Checkbox(
-                              value: true,
-                              onChanged: null,
-                              checkColor: Colors.white,
-                              activeColor: Colors.white,
-                            ),
-                            Text('上门'),
-                          ],
+                  Positioned(
+                      top: 24.0,
+                      left: 8.0,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
                         ),
-                        Row(
-                          children: <Widget>[
-                            Checkbox(
-                              value: false,
-                              onChanged: null,
-                              checkColor: Colors.white,
-                              activeColor: Colors.white,
-                            ),
-                            Text('到店'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
+                      ))
                 ],
               ),
-              Positioned(
-                  top: 24.0,
-                  left: 8.0,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
-                    ),
-                  ))
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

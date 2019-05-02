@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/component/one_button.dart';
 import 'package:hair/customer/customer_home_page.dart';
+import 'package:hair/redux/app/app_state.dart';
+import 'package:hair/redux/login/login_action.dart';
+import 'package:hair/redux/store.dart';
 
 class MainUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return StoreProvider<AppState>(
+      store: createStore(),
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        title: "first App",
+        home: LoginPage(),
       ),
-      title: "first App",
-      home: LoginPage(),
     );
   }
 }
@@ -90,6 +97,8 @@ class LoginPage extends StatelessWidget {
                 title: "登录",
                 disabled: false,
                 onTap: () {
+                  var store = StoreProvider.of<AppState>(context);
+                  store.dispatch(new BeginLoginAction());
                   Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                     return CustomerHomePage();
                   }));

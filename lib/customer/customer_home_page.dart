@@ -24,9 +24,6 @@ class CustomerHomePage extends StatelessWidget {
               height: 200.0,
               key: PageStorageKey("page3"),
               child: ReservationPage(),
-//              child: TimelinePage(
-//                title: "timeline",
-//              ),
 //              child: AndroidView(
 //                viewType: 'BMapView',
 //                onPlatformViewCreated: (value) {

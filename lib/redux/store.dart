@@ -6,7 +6,7 @@ import 'package:redux/redux.dart';
 Store<AppState> globalStore;
 
 Store<AppState> createStore() {
-  globalStore = new Store(
+  globalStore = new Store<AppState>(
     appReducer,
     initialState: new AppState.initial(),
     distinct: true,

@@ -8,7 +8,7 @@ void main() {
   runZoned<Future<void>>(
     () async {
       //同步的初始化
-      await initialize();
+      initialize();
       print("2222");
       runApp(MainUI());
       print("3333");
