@@ -7,6 +7,7 @@ class UserInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData.fallback(),
         title: Text(
           "个人中心",
           style: TextStyle(color: Colors.black),

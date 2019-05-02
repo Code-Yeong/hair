@@ -6,15 +6,15 @@ import 'package:latlong/latlong.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
-class TimelinePage extends StatefulWidget {
-  TimelinePage({Key key, this.title}) : super(key: key);
+class ReservationDetailPage extends StatefulWidget {
+  ReservationDetailPage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
   _TimelinePageState createState() => _TimelinePageState();
 }
 
-class _TimelinePageState extends State<TimelinePage> {
+class _TimelinePageState extends State<ReservationDetailPage> {
   final PageController pageController = PageController(initialPage: 1, keepPage: true);
   int pageIx = 1;
 
@@ -51,7 +51,7 @@ class _TimelinePageState extends State<TimelinePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('${widget.title}'),
       ),
       body: timelineModel(TimelinePosition.Left, markers),
     );

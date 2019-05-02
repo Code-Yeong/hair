@@ -1,4 +1,5 @@
 class Reservation {
+  final String avatar;
   final String staffName;
   final String shopName;
   final String createTime;
@@ -6,5 +7,13 @@ class Reservation {
   final String serviceType;
   final String money;
 
-  Reservation({this.staffName, this.shopName, this.createTime, this.status, this.serviceType, this.money});
+  Reservation({
+    this.avatar,
+    this.staffName,
+    this.shopName,
+    this.createTime,
+    this.status,
+    this.serviceType,
+    this.money,
+  });
 }

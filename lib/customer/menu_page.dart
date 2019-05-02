@@ -21,47 +21,58 @@ class MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     print("build");
     return SafeArea(
-      child: Container(
-        padding: EdgeInsets.only(top: 5.0, left: 0.0, right: 0.0),
-        color: CommonColors.bgGray,
-        child: Row(
-          children: <Widget>[
-            Container(
-              width: 65.0,
-              child: Column(
-                children: _buildLeftList(),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
+      child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData.fallback(),
+          title: Text(
+            "造型库",
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: CommonColors.bgGray,
+          elevation: 1.0,
+        ),
+        body: Container(
+          padding: EdgeInsets.only(top: 5.0, left: 0.0, right: 0.0),
+          color: CommonColors.bgGray,
+          child: Row(
+            children: <Widget>[
+              Container(
+                width: 65.0,
                 child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 45.0,
-                      child: Row(
-                        children: _buildRightTopList(),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        // TODO: GridView.count
-                        height: double.infinity,
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          children: _buildRightViewList(),
-                          childAspectRatio: 2 / 3,
-                          crossAxisSpacing: 8.0,
-                          mainAxisSpacing: 8.0,
-                        ),
-                      ),
-                    )
-                  ],
+                  children: _buildLeftList(),
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 45.0,
+                        child: Row(
+                          children: _buildRightTopList(),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          // TODO: GridView.count
+                          height: double.infinity,
+                          child: GridView.count(
+                            crossAxisCount: 2,
+                            children: _buildRightViewList(),
+                            childAspectRatio: 2 / 3,
+                            crossAxisSpacing: 8.0,
+                            mainAxisSpacing: 8.0,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

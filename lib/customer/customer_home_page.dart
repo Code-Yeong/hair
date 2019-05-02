@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hair/customer/menu_page.dart';
+import 'package:hair/customer/reservation_page.dart';
 import 'package:hair/customer/shop_list_page.dart';
 import 'package:hair/customer/user_info_page.dart';
 import 'package:hair/utils/common_colors.dart';
-
-import 'order_status_page.dart';
 
 class CustomerHomePage extends StatelessWidget {
   @override
@@ -24,9 +23,10 @@ class CustomerHomePage extends StatelessWidget {
             Container(
               height: 200.0,
               key: PageStorageKey("page3"),
-              child: TimelinePage(
-                title: "timeline",
-              ),
+              child: ReservationPage(),
+//              child: TimelinePage(
+//                title: "timeline",
+//              ),
 //              child: AndroidView(
 //                viewType: 'BMapView',
 //                onPlatformViewCreated: (value) {
