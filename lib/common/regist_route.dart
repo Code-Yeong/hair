@@ -7,6 +7,7 @@
 
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/login/login.dart';
+import 'package:hair/customer/choose_reservation_time/choose_reservation_time_page.dart';
 import 'package:hair/customer/customer_home_page.dart';
 import 'package:hair/customer/show_detail_page.dart';
 
@@ -31,11 +32,13 @@ class CustomerRoute {
   static const String shopDetailPage = 'shopDetailPage';
   static const String customerHomePage = 'customerHomePage';
   static const String showShopDetailPage = 'showShopDetailPage';
+  static const String chooseReservationTimePage = 'chooseReservationTimePage';
   static void registerPageRoute() {
     GlobalNavigator.shared.registerPageRoutes({
       shopDetailPage: (context) => ShopDetailPage(),
       customerHomePage: (context) => CustomerHomePage(),
       showShopDetailPage: (_) => ShopDetailPage(),
+      chooseReservationTimePage: (_) => ChooseReservationTimePage(),
     });
   }
 }

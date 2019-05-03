@@ -13,5 +13,7 @@ class AppMiddleware extends MiddlewareClass<AppState> {
   AppMiddleware();
 
   @override
-  void call(Store<AppState> store, dynamic action, NextDispatcher next) {}
+  void call(Store<AppState> store, dynamic action, NextDispatcher next) {
+    next(action);
+  }
 }
