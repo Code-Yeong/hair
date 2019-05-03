@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.amap.api.maps.MapView;
@@ -28,7 +29,21 @@ public class MainActivity extends FlutterActivity {
     mapView.onCreate(savedInstanceState);
     ViewRegistrant.registerWith(this,mapView);
   }
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      moveTaskToBack(false);
+      return true;
+    }
+    return super.onKeyDown(keyCode, event);
+  }
 
+  @Override
+  public void onBackPressed() {
+    moveTaskToBack(false);
+    super.onBackPressed();
+
+  }
   public static String sHA1(Context context) {
     try {
       PackageInfo info = context.getPackageManager().getPackageInfo(
