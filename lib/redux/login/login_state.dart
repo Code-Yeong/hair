@@ -6,7 +6,7 @@ enum LoginStatus {
 }
 
 class LoginState {
-  LoginStatus loginStatus;
+  final LoginStatus loginStatus;
 
   LoginState({this.loginStatus});
 

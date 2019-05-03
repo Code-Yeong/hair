@@ -29,6 +29,8 @@ dependencies:
   flutter_image: ^1.0.0
   cached_network_image: ^0.5.1
   flutter_map: any
+  dio: ^2.1.3
+
 
 
 dev_dependencies:

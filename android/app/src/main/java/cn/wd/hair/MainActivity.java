@@ -29,7 +29,7 @@ public class MainActivity extends FlutterActivity {
     mapView.onCreate(savedInstanceState);
     ViewRegistrant.registerWith(this,mapView);
   }
-  @Override
+
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK) {
       moveTaskToBack(false);
