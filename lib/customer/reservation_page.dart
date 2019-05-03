@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hair/common/global_navigator.dart';
+import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/reservation_item_widget.dart';
-import 'package:hair/customer/reservation_detail_page.dart';
 import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
 
@@ -33,11 +34,7 @@ class ReservationPage extends StatelessWidget {
                 createTime: '2019年5月2日 10:00-12:00',
                 money: 35,
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                    return ReservationDetailPage(
-                      title: 'Tome(天大店)',
-                    );
-                  }));
+                  GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
                 },
               );
             },

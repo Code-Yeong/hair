@@ -1,19 +1,23 @@
 import 'package:hair/common/global_navigator.dart';
+import 'package:hair/redux/choose_reservation_time/choose_reservation_time_state.dart';
 import 'package:hair/redux/login/login_state.dart';
 
 class AppState {
   AppState({
     this.loginState,
+    this.chooseReservationTimeState,
     this.globalNavigator,
   });
 
   final LoginState loginState;
+  final ChooseReservationTimeState chooseReservationTimeState;
   final GlobalNavigator globalNavigator;
 
   factory AppState.initial() {
     print("initiate state");
     return AppState(
       loginState: new LoginState.initial(),
+      chooseReservationTimeState: new ChooseReservationTimeState.initial(),
       globalNavigator: GlobalNavigator.shared,
     );
   }

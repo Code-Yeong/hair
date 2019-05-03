@@ -37,3 +37,10 @@ String getOrderStatusText(OrderStatus status) {
   }
   return text;
 }
+
+enum LoadingStatus {
+  init,
+  loading,
+  success,
+  failed,
+}

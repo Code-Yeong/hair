@@ -100,7 +100,7 @@ class ShopDetailPage extends StatelessWidget {
                                   onChanged: null,
                                   activeColor: Colors.white,
                                 ),
-                                Text('上门'),
+                                Text('洗剪吹'),
                               ],
                             ),
                             Row(
@@ -110,7 +110,7 @@ class ShopDetailPage extends StatelessWidget {
                                   onChanged: null,
                                   activeColor: Colors.white,
                                 ),
-                                Text('到店'),
+                                Text('烫染'),
                               ],
                             ),
                           ],
