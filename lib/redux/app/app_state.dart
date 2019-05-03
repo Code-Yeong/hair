@@ -14,7 +14,7 @@ class AppState {
     print("initiate state");
     return AppState(
       loginState: new LoginState.initial(),
-      globalNavigator: new GlobalNavigator(),
+      globalNavigator: GlobalNavigator.shared,
     );
   }
 }

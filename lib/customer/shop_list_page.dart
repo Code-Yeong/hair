@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hair/customer/show_detail_page.dart';
+import 'package:hair/common/global_navigator.dart';
+import 'package:hair/common/regist_route.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class ShopListPage extends StatelessWidget {
@@ -9,7 +10,7 @@ class ShopListPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData.fallback(),
+//          iconTheme: IconThemeData.fallback(),
           title: Text(
             "附近门店",
             style: TextStyle(color: Colors.black),
@@ -41,9 +42,7 @@ class ShopListPage extends StatelessWidget {
                         child: ShopItem(
                           showName: "Shop $index",
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                              return ShopDetailPage(shopName: "Shop $index");
-                            }));
+                            GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
                           },
                         ),
                       );

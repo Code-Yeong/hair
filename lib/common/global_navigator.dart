@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hair/common/regist_route.dart';
 
 class GlobalNavigator {
   static GlobalNavigator get shared {
@@ -15,7 +16,10 @@ class GlobalNavigator {
   bool disablePop = false;
 
   /// 初始页面
-  String initialPage = '';
+//  String initialPage = CustomerRoute.customerHomePage;
+  String initialPage = MainRoute.loginPage;
+
+//  LoginPage()
 
   String get currentPage {
     return _currentPage;
@@ -23,13 +27,14 @@ class GlobalNavigator {
 
   String _currentPage;
   bool _needRecordPop = true;
-  Map<String, String> _tabPage = Map();
+  Map<String, WidgetBuilder> _routes = Map();
 
   bool _fullscreenDialog = false;
   bool _maintainState = true;
   bool _animated = true;
 
   NavigatorState get _navigatorState {
+    print("globalNavigatorKey.currentState:${globalNavigatorKey.currentState}");
     return globalNavigatorKey.currentState;
   }
 
@@ -39,16 +44,17 @@ class GlobalNavigator {
   static GlobalNavigator _shared = GlobalNavigator();
 
 //  /// 注册单个route
-//  void registerPageRoute({String name, PageBuilder builder}) {
-//    _routes[name] = builder;
-//  }
+  void registerPageRoute({String name, WidgetBuilder builder}) {
+    _routes[name] = builder;
+  }
+
 //
 //  /// 批量注册route: 需要传入map<routeName: PageBuilder>
-//  void registerPageRoutes(Map<String, PageBuilder> routes) {
-//    routes.forEach((name, builder) {
-//      _routes[name] = builder;
-//    });
-//  }
+  void registerPageRoutes(Map<String, WidgetBuilder> routes) {
+    routes.forEach((name, builder) {
+      _routes[name] = builder;
+    });
+  }
 
   void setPushParams({
     bool fullscreenDialog = false,
@@ -67,6 +73,19 @@ class GlobalNavigator {
     _maintainState = true;
     _animated = true;
     _params = null;
+  }
+
+  generateRouteFor(RouteSettings settings) {
+    final name = settings.name;
+
+    /// TODO: --- 进入首页的没有动画
+    final route = MaterialPageRoute(
+      builder: _routes[name],
+      fullscreenDialog: _fullscreenDialog,
+      maintainState: _maintainState,
+    );
+    _resetParamsState();
+    return route;
   }
 
   Future<T> pushNamed<T extends Object>(

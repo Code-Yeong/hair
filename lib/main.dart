@@ -1,17 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hair/common/login.dart';
+import 'package:hair/common/regist_route.dart';
 import 'package:hair/redux/store.dart';
+
+import 'app.dart';
 
 void main() {
   runZoned<Future<void>>(
     () async {
       //同步的初始化
       initialize();
-      print("2222");
-      runApp(MainUI());
-      print("3333");
+      registerRoutes();
+
+      runApp(App());
     },
     onError: (error, stackTrace) {
       print('dart_error: error: $error, stack: $stackTrace');
@@ -20,7 +22,5 @@ void main() {
 }
 
 void initialize() async {
-  print("0000");
   createStore();
-  print("1111");
 }
