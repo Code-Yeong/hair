@@ -1,3 +1,5 @@
+import 'package:hair/common/global_navigator.dart';
+import 'package:hair/common/regist_route.dart';
 import 'package:hair/config/server_api.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/login/login_action.dart';
@@ -19,6 +21,7 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
       var data = ServerApi.api.requestUrl();
       print("doi:data=$data");
       store.dispatch(new LoginSuccessAction());
+      GlobalNavigator.shared.pushNamed(CustomerRoute.customerHomePage);
     }
   }
 }
