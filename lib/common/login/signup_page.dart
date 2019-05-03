@@ -11,6 +11,7 @@ class SignupPage extends StatelessWidget {
           color: Colors.grey,
           child: Container(
             width: double.infinity,
+            height: double.infinity,
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
