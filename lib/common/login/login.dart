@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
                               GlobalNavigator.shared.pushNamed(CustomerRoute.signupPage);
                             },
                             child: Text(
-                              '新用户注册',
+                              '新会员注册',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ),
@@ -106,7 +106,7 @@ class LoginPage extends StatelessWidget {
                           ),
                           SizedBox(height: 12.0),
                           BottomOneButton(
-                            title: "登录",
+                            title: "会员登录",
                             disabled: false,
                             onTap: () {
                               var store = StoreProvider.of<AppState>(context);
@@ -115,6 +115,14 @@ class LoginPage extends StatelessWidget {
 //                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
 //                    return CustomerHomePage();
 //                  }));
+                            },
+                          ),
+                          SizedBox(height: 12.0),
+                          BottomOneButton(
+                            title: "员工登录",
+                            disabled: false,
+                            onTap: () {
+                              GlobalNavigator.shared.pushNamed(StaffRoute.staffHomePage);
                             },
                           ),
                         ],
