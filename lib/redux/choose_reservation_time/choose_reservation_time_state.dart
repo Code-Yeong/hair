@@ -7,12 +7,16 @@ class ChooseReservationTimeState {
   final String selectedTime;
   final LoadingStatus loadingStatus;
 
-  ChooseReservationTimeState({this.timeList, this.commitStatus, this.selectedTime, this.loadingStatus});
+  ChooseReservationTimeState(
+      {this.timeList,
+      this.commitStatus,
+      this.selectedTime,
+      this.loadingStatus});
 
   factory ChooseReservationTimeState.initial() {
     return ChooseReservationTimeState(
       timeList: [],
-      commitStatus: null,
+      commitStatus: CommitStatus.init,
       selectedTime: '',
       loadingStatus: LoadingStatus.init,
     );

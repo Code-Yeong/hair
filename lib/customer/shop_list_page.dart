@@ -10,7 +10,7 @@ class ShopListPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-//          iconTheme: IconThemeData.fallback(),
+          iconTheme: IconThemeData.fallback(),
           title: Text(
             "附近门店",
             style: TextStyle(color: Colors.black),
@@ -42,7 +42,8 @@ class ShopListPage extends StatelessWidget {
                         child: ShopItem(
                           showName: "Shop $index",
                           onTap: () {
-                            GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
+                            GlobalNavigator.shared
+                                .pushNamed(CustomerRoute.showShopDetailPage);
                           },
                         ),
                       );
@@ -88,7 +89,11 @@ class ShopItem extends StatelessWidget {
               height: 50.0,
               padding: EdgeInsets.only(top: 4.0, bottom: 4.0),
               alignment: Alignment.centerLeft,
-              child: Text("$showName", style: TextStyle(fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.bold)),
+              child: Text("$showName",
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
             )
           ],
         ),

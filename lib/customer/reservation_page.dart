@@ -15,7 +15,7 @@ class ReservationPage extends StatelessWidget {
             "我的订单",
             style: TextStyle(color: Colors.black),
           ),
-//          iconTheme: IconThemeData.fallback(),
+          iconTheme: IconThemeData.fallback(),
           backgroundColor: CommonColors.bgGray,
           elevation: 1.0,
         ),
@@ -34,7 +34,8 @@ class ReservationPage extends StatelessWidget {
                 createTime: '2019年5月2日 10:00-12:00',
                 money: 35,
                 onTap: () {
-                  GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
+                  GlobalNavigator.shared
+                      .pushNamed(CustomerRoute.chooseReservationTimePage);
                 },
               );
             },

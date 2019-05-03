@@ -23,7 +23,7 @@ class MenuPageState extends State<MenuPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-//          iconTheme: IconThemeData.fallback(),
+          iconTheme: IconThemeData.fallback(),
           title: Text(
             "造型库",
             style: TextStyle(color: Colors.black),
@@ -83,7 +83,8 @@ class MenuPageState extends State<MenuPage> {
       num currentIndex = leftLists.indexOf(obj);
       return Container(
         height: 70.0,
-        decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(35.0))),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(35.0))),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(35.0)),
           child: MenuButton1(
@@ -107,7 +108,8 @@ class MenuPageState extends State<MenuPage> {
       return Container(
         padding: EdgeInsets.all(3.0),
         width: 62.0,
-        decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(31.0))),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(31.0))),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(31.0)),
           child: MenuButton1(
@@ -174,7 +176,11 @@ class ShopItem extends StatelessWidget {
               height: 50.0,
               padding: EdgeInsets.only(top: 4.0, bottom: 4.0),
               alignment: Alignment.centerLeft,
-              child: Text("$showName", style: TextStyle(fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.bold)),
+              child: Text("$showName",
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
             )
           ],
         ),
