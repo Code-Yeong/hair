@@ -12,5 +12,6 @@ LoginState _beginLogin(LoginState state, BeginLoginAction action) {
 }
 
 LoginState _loginSuccess(LoginState state, LoginSuccessAction action) {
+  print("here!");
   return state.copyWith(loginStatus: LoginStatus.success);
 }

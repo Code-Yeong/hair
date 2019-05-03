@@ -14,6 +14,7 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
   @override
   void call(Store<AppState> store, dynamic action, NextDispatcher next) {
     next(action);
+    print("action=$action");
     if (action is BeginLoginAction) {
       var data = ServerApi.api.requestUrl();
       print("doi:data=$data");

@@ -6,7 +6,7 @@
  */
 
 import 'package:hair/common/global_navigator.dart';
-import 'package:hair/common/login.dart';
+import 'package:hair/common/login/login.dart';
 import 'package:hair/customer/customer_home_page.dart';
 import 'package:hair/customer/show_detail_page.dart';
 
