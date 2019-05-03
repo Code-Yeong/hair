@@ -34,28 +34,46 @@ class ShopDetailPage extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0, bottom: 6.0),
+                              padding: EdgeInsets.only(
+                                  left: 12.0,
+                                  right: 12.0,
+                                  top: 12.0,
+                                  bottom: 6.0),
                               alignment: Alignment.centerLeft,
                               height: 20.0,
                               child: Text(
                                 "$shopName",
-                                style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                             Container(
                               height: 70.0,
-                              padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0, bottom: 6.0),
+                              padding: EdgeInsets.only(
+                                  left: 12.0,
+                                  right: 12.0,
+                                  top: 12.0,
+                                  bottom: 6.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Row(
-                                    children: <Widget>[Icon(Icons.format_line_spacing), Text("4.7")],
+                                    children: <Widget>[
+                                      Icon(Icons.format_line_spacing),
+                                      Text("4.7")
+                                    ],
                                   ),
                                   Container(
                                     child: Text("236单"),
                                   ),
                                   Row(
-                                    children: <Widget>[Icon(Icons.location_on), Text("1.3km")],
+                                    children: <Widget>[
+                                      Icon(Icons.location_on),
+                                      Text("1.3km")
+                                    ],
                                   ),
                                 ],
                               ),
@@ -94,7 +112,6 @@ class ShopDetailPage extends StatelessWidget {
                                 Checkbox(
                                   value: true,
                                   onChanged: null,
-                                  checkColor: Colors.white,
                                   activeColor: Colors.white,
                                 ),
                                 Text('上门'),
@@ -105,7 +122,6 @@ class ShopDetailPage extends StatelessWidget {
                                 Checkbox(
                                   value: false,
                                   onChanged: null,
-                                  checkColor: Colors.white,
                                   activeColor: Colors.white,
                                 ),
                                 Text('到店'),
@@ -171,11 +187,16 @@ class BarberItem extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text("$name", style: TextStyle(fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold)),
+                      Text("$name",
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
                       SizedBox(
                         width: 10.0,
                       ),
-                      Text("$orderCount单", style: TextStyle(fontSize: 17.0, color: Colors.grey)),
+                      Text("$orderCount单",
+                          style: TextStyle(fontSize: 17.0, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(

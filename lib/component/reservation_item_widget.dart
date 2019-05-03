@@ -81,7 +81,8 @@ class ReservationItemWidget extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+              padding: EdgeInsets.only(
+                  left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
