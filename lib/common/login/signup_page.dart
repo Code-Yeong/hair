@@ -12,6 +12,10 @@ class SignupPage extends StatefulWidget {
 class SignupPageState extends State<SignupPage> {
   TextEditingController phoneController, nameController, passwordController;
   String textPhone, textName, textPassword;
+  bool _isStaff = false;
+  Color _staffColor = Colors.green;
+  Color _customerColor = Colors.blueAccent;
+
   @override
   void initState() {
     super.initState();
@@ -48,7 +52,7 @@ class SignupPageState extends State<SignupPage> {
                       },
                       child: Text(
                         '返回登录',
-                        style: TextStyle(fontSize: 16.0),
+                        style: TextStyle(fontSize: 17.0),
                       ),
                     ),
                   ),
@@ -58,10 +62,14 @@ class SignupPageState extends State<SignupPage> {
                   children: <Widget>[
                     Container(
                       width: 300.0,
-                      height: 180.0,
+                      height: 230.0,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                        border: Border.all(
+                          color: _isStaff ? _staffColor : _customerColor,
+                          width: 2.5,
+                        ),
                       ),
                       padding: const EdgeInsets.all(24.0),
                       alignment: Alignment.center,
@@ -84,7 +92,7 @@ class SignupPageState extends State<SignupPage> {
                                       style: new TextStyle(fontSize: 16.0, color: Colors.black),
                                       maxLines: 1,
                                       onChanged: (str) {
-                                        print("phone:$str");
+//                                        print("phone:$str");
                                         textPhone = str?.trim();
                                         setState(() {});
                                       },
@@ -110,7 +118,7 @@ class SignupPageState extends State<SignupPage> {
                                       style: new TextStyle(fontSize: 16.0, color: Colors.black),
                                       maxLines: 1,
                                       onChanged: (str) {
-                                        print("name:$str");
+//                                        print("name:$str");
                                         textName = str?.trim();
                                         setState(() {});
                                       },
@@ -138,7 +146,7 @@ class SignupPageState extends State<SignupPage> {
                                       style: new TextStyle(fontSize: 16.0, color: Colors.black),
                                       maxLines: 1,
                                       onChanged: (str) {
-                                        print("password:$str");
+//                                        print("password:$str");
                                         textPassword = str?.trim();
                                         setState(() {});
                                       },
@@ -147,18 +155,62 @@ class SignupPageState extends State<SignupPage> {
                                 ),
                               ],
                             ),
-                          )
+                          ),
+                          SizedBox(height: 20.0),
+                          Container(
+//                                  alignment: Alignment.centerLeft,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  width: 40.0,
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    '会员',
+                                    style: TextStyle(color: _isStaff ? Colors.black26 : _customerColor),
+                                  ),
+                                ),
+                                Container(
+                                  height: 10.0,
+                                  child: Switch(
+                                    activeColor: _staffColor,
+                                    activeTrackColor: Colors.grey,
+                                    inactiveThumbColor: _customerColor,
+                                    inactiveTrackColor: Colors.grey,
+                                    value: _isStaff,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _isStaff = newValue;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  width: 40.0,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    '职工',
+                                    style: TextStyle(
+                                      color: _isStaff ? _staffColor : Colors.black26,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     SizedBox(height: 12.0),
                     BottomOneButton(
+                      bgColor: _isStaff ? _staffColor : _customerColor,
                       colorDisabled: Colors.white.withOpacity(0.4),
                       bgColorDisabled: Colors.black26.withOpacity(0.2),
                       title: "注册",
                       disabled: _isDisabled(),
                       onTap: () {
                         globalStore.dispatch(new BeginSignupAction(
+                          isCustomer: !_isStaff,
                           phone: textPhone,
                           name: textName,
                           password: textPassword,

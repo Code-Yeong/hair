@@ -14,9 +14,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  bool _isStaff = false;
   String _phone;
   String _password;
+  bool _isStaff = false;
+  Color _staffColor = Colors.green;
+  Color _customerColor = Colors.blueAccent;
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +47,8 @@ class LoginPageState extends State<LoginPage> {
                               GlobalNavigator.shared.pushNamed(CustomerRoute.signupPage);
                             },
                             child: Text(
-                              '新会员注册',
-                              style: TextStyle(fontSize: 16.0),
+                              '新用户注册',
+                              style: TextStyle(fontSize: 17.0),
                             ),
                           ),
                         ),
@@ -60,6 +62,10 @@ class LoginPageState extends State<LoginPage> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                              border: Border.all(
+                                color: _isStaff ? _staffColor : _customerColor,
+                                width: 2.5,
+                              ),
                             ),
                             padding: const EdgeInsets.all(24.0),
                             alignment: Alignment.center,
@@ -119,52 +125,56 @@ class LoginPageState extends State<LoginPage> {
                                 ),
                                 SizedBox(height: 20.0),
                                 Container(
-                                  alignment: Alignment.centerRight,
-                                  child: Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-                                    Container(
-                                      width: 40.0,
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        '会员',
-                                        style: TextStyle(color: _isStaff ? Colors.black26 : Colors.orange),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 10.0,
-                                      child: Switch(
-                                        activeColor: Colors.green,
-                                        activeTrackColor: Colors.grey,
-                                        inactiveThumbColor: Colors.orange,
-                                        inactiveTrackColor: Colors.grey,
-                                        value: _isStaff,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            _isStaff = newValue;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 40.0,
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        '职工',
-                                        style: TextStyle(
-                                          color: _isStaff ? Colors.green : Colors.black26,
+//                                  alignment: Alignment.centerLeft,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 40.0,
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          '会员',
+                                          style: TextStyle(color: _isStaff ? Colors.black26 : _customerColor),
                                         ),
                                       ),
-                                    ),
-                                  ]),
+                                      Container(
+                                        height: 10.0,
+                                        child: Switch(
+                                          activeColor: _staffColor,
+                                          activeTrackColor: Colors.grey,
+                                          inactiveThumbColor: _customerColor,
+                                          inactiveTrackColor: Colors.grey,
+                                          value: _isStaff,
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              _isStaff = newValue;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 40.0,
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '职工',
+                                          style: TextStyle(
+                                            color: _isStaff ? _staffColor : Colors.black26,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
                           ),
                           SizedBox(height: 12.0),
                           BottomOneButton(
-                            title: _isStaff ? "职工登录" : "会员登录",
+                            bgColor: _isStaff ? _staffColor : _customerColor,
+                            title: "登录",
                             disabled: false,
                             onTap: () {
-                              globalStore.dispatch(new BeginLoginAction(phone: _phone, password: _password));
+                              globalStore.dispatch(new BeginLoginAction(isCustomer: !_isStaff, phone: _phone, password: _password));
 //                  store.state.globalNavigator.pushNamed(CustomerRoute.customerHomePage);
 //                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
 //                    return CustomerHomePage();

@@ -1,11 +1,12 @@
 import 'package:hair/model/customer.dart';
 
 class BeginLoginAction {
+  final bool isCustomer;
   final String phone;
   final String name;
   final String password;
 
-  BeginLoginAction({this.phone, this.name, this.password});
+  BeginLoginAction({this.isCustomer, this.phone, this.name, this.password});
 }
 
 class LoginSuccessAction {
@@ -22,8 +23,9 @@ class BeginSignupAction {
   final String phone;
   final String name;
   final String password;
+  final bool isCustomer;
 
-  BeginSignupAction({this.phone, this.name, this.password});
+  BeginSignupAction({this.isCustomer, this.phone, this.name, this.password});
 }
 
 class SignupSuccessAction {}

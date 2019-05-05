@@ -18,37 +18,51 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
   void call(Store<AppState> store, dynamic action, NextDispatcher next) async {
     next(action);
     print("action=$action");
-    if (action is BeginLoginAction) {
-      var res = await ServerApi.api.customerSignIn(phone: action.phone, password: action.password);
-      var toastMsg;
-      print(res?.data);
-      if (res != null && res?.data['status'] == '200') {
-        Customer customer = Customer.fromObj(res?.data['result']);
 
-        store.dispatch(new LoginSuccessAction(customer: customer));
-        GlobalNavigator.shared.pushNamed(CustomerRoute.customerHomePage);
-        toastMsg = '登录成功！';
+    //  登录
+    if (action is BeginLoginAction) {
+      var toastMsg;
+      if (action.isCustomer) {
+        var res = await ServerApi.api.customerSignIn(phone: action.phone, password: action.password);
+        print(res?.data);
+        if (res != null && res?.data['status'] == '200') {
+          Customer customer = Customer.fromObj(res?.data['result']);
+
+          store.dispatch(new LoginSuccessAction(customer: customer));
+          GlobalNavigator.shared.pushNamed(CustomerRoute.customerHomePage);
+          toastMsg = '登录成功！';
+        } else {
+          store.dispatch(new LoginFailedAction());
+          toastMsg = '登录失败，请重试';
+        }
       } else {
-        store.dispatch(new LoginFailedAction());
-        toastMsg = '登录失败，请重试';
+        //  TODO: 职工登录dio
+        toastMsg = '待完成的staff登录功能';
+        GlobalNavigator.shared.pushNamed(StaffRoute.staffHomePage);
       }
       print(toastMsg);
     }
-    // 注册 onTap
+    //  注册
     if (action is BeginSignupAction) {
-      var res = await ServerApi.api.customerRegist(phone: action.phone, name: action.name, password: action.password);
       var toastMsg;
-      var newAction;
-      print(res?.data);
-      if (res != null && res?.data['result'] == 'ok') {
-        newAction = new SignupSuccessAction();
-        toastMsg = '注册成功！';
-        GlobalNavigator.shared.pop();
+
+      if (action.isCustomer) {
+        var res = await ServerApi.api.customerRegist(phone: action.phone, name: action.name, password: action.password);
+        print(res?.data);
+        if (res != null && res?.data['result'] == 'ok') {
+          store.dispatch(SignupSuccessAction());
+          toastMsg = '注册成功！';
+          GlobalNavigator.shared.pop();
+        } else {
+          store.dispatch(SignupFailedAction());
+          toastMsg = '提交失败，请重试';
+        }
       } else {
-        newAction = new SignupFailedAction();
-        toastMsg = '提交失败，请重试';
+        //  TODO: 职工注册dio
+        toastMsg = '待完成的staff注册功能';
+//        GlobalNavigator.shared.pop();
       }
-      store.dispatch(newAction);
+
       print(toastMsg);
 //      报错的toast
 //      Fluttertoast.showToast(
