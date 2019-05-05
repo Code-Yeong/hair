@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/component/one_button.dart';
+import 'package:hair/redux/login/login_action.dart';
+import 'package:hair/redux/store.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
+  @override
+  State createState() => SignupPageState();
+}
+
+class SignupPageState extends State<SignupPage> {
+  TextEditingController phoneController, nameController, passwordController;
+  String textPhone, textName, textPassword;
+  @override
+  void initState() {
+    super.initState();
+//    phoneController = new TextEditingController();
+//    phoneController.addListener((){
+//    });
+//    nameController = new TextEditingController();
+//    passwordController = new TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -61,9 +80,14 @@ class SignupPage extends StatelessWidget {
                                     width: 100.0,
                                     child: new TextField(
                                       onSubmitted: null,
-                                      decoration: new InputDecoration.collapsed(hintText: '输入账号'),
-                                      style: new TextStyle(fontSize: 16.0, color: Colors.white),
+                                      decoration: new InputDecoration.collapsed(hintText: '输入手机号码'),
+                                      style: new TextStyle(fontSize: 16.0, color: Colors.black),
                                       maxLines: 1,
+                                      onChanged: (str) {
+                                        print("phone:$str");
+                                        textPhone = str?.trim();
+                                        setState(() {});
+                                      },
                                     ),
                                   ),
                                 ),
@@ -75,16 +99,21 @@ class SignupPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text('账号', style: TextStyle(fontSize: 18.0, color: Colors.black)),
+                                Text('昵称', style: TextStyle(fontSize: 18.0, color: Colors.black)),
                                 SizedBox(width: 5.0),
                                 Expanded(
                                   child: new Container(
                                     width: 100.0,
                                     child: new TextField(
                                       onSubmitted: null,
-                                      decoration: new InputDecoration.collapsed(hintText: '输入账号'),
-                                      style: new TextStyle(fontSize: 16.0, color: Colors.white),
+                                      decoration: new InputDecoration.collapsed(hintText: '输入昵称'),
+                                      style: new TextStyle(fontSize: 16.0, color: Colors.black),
                                       maxLines: 1,
+                                      onChanged: (str) {
+                                        print("name:$str");
+                                        textName = str?.trim();
+                                        setState(() {});
+                                      },
                                     ),
                                   ),
                                 ),
@@ -106,8 +135,13 @@ class SignupPage extends StatelessWidget {
 //                      controller: _textController,
                                       onSubmitted: null,
                                       decoration: new InputDecoration.collapsed(hintText: '输入密码'),
-                                      style: new TextStyle(fontSize: 16.0, color: Colors.white),
+                                      style: new TextStyle(fontSize: 16.0, color: Colors.black),
                                       maxLines: 1,
+                                      onChanged: (str) {
+                                        print("password:$str");
+                                        textPassword = str?.trim();
+                                        setState(() {});
+                                      },
                                     ),
                                   ),
                                 ),
@@ -119,10 +153,16 @@ class SignupPage extends StatelessWidget {
                     ),
                     SizedBox(height: 12.0),
                     BottomOneButton(
+                      colorDisabled: Colors.white.withOpacity(0.4),
+                      bgColorDisabled: Colors.black26.withOpacity(0.2),
                       title: "注册",
-                      disabled: false,
+                      disabled: _isDisabled(),
                       onTap: () {
-                        print("注册成功！");
+                        globalStore.dispatch(new BeginSignupAction(
+                          phone: textPhone,
+                          name: textName,
+                          password: textPassword,
+                        ));
                       },
                     ),
                   ],
@@ -133,5 +173,19 @@ class SignupPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _isDisabled() {
+    if (textPhone == null || textPhone.length == 0) {
+      return true;
+    }
+    if (textPassword == null || textPassword.length == 0) {
+      return true;
+    }
+
+    if (textName == null || textName.length == 0) {
+      return true;
+    }
+    return false;
   }
 }

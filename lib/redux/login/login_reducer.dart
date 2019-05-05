@@ -5,6 +5,7 @@ import 'package:redux/redux.dart';
 final loginReducer = combineReducers<LoginState>([
   new TypedReducer<LoginState, BeginLoginAction>(_beginLogin),
   new TypedReducer<LoginState, LoginSuccessAction>(_loginSuccess),
+  new TypedReducer<LoginState, LoginFailedAction>(_loginFailed),
 ]);
 
 LoginState _beginLogin(LoginState state, BeginLoginAction action) {
@@ -13,6 +14,9 @@ LoginState _beginLogin(LoginState state, BeginLoginAction action) {
 }
 
 LoginState _loginSuccess(LoginState state, LoginSuccessAction action) {
-  print("here!");
-  return state.copyWith(loginStatus: LoginStatus.success);
+  return state.copyWith(loginStatus: LoginStatus.success, customer: action.customer);
+}
+
+LoginState _loginFailed(LoginState state, LoginFailedAction action) {
+  return state.copyWith(loginStatus: LoginStatus.failed);
 }

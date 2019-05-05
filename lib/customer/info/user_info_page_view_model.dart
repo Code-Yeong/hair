@@ -13,7 +13,7 @@ class UserInfoPageViewModel {
 
   static UserInfoPageViewModel fromStore(Store<AppState> store) {
     return UserInfoPageViewModel(
-      customer: store.state.cusInfoState.customer,
+      customer: store?.state?.loginState?.customer ?? null,
       commitStatus: store.state.cusInfoState.commitStatus,
       loadingStatus: store.state.cusInfoState.loadingStatus,
     );

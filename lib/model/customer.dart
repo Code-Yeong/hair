@@ -7,8 +7,8 @@ class Customer {
   final String phone;
   final String password;
   final String avator;
-  final int status;
-  final int level;
+  final int status; // default:1,  0:非正常
+  final int level; // default:1 ..5
   final int gender; //0 male 1 female
   final double score;
   final double money;
@@ -37,6 +37,26 @@ class Customer {
     this.description,
     this.addrList,
   });
+  factory Customer.fromObj(obj) {
+    return Customer(
+      id: obj['_id'].toString() ?? '',
+      name: obj['name'] ?? '',
+      nickName: obj['nick_name'] ?? '',
+      phone: obj['phone'] ?? '',
+      password: obj['password'] ?? '',
+      avator: obj['avatar'] ?? '',
+      status: obj['status'] ?? 1,
+      level: obj['level'] ?? 1,
+      gender: obj['sex'] ?? 0,
+      score: obj['score'] ?? 0.0,
+      money: obj['money'] ?? 0.0,
+      registTime: obj['regist_time'] ?? '',
+      lastModify: obj['last_modify'] ?? '',
+      lastLogin: obj['last_login'] ?? '',
+      description: obj['description'] ?? '',
+      addrList: obj['address'] ?? [],
+    );
+  }
 
   @override
   String toString() {

@@ -4,22 +4,38 @@ class BottomOneButton extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
   final bool disabled;
-  BottomOneButton({this.onTap, this.title, this.disabled = false});
+  final Color color;
+  final Color bgColor;
+  final Color colorDisabled;
+  final Color bgColorDisabled;
+
+  BottomOneButton({
+    this.onTap,
+    this.title,
+    this.disabled = false,
+    this.color = Colors.white,
+    this.bgColor = Colors.blueAccent,
+    this.colorDisabled = Colors.white,
+    this.bgColorDisabled = const Color(0x7F2979FF),
+  });
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: disabled ? null : onTap,
       child: Container(
         width: 300.0,
         height: 45.0,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          color: disabled ? Colors.blueAccent.withOpacity(0.5) : Colors.blueAccent,
+          color: disabled ? bgColorDisabled : bgColor,
         ),
         child: Text(
           "$title",
-          style: TextStyle(color: Colors.white, fontSize: 18.0),
+          style: TextStyle(
+            color: disabled ? colorDisabled : color,
+            fontSize: 18.0,
+          ),
         ),
       ),
     );

@@ -33,12 +33,12 @@ class UserInfoPage extends StatelessWidget {
                   ListCell(
                     title: "姓名",
                     showDivider: true,
-                    child: Text("张三", style: TextStyle(fontSize: 16.0)),
+                    child: Text('${model?.customer?.name}', style: TextStyle(fontSize: 16.0)),
                   ),
                   ListCell(
                     title: "性别",
                     showDivider: true,
-                    child: Text("女", style: TextStyle(fontSize: 16.0)),
+                    child: Text("${model?.customer?.gender}", style: TextStyle(fontSize: 16.0)),
                   ),
                   ListCell(
                     title: "未完成订单",
