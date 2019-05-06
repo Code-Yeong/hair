@@ -12,7 +12,7 @@ import 'package:hair/customer/choose_reservation_time/choose_reservation_time_pa
 import 'package:hair/customer/customer_home_page.dart';
 import 'package:hair/customer/info/user_address_edit_page.dart';
 import 'package:hair/customer/info/user_address_page.dart';
-import 'package:hair/customer/show_detail_page.dart';
+import 'package:hair/customer/shop/show_detail_page.dart';
 import 'package:hair/staff/staff_home_page.dart';
 
 void registerRoutes() {

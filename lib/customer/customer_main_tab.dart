@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hair/customer/menu_page.dart';
-import 'package:hair/customer/shop_list_page.dart';
+import 'package:hair/customer/shop/shop_list_page.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class CustomerMainTab extends StatelessWidget {

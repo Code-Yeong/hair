@@ -2,6 +2,7 @@ import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_middleware.dart';
 import 'package:hair/redux/cus_info/cus_info_middle.dart';
 import 'package:hair/redux/login/login_middle.dart';
+import 'package:hair/redux/shop/shop_middle.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createMiddleware() {
@@ -9,6 +10,7 @@ List<Middleware<AppState>> createMiddleware() {
   list.addAll(createLoginMiddleware());
   list.addAll(createChooseReservationMiddle());
   list.addAll(createCusInfoMiddle());
+  list.addAll(createShopMiddleware());
   list.add(AppMiddleware());
   return list;
 }

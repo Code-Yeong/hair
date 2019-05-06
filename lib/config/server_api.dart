@@ -59,4 +59,10 @@ class ServerApi {
     Response res = await _dio.get(url, queryParameters: data);
     return res;
   }
+
+  Future<dynamic> getShopList() async {
+    String url = 'shop/getAllShop';
+    Response res = await _dio.get(url);
+    return res;
+  }
 }
