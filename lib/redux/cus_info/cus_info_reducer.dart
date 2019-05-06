@@ -9,7 +9,7 @@ final cusInfoReducers = combineReducers<CusInfoState>([
   new TypedReducer<CusInfoState, BeginFetchCusInfoAction>(_beginFetch),
   new TypedReducer<CusInfoState, ReceivedCusInfoAction>(_received),
   new TypedReducer<CusInfoState, CusInfoLoadingErrorAction>(_errorLoading),
-//  new TypedReducer<CusInfoState, EditCusNameInfoAction>(_editCusName),
+  new TypedReducer<CusInfoState, ReceivedAddressListAction>(_receivedAddressList),
 //  new TypedReducer<CusInfoState, EditCusGenderInfoAction>(_editCusGender),
 //  new TypedReducer<CusInfoState, EditCusPhoneInfoAction>(_editCusPhone),
 //  new TypedReducer<CusInfoState, EditCusAddressInfoAction>(_editCusAddress),
@@ -30,7 +30,7 @@ CusInfoState _beginFetch(CusInfoState state, BeginFetchCusInfoAction action) {
 
 CusInfoState _received(CusInfoState state, ReceivedCusInfoAction action) {
   return state.copyWith(
-    customer: state.customer,
+    customer: action.customer,
     loadingStatus: LoadingStatus.success,
   );
 }
@@ -41,6 +41,13 @@ CusInfoState _errorLoading(CusInfoState state, CusInfoLoadingErrorAction action)
   );
 }
 
+CusInfoState _receivedAddressList(CusInfoState state, ReceivedAddressListAction action) {
+  print("新的地址 : ${state.customer}");
+  print("新的地址集合: ${state.customer?.copyWith(addrList: action.addressList)}");
+  return state.copyWith(
+    customer: state.customer?.copyWith(addrList: action.addressList),
+  );
+}
 //CusInfoState _editCusName(CusInfoState state, EditCusNameInfoAction action) {
 //  return state.copyWith(
 //

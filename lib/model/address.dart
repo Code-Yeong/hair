@@ -1,23 +1,45 @@
 class Address {
   final String id;
-  final String address;
   final String name;
   final String phone;
-  final String description;
+  final String address;
   final String status; // 1 唯一默认地址 0其他
+  final String modifyTime;
+  final String description;
 
-  Address({
-    this.id,
-    this.address,
-    this.phone,
-    this.description,
-    this.name,
-    this.status,
-  });
+  Address({this.id, this.name, this.phone, this.address, this.status, this.modifyTime, this.description});
+  factory Address.fromObj(obj) {
+    return Address(
+      id: obj['id'].toString() ?? '',
+      description: obj['description'].toString() ?? '',
+      name: obj['name'].toString() ?? '',
+      phone: obj['phone'].toString() ?? '',
+      address: obj['address'].toString() ?? '',
+      status: obj['status'].toString() ?? '',
+      modifyTime: obj['midifyTime'].toString() ?? '',
+    );
+  }
+
+  static List<Address> fromObjList(obj) {
+    List<Address> list = [];
+    print(obj);
+    for (var item in obj) {
+      list.add(Address(
+        id: item['id'].toString() ?? '',
+        description: item['description'].toString() ?? '',
+        name: item['name'].toString() ?? '',
+        phone: item['phone'].toString() ?? '',
+        address: item['address'].toString() ?? '',
+        status: item['status'].toString() ?? '',
+        modifyTime: item['midifyTime'].toString() ?? '',
+      ));
+    }
+    return list;
+  }
 
   @override
   String toString() {
-    return 'Address{id: $id, address: $address, name: $name, phone: $phone, description: $description, status: $status}';
+    return 'Address{id: $id, description: $description, name: $name, phone: $phone, address: $address, status: $status, midifyTime: $modifyTime}';
   }
 
   @override
@@ -26,18 +48,13 @@ class Address {
       other is Address &&
           runtimeType == other.runtimeType &&
           id == other.id &&
-          address == other.address &&
+          description == other.description &&
           name == other.name &&
           phone == other.phone &&
-          description == other.description &&
-          status == other.status;
+          address == other.address &&
+          status == other.status &&
+          modifyTime == other.modifyTime;
 
   @override
-  int get hashCode =>
-      id.hashCode ^
-      address.hashCode ^
-      name.hashCode ^
-      phone.hashCode ^
-      description.hashCode ^
-      status.hashCode;
+  int get hashCode => id.hashCode ^ description.hashCode ^ name.hashCode ^ phone.hashCode ^ address.hashCode ^ status.hashCode ^ modifyTime.hashCode;
 }

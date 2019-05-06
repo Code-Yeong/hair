@@ -10,8 +10,8 @@ class Customer {
   final int status; // default:1,  0:非正常
   final int level; // default:1 ..5
   final int gender; //0 male 1 female
-  final double score;
-  final double money;
+  final num score;
+  final num money;
   final String registTime;
   final String lastModify;
   final String lastLogin;
@@ -54,7 +54,46 @@ class Customer {
       lastModify: obj['last_modify'] ?? '',
       lastLogin: obj['last_login'] ?? '',
       description: obj['description'] ?? '',
-      addrList: obj['address'] ?? [],
+      addrList: Address.fromObjList(obj['address']) ?? [],
+    );
+  }
+
+  Customer copyWith({
+    String id,
+    String name,
+    String nickName,
+    String phone,
+    String password,
+    String avator,
+    int status, // default:1,  0:非正常
+    int level, // default:1 ..5
+    int gender, //0 male 1 female
+    double score,
+    double money,
+    String registTime,
+    String lastModify,
+    String lastLogin,
+    String description,
+    List<Address> addrList,
+  }) {
+    print("Customer类：$addrList");
+    return Customer(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      nickName: nickName ?? this.nickName,
+      phone: phone ?? this.phone,
+      password: password ?? this.password,
+      avator: avator ?? this.avator,
+      status: status ?? this.status,
+      level: level ?? this.level,
+      gender: gender ?? this.gender,
+      score: score ?? this.score,
+      money: money ?? this.money,
+      registTime: registTime ?? this.registTime,
+      lastModify: lastModify ?? this.lastModify,
+      lastLogin: lastLogin ?? this.lastLogin,
+      description: description ?? this.description,
+      addrList: addrList ?? this.addrList,
     );
   }
 

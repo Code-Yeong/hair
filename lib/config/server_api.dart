@@ -37,8 +37,26 @@ class ServerApi {
     return res;
   }
 
-  Future<dynamic> requestUrl() async {
-    Response res = await _dio.get('www.baidu.com');
-    return res.data;
+// customer >info
+  Future<dynamic> addCustomerAddress({String cusId, String name, String phone, String address, String description}) async {
+    String url = 'users/addAddress';
+    var data = {
+      'id': cusId,
+      'name': name,
+      'phone': phone,
+      'address': address,
+      'description': description,
+    };
+    print("address data= $data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
+
+  Future<dynamic> getCustomerAddress({String cusId}) async {
+    String url = 'users/getAllAddress';
+    var data = {'id': cusId};
+    print("address data= $data");
+    Response res = await _dio.get(url, queryParameters: data);
+    return res;
   }
 }

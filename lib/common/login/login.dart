@@ -44,7 +44,7 @@ class LoginPageState extends State<LoginPage> {
                           alignment: Alignment.centerRight,
                           child: GestureDetector(
                             onTap: () {
-                              GlobalNavigator.shared.pushNamed(CustomerRoute.signupPage);
+                              GlobalNavigator.shared.pushNamed(MainRoute.signupPage);
                             },
                             child: Text(
                               '新用户注册',

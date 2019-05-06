@@ -58,7 +58,7 @@ class UserInfoPage extends StatelessWidget {
                     child: ListCell(
                       title: "地址",
                       showDivider: true,
-                      child: Text('北京市海淀区中关村技术交易大厦', style: TextStyle(fontSize: 16.0)),
+                      child: Text('${model?.selectedAddress?.address ?? ''}', style: TextStyle(fontSize: 16.0)),
                     ),
                   ),
                 ],

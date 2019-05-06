@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hair/common/regist_route.dart';
 
@@ -79,7 +80,7 @@ class GlobalNavigator {
     final name = settings.name;
 
     /// TODO: --- 进入首页的没有动画
-    final route = MaterialPageRoute(
+    final route = CupertinoPageRoute(
       builder: _routes[name],
       fullscreenDialog: _fullscreenDialog,
       maintainState: _maintainState,

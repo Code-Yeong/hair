@@ -23,10 +23,12 @@ void registerRoutes() {
 
 class MainRoute {
   static const String loginPage = 'login';
+  static const String signupPage = 'signupPage';
 
   static void registerPageRoute() {
     GlobalNavigator.shared.registerPageRoutes({
       loginPage: (context) => LoginPage(), //轮播页面
+      signupPage: (_) => SignupPage(),
     });
   }
 }
@@ -39,7 +41,6 @@ class CustomerRoute {
   static const String chooseReservationTimePage = 'chooseReservationTimePage';
   static const String userAddressPage = 'userAddressPage';
   static const String userAddressEditPage = 'userAddressEditPage';
-  static const String signupPage = 'signupPage';
   static void registerPageRoute() {
     GlobalNavigator.shared.registerPageRoutes({
       shopDetailPage: (context) => ShopDetailPage(),
@@ -48,7 +49,6 @@ class CustomerRoute {
       chooseReservationTimePage: (_) => ChooseReservationTimePage(),
       userAddressPage: (_) => UserAddressPage(),
       userAddressEditPage: (_) => UserAddressEditPage(),
-      signupPage: (_) => SignupPage(),
     });
   }
 }

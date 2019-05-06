@@ -51,7 +51,7 @@ class SignupPageState extends State<SignupPage> {
                         GlobalNavigator.shared.pop();
                       },
                       child: Text(
-                        '返回登录',
+                        '返回',
                         style: TextStyle(fontSize: 17.0),
                       ),
                     ),

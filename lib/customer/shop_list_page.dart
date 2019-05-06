@@ -9,15 +9,15 @@ class ShopListPage extends StatelessWidget {
     print("build");
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData.fallback(),
-          title: Text(
-            "附近门店",
-            style: TextStyle(color: Colors.black),
-          ),
-          backgroundColor: CommonColors.bgGray,
-          elevation: 1.0,
-        ),
+//        appBar: AppBar(
+//          iconTheme: IconThemeData.fallback(),
+//          title: Text(
+//            "附近门店",
+//            style: TextStyle(color: Colors.black),
+//          ),
+//          backgroundColor: CommonColors.bgGray,
+//          elevation: 1.0,
+//        ),
         body: Container(
           padding: EdgeInsets.only(top: 30.0, left: 12.0, right: 12.0),
           color: CommonColors.bgGray,
@@ -42,8 +42,7 @@ class ShopListPage extends StatelessWidget {
                         child: ShopItem(
                           showName: "Shop $index",
                           onTap: () {
-                            GlobalNavigator.shared
-                                .pushNamed(CustomerRoute.showShopDetailPage);
+                            GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
                           },
                         ),
                       );
@@ -89,11 +88,7 @@ class ShopItem extends StatelessWidget {
               height: 50.0,
               padding: EdgeInsets.only(top: 4.0, bottom: 4.0),
               alignment: Alignment.centerLeft,
-              child: Text("$showName",
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)),
+              child: Text("$showName", style: TextStyle(fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.bold)),
             )
           ],
         ),

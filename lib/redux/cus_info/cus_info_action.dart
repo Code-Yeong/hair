@@ -31,3 +31,15 @@ class EditCusAddressInfoAction {
   final Address address;
   EditCusAddressInfoAction({this.address});
 }
+
+class CusAddressChangedAction {}
+
+class ReceivedAddressListAction {
+  List<Address> addressList;
+  ReceivedAddressListAction({this.addressList});
+}
+
+class AddCusAddressInfoAction {
+  final Address address;
+  AddCusAddressInfoAction({this.address});
+}

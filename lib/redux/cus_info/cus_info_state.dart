@@ -22,6 +22,7 @@ class CusInfoState {
     CommitStatus commitStatus,
     LoadingStatus loadingStatus,
   }) {
+    print("copyWith的customer：${customer.addrList.length}");
     return CusInfoState(
       customer: customer ?? this.customer,
       commitStatus: commitStatus ?? this.commitStatus,

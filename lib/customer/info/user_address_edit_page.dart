@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hair/common/global_navigator.dart';
 import 'package:hair/component/one_button.dart';
+import 'package:hair/model/address.dart';
+import 'package:hair/redux/cus_info/cus_info_action.dart';
+import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class UserAddressEditPage extends StatefulWidget {
@@ -9,6 +11,11 @@ class UserAddressEditPage extends StatefulWidget {
 }
 
 class UserAddressEditPageState extends State<UserAddressEditPage> {
+  String _textName;
+  String _textPhone;
+  String _textAddress;
+  String _textDescription;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,12 +58,15 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                       child: new TextField(
 //                      controller: _textController,
                         onSubmitted: null,
-                        decoration:
-                            new InputDecoration.collapsed(hintText: '姓名'),
+                        decoration: new InputDecoration.collapsed(hintText: '姓名'),
                         style: new TextStyle(
                           fontSize: 16.0,
                         ),
                         maxLines: 1,
+                        onChanged: (text) {
+                          _textName = text;
+                          setState(() {});
+                        },
                       ),
                     ),
                   ),
@@ -85,12 +95,15 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                       child: new TextField(
 //                      controller: _textController,
                         onSubmitted: null,
-                        decoration:
-                            new InputDecoration.collapsed(hintText: '手机号码'),
+                        decoration: new InputDecoration.collapsed(hintText: '手机号码'),
                         style: new TextStyle(
                           fontSize: 16.0,
                         ),
                         maxLines: 1,
+                        onChanged: (text) {
+                          _textPhone = text;
+                          setState(() {});
+                        },
                       ),
                     ),
                   ),
@@ -119,12 +132,15 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                       child: new TextField(
 //                      controller: _textController,
                         onSubmitted: null,
-                        decoration:
-                            new InputDecoration.collapsed(hintText: '上门服务地址'),
+                        decoration: new InputDecoration.collapsed(hintText: '上门服务地址'),
                         style: new TextStyle(
                           fontSize: 16.0,
                         ),
                         maxLines: 1,
+                        onChanged: (text) {
+                          _textAddress = text;
+                          setState(() {});
+                        },
                       ),
                     ),
                   ),
@@ -153,12 +169,15 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                       child: new TextField(
 //                      controller: _textController,
                         onSubmitted: null,
-                        decoration:
-                            new InputDecoration.collapsed(hintText: '备注'),
+                        decoration: new InputDecoration.collapsed(hintText: '备注'),
                         style: new TextStyle(
                           fontSize: 16.0,
                         ),
                         maxLines: 1,
+                        onChanged: (text) {
+                          _textDescription = text;
+                          setState(() {});
+                        },
                       ),
                     ),
                   ),
@@ -177,7 +196,14 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
             child: BottomOneButton(
               title: '确定',
               onTap: () {
-                GlobalNavigator.shared.pop();
+                globalStore.dispatch(new AddCusAddressInfoAction(
+                  address: Address(
+                    name: _textName,
+                    phone: _textPhone,
+                    address: _textAddress,
+                    description: _textDescription,
+                  ),
+                ));
               },
             ),
           )

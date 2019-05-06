@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hair/customer/customer_main_tab.dart';
 import 'package:hair/customer/info/user_info_page.dart';
-import 'package:hair/customer/menu_page.dart';
 import 'package:hair/customer/reservation_page.dart';
-import 'package:hair/customer/shop_list_page.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class CustomerHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
           body: TabBarView(children: <Widget>[
             Container(
               key: PageStorageKey("page1"),
-              child: ShopListPage(),
-            ),
-            Container(
-              key: PageStorageKey("page2"),
-              child: MenuPage(),
+              child: CustomerMainTab(),
             ),
             Container(
               height: 200.0,
-              key: PageStorageKey("page3"),
+              key: PageStorageKey("page2"),
               child: ReservationPage(),
 //              child: AndroidView(
 //                viewType: 'BMapView',
@@ -32,33 +27,31 @@ class CustomerHomePage extends StatelessWidget {
 //              ),
             ),
             Container(
-              key: PageStorageKey("page4"),
+              key: PageStorageKey("page3"),
               child: UserInfoPage(),
             ),
           ]),
           backgroundColor: CommonColors.bgGray,
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
+              color: Colors.blueGrey,
               border: Border(
                 top: BorderSide(color: CommonColors.lineDividing, width: 1.0),
               ),
             ),
             child: TabBar(
-              unselectedLabelColor: Colors.grey.withOpacity(0.7),
-              labelColor: Colors.grey,
+              indicatorColor: Colors.white,
+              unselectedLabelColor: Colors.white30,
+              labelColor: Colors.white,
               onTap: (index) {
                 print("index:$index");
               },
               tabs: <Widget>[
                 Tab(
-                  text: '门店',
+                  text: '首页',
                   icon: Icon(
                     Icons.add_shopping_cart,
                   ),
-                ),
-                Tab(
-                  text: '造型库',
-                  icon: Icon(Icons.menu),
                 ),
                 Tab(
                   text: '订单',
