@@ -9,7 +9,12 @@ import 'package:hair/model/address.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/utils/common_colors.dart';
 
-class UserAddressPage extends StatelessWidget {
+class UserAddressPage extends StatefulWidget {
+  @override
+  State createState() => UserAddressPageState();
+}
+
+class UserAddressPageState extends State<UserAddressPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +31,7 @@ class UserAddressPage extends StatelessWidget {
       body: StoreConnector<AppState, UserInfoPageViewModel>(
           converter: (store) => UserInfoPageViewModel.fromStore(store),
           builder: (context, model) {
-            print("修改修改：${model?.addressList?.length}");
+            print("修改修改：${model?.addressList}");
             return Container(
               padding: EdgeInsets.only(bottom: 12.0),
               color: CommonColors.bgGray,
@@ -37,9 +42,12 @@ class UserAddressPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       Address addr = model?.addressList[index];
                       return AddressItemWidget(
+                        id: addr?.id,
                         username: addr?.name,
                         phone: addr?.phone,
                         address: addr?.address,
+                        selected: addr?.status == '2',
+                        onTap: (index) {},
                       );
                     },
                     separatorBuilder: (context, index) {

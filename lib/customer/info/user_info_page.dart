@@ -25,7 +25,7 @@ class UserInfoPage extends StatelessWidget {
       body: StoreConnector<AppState, UserInfoPageViewModel>(
           converter: (store) => UserInfoPageViewModel.fromStore(store),
           builder: (context, model) {
-            print("statessssss:${model.loadingStatus}");
+//            print("statessssss:${model.loadingStatus}");
             return Container(
               color: CommonColors.bgGray,
               child: ListView(

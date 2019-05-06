@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hair/common/global_navigator.dart';
-import 'package:hair/common/regist_route.dart';
+import 'package:hair/customer/info/user_address_edit_page.dart';
 import 'package:hair/utils/common_colors.dart';
 
 typedef ItemSelected(num value);
@@ -36,43 +36,62 @@ class AddressItemWidgetState extends State<AddressItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: Key("???"),
-      onDismissed: (direction) {
-        // Remove the item from our data source.
-        setState(() {
-//          items.removeAt(index);
-        });
-
-        // Show a snackbar! This snackbar could also contain "Undo" actions.
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("dismissed")));
-//        Scaffold.of(context).showSnackBar(SnackBar(content: Text("$item dismissed")));
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: CommonColors.lineDividing.withOpacity(1.0),
-              width: 1.0,
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        color: selected ? Colors.blueGrey : Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            color: CommonColors.lineDividing.withOpacity(1.0),
+            width: 1.0,
           ),
         ),
-        padding: EdgeInsets.only(bottom: 5.0),
-        child: ListTile(
-          title: Text(username + ' ' + phone),
-          subtitle: Text(address),
-          trailing: IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              _pushAddressEidtor(id);
-            },
+      ),
+      padding: EdgeInsets.only(bottom: 5.0),
+      child: ListTile(
+        title: Row(children: <Widget>[
+          Text(
+            username + ' ',
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              color: selected ? Colors.white : Colors.black,
+            ),
           ),
+          Text(
+            phone,
+            style: TextStyle(
+              color: selected ? Colors.white : Colors.black,
+            ),
+          ),
+        ]),
+        subtitle: Text(
+          address,
+          style: TextStyle(color: selected ? Colors.white : Colors.grey),
+        ),
+        trailing: IconButton(
+          icon: Icon(Icons.edit),
+          onPressed: () {
+            _pushAddressEidtor(id);
+          },
         ),
       ),
     );
   }
 
-  void _pushAddressEidtor(String id) {
-    GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressEditPage);
+  void _pushAddressEidtor(String index) {
+//    GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressEditPage);
+    print("address edit跳转 $id $username $phone $address");
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => UserAddressEditPage(
+              id: id,
+              status: selected ? '2' : '1', //???
+              name: username,
+              phone: phone,
+              address: address,
+            ),
+      ),
+    );
   }
 }

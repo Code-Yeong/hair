@@ -76,7 +76,7 @@ class Customer {
     String description,
     List<Address> addrList,
   }) {
-    print("Customer类：$addrList");
+//    print("Customer类：$addrList");
     return Customer(
       id: id ?? this.id,
       name: name ?? this.name,

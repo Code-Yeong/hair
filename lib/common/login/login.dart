@@ -109,6 +109,7 @@ class LoginPageState extends State<LoginPage> {
                                           width: 100.0,
                                           height: 30.0,
                                           child: new TextField(
+                                            obscureText: true,
                                             onSubmitted: null,
                                             decoration: new InputDecoration.collapsed(hintText: '输入密码'),
                                             style: new TextStyle(fontSize: 16.0, color: Colors.black),

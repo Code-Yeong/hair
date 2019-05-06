@@ -5,19 +5,29 @@ import 'package:hair/redux/cus_info/cus_info_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 
-class UserAddressEditPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => UserAddressEditPageState();
-}
+//class UserAddressEditPage extends StatefulWidget {
+//  @override
+//  State<StatefulWidget> createState() => UserAddressEditPageState();
+//}
 
-class UserAddressEditPageState extends State<UserAddressEditPage> {
-  String _textName;
-  String _textPhone;
-  String _textAddress;
-  String _textDescription;
+class UserAddressEditPage extends StatelessWidget {
+//  final Address address;
+  final String id;
+  final String status; // 1 普通地址 2 选中地址
+  final String name;
+  final String phone;
+  final String address;
+  final String description;
+
+  UserAddressEditPage({this.id, @required this.status, this.name, this.phone, this.address, this.description = ''});
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _controllerName = TextEditingController(text: name);
+    final TextEditingController _controllerPhone = TextEditingController(text: phone);
+    final TextEditingController _controllerAddress = TextEditingController(text: address);
+    final TextEditingController _controllerDescription = TextEditingController(text: description);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData.fallback(),
@@ -55,18 +65,18 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                   Expanded(
                     child: new Container(
                       width: 100.0,
-                      child: new TextField(
-//                      controller: _textController,
-                        onSubmitted: null,
+                      child: new TextFormField(
+//                        initialValue: name,
                         decoration: new InputDecoration.collapsed(hintText: '姓名'),
                         style: new TextStyle(
                           fontSize: 16.0,
                         ),
                         maxLines: 1,
-                        onChanged: (text) {
-                          _textName = text;
-                          setState(() {});
-                        },
+                        controller: _controllerName,
+//                        onSaved: (text) {
+//                          _textName = text;
+//                          setState(() {});
+//                        },
                       ),
                     ),
                   ),
@@ -92,18 +102,14 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                   Expanded(
                     child: new Container(
                       width: 100.0,
-                      child: new TextField(
-//                      controller: _textController,
-                        onSubmitted: null,
+                      child: new TextFormField(
+//                        initialValue: phone,
+                        controller: _controllerPhone,
                         decoration: new InputDecoration.collapsed(hintText: '手机号码'),
                         style: new TextStyle(
                           fontSize: 16.0,
                         ),
                         maxLines: 1,
-                        onChanged: (text) {
-                          _textPhone = text;
-                          setState(() {});
-                        },
                       ),
                     ),
                   ),
@@ -129,18 +135,14 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                   Expanded(
                     child: new Container(
                       width: 100.0,
-                      child: new TextField(
-//                      controller: _textController,
-                        onSubmitted: null,
+                      child: new TextFormField(
+//                        initialValue: address,
+                        controller: _controllerAddress,
                         decoration: new InputDecoration.collapsed(hintText: '上门服务地址'),
                         style: new TextStyle(
                           fontSize: 16.0,
                         ),
                         maxLines: 1,
-                        onChanged: (text) {
-                          _textAddress = text;
-                          setState(() {});
-                        },
                       ),
                     ),
                   ),
@@ -166,18 +168,14 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                   Expanded(
                     child: new Container(
                       width: 100.0,
-                      child: new TextField(
-//                      controller: _textController,
-                        onSubmitted: null,
+                      child: new TextFormField(
+//                        initialValue: description,
+                        controller: _controllerDescription,
                         decoration: new InputDecoration.collapsed(hintText: '备注'),
                         style: new TextStyle(
                           fontSize: 16.0,
                         ),
                         maxLines: 1,
-                        onChanged: (text) {
-                          _textDescription = text;
-                          setState(() {});
-                        },
                       ),
                     ),
                   ),
@@ -196,14 +194,27 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
             child: BottomOneButton(
               title: '确定',
               onTap: () {
-                globalStore.dispatch(new AddCusAddressInfoAction(
-                  address: Address(
-                    name: _textName,
-                    phone: _textPhone,
-                    address: _textAddress,
-                    description: _textDescription,
-                  ),
-                ));
+//                print("修改地址页面 id=$id");
+                if (id != null) {
+                  globalStore.dispatch(new EditCusAddressInfoAction(
+                      address: Address(
+                    id: id,
+                    status: status,
+                    name: _controllerName.text,
+                    phone: _controllerPhone.text,
+                    address: _controllerAddress.text,
+                    description: _controllerDescription.text,
+                  )));
+                } else {
+                  globalStore.dispatch(new AddCusAddressInfoAction(
+                    address: Address(
+                      name: _controllerName.text,
+                      phone: _controllerPhone.text,
+                      address: _controllerAddress.text,
+                      description: _controllerDescription.text,
+                    ),
+                  ));
+                }
               },
             ),
           )

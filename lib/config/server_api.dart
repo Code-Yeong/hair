@@ -52,6 +52,21 @@ class ServerApi {
     return res;
   }
 
+  Future<dynamic> editCustomerAddress({String addressId, String newName, String newPhone, String newAddress, String newStatus, String description}) async {
+    String url = 'users/updateAddress';
+    var data = {
+      'id': addressId,
+      'name': newName,
+      'phone': newPhone,
+      'address': newAddress,
+      'status': newStatus,
+      'description': description,
+    };
+    print("修改地址请求 request data= $data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
+
   Future<dynamic> getCustomerAddress({String cusId}) async {
     String url = 'users/getAllAddress';
     var data = {'id': cusId};

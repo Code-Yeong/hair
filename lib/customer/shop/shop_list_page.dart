@@ -11,18 +11,8 @@ import 'package:hair/utils/common_colors.dart';
 class ShopListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("build");
     return SafeArea(
       child: Scaffold(
-//        appBar: AppBar(
-//          iconTheme: IconThemeData.fallback(),
-//          title: Text(
-//            "附近门店",
-//            style: TextStyle(color: Colors.black),
-//          ),
-//          backgroundColor: CommonColors.bgGray,
-//          elevation: 1.0,
-//        ),
         body: StoreConnector<AppState, ShopListPageViewModel>(
           onInit: (store) {
             store.dispatch(new BeginFetchShopListAction());

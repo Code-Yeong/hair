@@ -23,7 +23,7 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
     if (action is CusAddressChangedAction) {
       String cusId = globalStore.state.loginState.customer?.id;
       var res = await ServerApi.api.getCustomerAddress(cusId: cusId);
-      print("地址查询结果：${res?.data}"); // array
+//      print("地址查询结果：${res?.data}"); // array
       if (res != null && res?.data['status'] == 100) {
         List<Address> list = Address.fromObjList(res?.data['result']);
         globalStore.dispatch(ReceivedAddressListAction(addressList: list));
@@ -47,7 +47,22 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
       } else {
         print('地址增加失败');
       }
-//
+    }
+    if (action is EditCusAddressInfoAction) {
+      var res = await ServerApi.api.editCustomerAddress(
+        addressId: action.address?.id,
+        newName: action.address?.name,
+        newPhone: action.address?.phone,
+        newAddress: action.address?.address,
+        newStatus: action.address?.status,
+        description: action.address?.description,
+      );
+      print("网络请求修改地址 response:${res?.data}");
+      if (res != null && res?.data['result'] == 'ok') {
+        globalStore.dispatch(new CusAddressChangedAction());
+      } else {
+        print('地址修改失败');
+      }
     }
   }
 }

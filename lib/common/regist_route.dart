@@ -48,7 +48,7 @@ class CustomerRoute {
       showShopDetailPage: (_) => ShopDetailPage(),
       chooseReservationTimePage: (_) => ChooseReservationTimePage(),
       userAddressPage: (_) => UserAddressPage(),
-      userAddressEditPage: (_) => UserAddressEditPage(),
+      userAddressEditPage: (_) => UserAddressEditPage(status: '1'),
     });
   }
 }
