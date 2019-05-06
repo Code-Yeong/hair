@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StarsWidget extends StatelessWidget {
-  final double score;
+  final num score;
   final double starWidth;
   StarsWidget({this.score, this.starWidth});
 

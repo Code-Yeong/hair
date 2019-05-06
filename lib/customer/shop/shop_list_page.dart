@@ -6,6 +6,7 @@ import 'package:hair/customer/shop/shop_list_page_view_model.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/shop/shop_action.dart';
+import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class ShopListPage extends StatelessWidget {
@@ -56,6 +57,7 @@ class ShopListPage extends StatelessWidget {
                             picture: "${shop.avatar}",
                             status: shop.status,
                             onTap: () {
+                              globalStore.dispatch(new SelectedShopAction(id: shop?.id));
                               GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
                             },
                           ),

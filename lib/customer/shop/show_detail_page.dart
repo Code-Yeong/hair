@@ -3,6 +3,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/stars_widget.dart';
+import 'package:hair/customer/shop/shop_list_page_view_model.dart';
+import 'package:hair/model/Barber.dart';
+import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/utils/common_colors.dart';
 
@@ -15,9 +18,13 @@ class ShopDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: StoreConnector<AppState, int>(
-          converter: (store) => 9,
+        body: StoreConnector<AppState, ShopListPageViewModel>(
+          onInit: (store) {},
+          converter: (store) => ShopListPageViewModel.fromStore(store),
           builder: (context, model) {
+//            print('selectedShop:${model.selectedShop.toString()}');
+            Shop shop = model.selectedShop;
+            print('${shop.barberList}');
             return Container(
               color: CommonColors.bgGray,
               child: Stack(
@@ -27,10 +34,7 @@ class ShopDetailPage extends StatelessWidget {
                       Container(
 //                  height: 150.0,
                         color: Colors.grey,
-                        child: Image.asset(
-                          "assets/images/shop2.jpg",
-                          fit: BoxFit.cover,
-                        ),
+                        child: Image.network(model.selectedShop?.avatar),
                       ),
                       Container(
                         child: Column(
@@ -38,9 +42,8 @@ class ShopDetailPage extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0, bottom: 6.0),
                               alignment: Alignment.centerLeft,
-                              height: 20.0,
                               child: Text(
-                                "$shopName",
+                                "${shop?.name}",
                                 style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -69,14 +72,15 @@ class ShopDetailPage extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.only(left: 12.0, right: 12.0),
                           child: ListView.builder(
-                            itemCount: 5,
+                            itemCount: shop.barberList.length,
                             itemBuilder: (_, index) {
+                              Barber barber = shop.barberList[index];
                               return Container(
                                 margin: EdgeInsets.only(bottom: 20.0),
                                 child: BarberItem(
-                                  avatar: 'assets/images/barber.jpg',
-                                  name: 'Jackson',
-                                  score: 3.5,
+                                  avatar: barber?.avatar,
+                                  name: barber?.name,
+                                  score: barber?.score,
                                   orderCount: 34,
                                   onTap: () {
                                     GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
@@ -143,8 +147,8 @@ class ShopDetailPage extends StatelessWidget {
 class BarberItem extends StatelessWidget {
   final String avatar;
   final String name;
-  final double score;
-  final int orderCount;
+  final num score;
+  final num orderCount;
   final VoidCallback onTap;
   BarberItem({this.avatar, this.name, this.score, this.orderCount, this.onTap});
 
@@ -162,7 +166,7 @@ class BarberItem extends StatelessWidget {
         children: <Widget>[
           CircleAvatar(
             radius: 30.0,
-            backgroundImage: AssetImage('$avatar'),
+            backgroundImage: NetworkImage('$avatar'),
           ),
           Expanded(
             child: Container(
