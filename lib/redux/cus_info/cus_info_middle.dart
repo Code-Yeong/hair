@@ -21,6 +21,7 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
 //      var res;
 //    }
     if (action is CusAddressChangedAction) {
+      // fetch address list
       String cusId = globalStore.state.loginState.customer?.id;
       var res = await ServerApi.api.getCustomerAddress(cusId: cusId);
 //      print("地址查询结果：${res?.data}"); // array

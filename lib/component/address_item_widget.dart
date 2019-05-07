@@ -5,7 +5,7 @@ import 'package:hair/utils/common_colors.dart';
 
 typedef ItemSelected(num value);
 
-class AddressItemWidget extends StatefulWidget {
+class AddressItemWidget extends StatelessWidget {
   final String id;
   final ItemSelected onTap;
   final String username;
@@ -15,24 +15,7 @@ class AddressItemWidget extends StatefulWidget {
   final num index;
   final bool selected;
 
-  const AddressItemWidget({Key key, this.id, this.onTap, this.username, this.phone, this.address, this.gender, this.index, this.selected}) : super(key: key);
-
-  @override
-  State createState() =>
-      AddressItemWidgetState(id: id, onTap: onTap, username: username, phone: phone, address: address, gender: gender, index: index, selected: selected);
-}
-
-class AddressItemWidgetState extends State<AddressItemWidget> {
-  final String id;
-  final ItemSelected onTap;
-  final String username;
-  final String phone;
-  final String address;
-  final String gender;
-  final num index;
-  final bool selected;
-
-  AddressItemWidgetState({this.id, this.onTap, this.username, this.phone, this.address, this.gender, this.index, this.selected});
+  AddressItemWidget({this.id, this.onTap, this.username, this.phone, this.address, this.gender, this.index, this.selected});
 
   @override
   Widget build(BuildContext context) {
@@ -71,16 +54,14 @@ class AddressItemWidgetState extends State<AddressItemWidget> {
         trailing: IconButton(
           icon: Icon(Icons.edit),
           onPressed: () {
-            _pushAddressEidtor(id);
+            _pushAddressEidtor(id, context);
           },
         ),
       ),
     );
   }
 
-  void _pushAddressEidtor(String index) {
-//    GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressEditPage);
-    print("address edit跳转 $id $username $phone $address");
+  void _pushAddressEidtor(String index, BuildContext context) {
     Navigator.push(
       context,
       CupertinoPageRoute(

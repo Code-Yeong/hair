@@ -24,7 +24,6 @@ CusInfoState _init(CusInfoState state, InitCusInfoAction action) {
 }
 
 CusInfoState _beginFetch(CusInfoState state, BeginFetchCusInfoAction action) {
-  print("innnnnnnnnnnnnnnnnnnnn");
   return state.copyWith(loadingStatus: LoadingStatus.loading);
 }
 

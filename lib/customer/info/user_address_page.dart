@@ -29,6 +29,9 @@ class UserAddressPageState extends State<UserAddressPage> {
         elevation: 1.0,
       ),
       body: StoreConnector<AppState, UserInfoPageViewModel>(
+          onInit: (store) {
+//        store.dispatch(new BeginFetchShopListAction());
+          },
           converter: (store) => UserInfoPageViewModel.fromStore(store),
           builder: (context, model) {
             print("修改修改：${model?.addressList}");
@@ -47,7 +50,17 @@ class UserAddressPageState extends State<UserAddressPage> {
                         phone: addr?.phone,
                         address: addr?.address,
                         selected: addr?.status == '2',
-                        onTap: (index) {},
+                        onTap: (index) {
+//                          globalStore.dispatch(new EditCusAddressInfoAction(
+//                              address: Address(
+//                            id: addr?.id,
+//                            status: '2',
+//                            name: addr?.name,
+//                            phone: addr.,
+//                            address: _controllerAddress.text,
+//                            description: _controllerDescription.text,
+//                          )));
+                        },
                       );
                     },
                     separatorBuilder: (context, index) {
