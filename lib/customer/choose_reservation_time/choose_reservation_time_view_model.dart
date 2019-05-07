@@ -28,4 +28,8 @@ class ChooseReservationTimeViewModel {
   bool get isSelectedTimeItem {
     return selectedTime != null && selectedTime.length > 0;
   }
+
+//  getList(){
+//    DateUtil.getNowDateStr()
+//  }
 }

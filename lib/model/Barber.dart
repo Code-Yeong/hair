@@ -9,6 +9,7 @@ class Barber {
   final num level;
   final num sex;
   final num score;
+  final num orderCount;
   final num money;
   final String address;
   final String shop;
@@ -33,6 +34,7 @@ class Barber {
     this.sex,
     this.score,
     this.money,
+    this.orderCount,
     this.address,
     this.shop,
     this.idCard,
@@ -57,6 +59,7 @@ class Barber {
       level: obj['level'] ?? 1,
       sex: obj['sex'] ?? 0,
       score: obj['score'] ?? 0,
+      orderCount: obj['orderCount'] ?? 0,
       money: obj['money'] ?? 0,
       address: obj['address'] ?? '',
       shop: obj['shop'].toString() ?? '',
@@ -73,7 +76,7 @@ class Barber {
 
   @override
   String toString() {
-    return 'Barber{id: $id, name: $name, nickName: $nickName, phone: $phone, password: $password, avatar: $avatar, status: $status, level: $level, sex: $sex, score: $score, money: $money, address: $address, shop: $shop, idCard: $idCard, certificate: $certificate, long: $long, alti: $alti, description: $description, registTime: $registTime, lastLogin: $lastLogin, lastModify: $lastModify}';
+    return 'Barber{id: $id, name: $name, nickName: $nickName, phone: $phone, password: $password, avatar: $avatar, status: $status, level: $level,orderCount: $orderCount, sex: $sex, score: $score, money: $money, address: $address, shop: $shop, idCard: $idCard, certificate: $certificate, long: $long, alti: $alti, description: $description, registTime: $registTime, lastLogin: $lastLogin, lastModify: $lastModify}';
   }
 
   @override
@@ -85,6 +88,7 @@ class Barber {
           name == other.name &&
           nickName == other.nickName &&
           phone == other.phone &&
+          orderCount == other.orderCount &&
           password == other.password &&
           avatar == other.avatar &&
           status == other.status &&
@@ -109,6 +113,7 @@ class Barber {
       name.hashCode ^
       nickName.hashCode ^
       phone.hashCode ^
+      orderCount.hashCode ^
       password.hashCode ^
       avatar.hashCode ^
       status.hashCode ^

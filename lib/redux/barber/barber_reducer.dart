@@ -21,7 +21,7 @@ ShopState _receivedShopList(ShopState state, ReceivedShopListAction action) {
 ShopState _receivedShopDetail(ShopState state, ReceivedShopDetailAction action) {
   List<Shop> oldShopList = state.shopList;
   List<Shop> newShopList = oldShopList.map((item) {
-    if (item.id == action.shop?.id) {
+    if (item.id == action.shop.id) {
       return action.shop;
     } else {
       return item;

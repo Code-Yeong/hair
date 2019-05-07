@@ -44,3 +44,9 @@ enum LoadingStatus {
   success,
   failed,
 }
+
+enum Role {
+  customer,
+  barber,
+  shop,
+}

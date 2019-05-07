@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hair/utils/enum.dart';
 
 //GET（SELECT）：从服务器取出资源（一项或多项）。
 //POST（CREATE）：在服务器新建一个资源。
@@ -78,6 +79,51 @@ class ServerApi {
   Future<dynamic> getShopList() async {
     String url = 'shop/getAllShop';
     Response res = await _dio.get(url);
+    return res;
+  }
+
+  //获取店铺的评分、订单数量
+  Future<dynamic> getShopStatistic({String shopId}) async {
+    String url = 'shop/shopStatistic';
+    var data = {
+      "shopId": shopId,
+    };
+    Response res = await _dio.get(url, queryParameters: data);
+    return res;
+  }
+
+  //增加订单
+  Future<dynamic> addOrder({String cusId, String barberId, String shopId, String serveTime, num money}) async {
+    String url = 'order/addOrder';
+    var data = {
+      "cusId": cusId,
+      "barberId": barberId,
+      "shopId": shopId,
+      "serveTime": serveTime,
+      "money": money,
+    };
+    print("新增订单 request data= $data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
+
+  //查询客户、店铺、理发师对应的"所有"订单
+  Future<dynamic> getOrderList({String id, Role role}) async {
+    String url;
+    String idName;
+    if (role == Role.shop) {
+      url = 'order/getShopOrder';
+      idName = "shopId";
+    } else if (role == Role.customer) {
+      url = 'order/getCusOrder';
+      idName = "cusId";
+    } else {
+      url = 'order/getBarberOrder';
+      idName = "barberId";
+    }
+    var data = {idName: id};
+    print("查询订单 request data= $url, data=$data");
+    Response res = await _dio.get(url, queryParameters: data);
     return res;
   }
 }

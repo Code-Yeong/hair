@@ -28,5 +28,27 @@ class ShopMiddleware extends MiddlewareClass<AppState> {
         print('获取商铺信息失败');
       }
     }
+
+    ////获取店铺的订单数量、评分和坐标（计算巨鹿）
+    if (action is BeginFetchShopDetailAction) {
+      String shopId = store.state.shopState.selectedShopId;
+      var res = await ServerApi.api.getShopStatistic(shopId: shopId);
+      if (res != null && res?.data['status'] == 100) {
+        print("detail:$res");
+        print("shoplist:${store.state.shopState.shopList.length}");
+        List<Shop> shopList = store.state.shopState.shopList.where((item) => item.id == shopId).toList();
+        print("length:${shopList.length}");
+        Shop shop;
+        if (shopList.length > 0) {
+          print('赋值:${res.data['result'][0]['score']}');
+          shop = shopList.first;
+          shop = shop.copyWith(score: res.data['result'][0]['score']?.ceil(), orderCount: res.data['result'][0]['orderCount']);
+          print('shop:${shop.toString()}');
+        }
+        globalStore.dispatch(new ReceivedShopDetailAction(shop: shop));
+      } else {
+        print('获取商铺信息失败');
+      }
+    }
   }
 }

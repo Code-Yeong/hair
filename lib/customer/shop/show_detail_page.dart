@@ -7,6 +7,7 @@ import 'package:hair/customer/shop/shop_list_page_view_model.dart';
 import 'package:hair/model/Barber.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
+import 'package:hair/redux/shop/shop_action.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class ShopDetailPage extends StatelessWidget {
@@ -19,12 +20,14 @@ class ShopDetailPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: StoreConnector<AppState, ShopListPageViewModel>(
-          onInit: (store) {},
+          onInit: (store) {
+            store.dispatch(new BeginFetchShopDetailAction());
+          },
           converter: (store) => ShopListPageViewModel.fromStore(store),
           builder: (context, model) {
 //            print('selectedShop:${model.selectedShop.toString()}');
             Shop shop = model.selectedShop;
-            print('${shop.barberList}');
+            print('${shop?.barberList}');
             return Container(
               color: CommonColors.bgGray,
               child: Stack(
@@ -54,10 +57,10 @@ class ShopDetailPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Row(
-                                    children: <Widget>[Icon(Icons.format_line_spacing), Text("4.7")],
+                                    children: <Widget>[Icon(Icons.format_line_spacing), Text("${shop?.score}分")],
                                   ),
                                   Container(
-                                    child: Text("236单"),
+                                    child: Text("${shop?.orderCount}单"),
                                   ),
                                   Row(
                                     children: <Widget>[Icon(Icons.location_on), Text("1.3km")],
@@ -81,7 +84,7 @@ class ShopDetailPage extends StatelessWidget {
                                   avatar: barber?.avatar,
                                   name: barber?.name,
                                   score: barber?.score,
-                                  orderCount: 34,
+                                  orderCount: barber?.orderCount,
                                   onTap: () {
                                     GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
                                   },

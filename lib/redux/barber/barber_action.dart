@@ -10,10 +10,7 @@ class ReceivedShopListAction {
 class BeginFetchShopListAction {}
 
 //要获取某个商铺详细信息时调用
-class BeginFetchShopDetailAction {
-  String shopId;
-  BeginFetchShopDetailAction({this.shopId});
-}
+class BeginFetchShopDetailAction {}
 
 //获取到了某个商铺详细信息时发出
 class ReceivedShopDetailAction {
