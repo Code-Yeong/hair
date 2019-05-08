@@ -225,6 +225,7 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
               left: 20.0,
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 BottomOneButton(
                   width: widget.addPage ? 300.0 : 150.0,
@@ -264,6 +265,7 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                     : BottomOneButton(
                         width: 150.0,
                         title: '删除',
+                        bgColor: Colors.redAccent,
                         onTap: () {
                           globalStore.dispatch(RemoveCusAddressInfoAction(addressId: widget.id));
                         },

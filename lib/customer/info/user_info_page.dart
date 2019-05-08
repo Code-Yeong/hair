@@ -25,40 +25,62 @@ class UserInfoPage extends StatelessWidget {
       body: StoreConnector<AppState, UserInfoPageViewModel>(
           converter: (store) => UserInfoPageViewModel.fromStore(store),
           builder: (context, model) {
-//            print("statessssss:${model.loadingStatus}");
             return Container(
               color: CommonColors.bgGray,
-              child: ListView(
+              child: Column(
                 children: <Widget>[
-                  ListCell(
-                    title: "姓名",
-                    showDivider: true,
-                    child: Text('${model?.customer?.name}', style: TextStyle(fontSize: 16.0)),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: CommonColors.lineDividing, width: 1.0),
+                      ),
+                    ),
+                    height: 150.0,
+                    padding: EdgeInsets.only(left: 50.0, top: 10.0, bottom: 40.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        CircleAvatar(
+                          backgroundImage: AssetImage('assets/images/barber.jpg'),
+                          radius: 30.0,
+                        ),
+                        SizedBox(
+                          width: 50.0,
+                        ),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                model?.customer?.name ?? '姓名',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(model?.customer?.gender == 0 ? '男' : '女'),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  ListCell(
-                    title: "性别",
-                    showDivider: true,
-                    child: Text("${model?.customer?.gender}", style: TextStyle(fontSize: 16.0)),
-                  ),
-                  ListCell(
-                    title: "未完成订单",
-                    showDivider: true,
-                    child: Text('6', style: TextStyle(fontSize: 16.0)),
-                  ),
-                  ListCell(
-                    title: "已完成订单",
-                    showDivider: true,
-                    child: Text('3', style: TextStyle(fontSize: 16.0)),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      globalStore.dispatch(BeginFetchCusInfoAction());
-                      GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressPage);
-                    },
-                    child: ListCell(
-                      title: "地址",
-                      showDivider: true,
-                      child: Text('${model?.selectedAddress?.address ?? ''}', style: TextStyle(fontSize: 16.0)),
+                  Expanded(
+                    child: ListView(
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            globalStore.dispatch(BeginFetchCusInfoAction());
+                            GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressPage);
+                          },
+                          child: ListCell(
+                            title: "地址",
+                            showDivider: true,
+                            child: Text('${model?.selectedAddress?.address ?? ''}', style: TextStyle(fontSize: 16.0)),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
