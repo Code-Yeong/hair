@@ -53,10 +53,12 @@ class ServerApi {
     return res;
   }
 
-  Future<dynamic> editCustomerAddress({String addressId, String newName, String newPhone, String newAddress, String newStatus, String description}) async {
+  Future<dynamic> editCustomerAddress(
+      {String addressId, String cusId, String newName, String newPhone, String newAddress, String newStatus, String description}) async {
     String url = 'users/updateAddress';
     var data = {
       'id': addressId,
+      "cusId": cusId,
       'name': newName,
       'phone': newPhone,
       'address': newAddress,
@@ -65,6 +67,7 @@ class ServerApi {
     };
     print("修改地址请求 request data= $data");
     Response res = await _dio.post(url, data: data);
+    print("修改地址结果:$res");
     return res;
   }
 
@@ -103,13 +106,14 @@ class ServerApi {
   }
 
   //增加订单
-  Future<dynamic> addOrder({String cusId, String barberId, String shopId, String serveTime, num money}) async {
+  Future<dynamic> addOrder({String cusId, String serveName, String barberId, String shopId, String serveTime, num money}) async {
     String url = 'order/addOrder';
     var data = {
       "cusId": cusId,
       "barberId": barberId,
       "shopId": shopId,
       "serveTime": serveTime,
+      "serveName": serveName,
       "money": money,
     };
     print("新增订单 request data= $data");
@@ -133,6 +137,18 @@ class ServerApi {
     }
     var data = {idName: id};
     print("查询订单 request data= $url, data=$data");
+    Response res = await _dio.get(url, queryParameters: data);
+    return res;
+  }
+
+  //查询理发师对应的"所有未完成"订单
+  Future<dynamic> getBarberUnStartOrder({String id, Role role}) async {
+    String url;
+    String idName;
+    url = 'order/getBarberUnStartOrder';
+    idName = "barberId";
+    var data = {idName: id};
+    print("查询理发师所有未完成的订单 request data= $url, data=$data");
     Response res = await _dio.get(url, queryParameters: data);
     return res;
   }

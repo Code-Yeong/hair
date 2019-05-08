@@ -22,7 +22,6 @@ class ShopMiddleware extends MiddlewareClass<AppState> {
       var res = await ServerApi.api.getShopList();
       if (res != null && res?.data['status'] == 100) {
         List<Shop> shopList = Shop.fromObjList(res.data['result']);
-        print(shopList);
         globalStore.dispatch(new ReceivedShopListAction(shopList: shopList));
       } else {
         print('获取商铺信息失败');

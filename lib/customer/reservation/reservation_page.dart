@@ -68,14 +68,17 @@ class ReservationPage extends StatelessWidget {
                       itemCount: viewModel.reservationList?.length,
                       itemBuilder: (context, index) {
                         Reservation reservation = viewModel.reservationList[index];
+
+                        ///这里只传参数，不拼接字符串，需要修改
                         return ReservationItemWidget(
                           avatar: 'assets/images/barber.jpg',
-                          shopName: "店铺:${reservation?.shopId}",
+                          shopName: "店铺:${viewModel.getShopName(reservation?.shopId)}",
                           staffName: "理发师:${reservation?.staffName}",
-                          status: OrderStatus.commenting, //???
+                          status: buildOrderStatusType(int.parse(reservation.status)), //???
                           serviceType: "内容:${reservation?.serviceType}",
-                          createTime: "创建时间:${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
-                          money: 35,
+                          serveName: "内容:${reservation?.serveName}",
+                          createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
+                          money: int.parse(reservation?.money),
                           onTap: () {
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
                           },

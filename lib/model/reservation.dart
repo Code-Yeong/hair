@@ -11,7 +11,7 @@ class Reservation {
   final String barberId;
   final String shopId;
   final String staffName;
-  final String reservationName;
+  final String serveName;
 
   final String status;
   final String serviceType;
@@ -29,7 +29,7 @@ class Reservation {
       this.barberId,
       this.shopId,
       this.staffName,
-      this.reservationName,
+      this.serveName,
       this.status,
       this.serviceType,
       this.money,
@@ -46,7 +46,7 @@ class Reservation {
     String barberId,
     String shopId,
     String staffName,
-    String reservationName,
+    String serveName,
     String status,
     String serviceType,
     String money,
@@ -63,7 +63,7 @@ class Reservation {
       barberId: barberId ?? this.barberId,
       shopId: shopId ?? this.shopId,
       staffName: staffName ?? this.staffName,
-      reservationName: reservationName ?? this.reservationName,
+      serveName: serveName ?? this.serveName,
       status: status ?? this.status,
       serviceType: serviceType ?? this.serviceType,
       money: money ?? this.money,
@@ -86,7 +86,7 @@ class Reservation {
         barberId: item['barberId'] ?? '',
         shopId: item['shopId'] ?? '',
         staffName: item['staffName'] ?? '',
-        reservationName: item['reservationName'] ?? '',
+        serveName: item['serveName'] ?? '',
         status: item['status'].toString() ?? '',
         serviceType: item['serviceType'] ?? '', // ????
         money: item['money'].toString() ?? '',
@@ -98,7 +98,7 @@ class Reservation {
 
   @override
   String toString() {
-    return 'Reservation{rId: $rId, avatar: $avatar, createTime: $createTime, serveTime: $serveTime, finshedTime: $finshedTime, commentTime: $commentTime, cusId: $cusId, barberId: $barberId, shopId: $shopId, staffName: $staffName, reservationName: $reservationName, status: $status, serviceType: $serviceType, money: $money, comment: $comment}';
+    return 'Reservation{rId: $rId, avatar: $avatar, createTime: $createTime, serveTime: $serveTime, finshedTime: $finshedTime, commentTime: $commentTime, cusId: $cusId, barberId: $barberId, shopId: $shopId, staffName: $staffName, serveName: $serveName, status: $status, serviceType: $serviceType, money: $money, comment: $comment}';
   }
 
   @override
@@ -116,7 +116,7 @@ class Reservation {
           barberId == other.barberId &&
           shopId == other.shopId &&
           staffName == other.staffName &&
-          reservationName == other.reservationName &&
+          serveName == other.serveName &&
           status == other.status &&
           serviceType == other.serviceType &&
           money == other.money &&
@@ -134,7 +134,7 @@ class Reservation {
       barberId.hashCode ^
       shopId.hashCode ^
       staffName.hashCode ^
-      reservationName.hashCode ^
+      serveName.hashCode ^
       status.hashCode ^
       serviceType.hashCode ^
       money.hashCode ^

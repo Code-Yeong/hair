@@ -52,6 +52,7 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
     if (action is EditCusAddressInfoAction) {
       var res = await ServerApi.api.editCustomerAddress(
         addressId: action.address?.id,
+        cusId: action.address?.cusId,
         newName: action.address?.name,
         newPhone: action.address?.phone,
         newAddress: action.address?.address,

@@ -25,7 +25,6 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
       var toastMsg;
       if (action.isCustomer) {
         var res = await ServerApi.api.customerSignIn(phone: action.phone, password: action.password);
-        print(res?.data);
         if (res != null && res?.data['status'] == 100) {
           Customer customer = Customer.fromObj(res?.data['result']);
           print("正在登录的 coustomer id=${customer.id}");

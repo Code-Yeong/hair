@@ -12,13 +12,14 @@ final chooseReservationTimeReducers = combineReducers<ChooseReservationTimeState
   new TypedReducer<ChooseReservationTimeState, BeginCommitReservationAction>(_beginCommit),
   new TypedReducer<ChooseReservationTimeState, CommitReservationSuccessAction>(_commitSuccess),
   new TypedReducer<ChooseReservationTimeState, CommitReservationFailedAction>(_commitFailed),
+  new TypedReducer<ChooseReservationTimeState, SetCurrentBarberAction>(_setCurrentBarber),
 ]);
 
 ChooseReservationTimeState _init(ChooseReservationTimeState state, InitChooseReservationAction action) {
   return state.copyWith(
-    selectedTime: '',
+    selectedTime: null,
     commitStatus: CommitStatus.init,
-    timeList: [],
+    orderList: [],
     loadingStatus: LoadingStatus.init,
   );
 }
@@ -30,7 +31,7 @@ ChooseReservationTimeState _loadingData(ChooseReservationTimeState state, BeginF
 ChooseReservationTimeState _receivedData(ChooseReservationTimeState state, ReceivedChooseReservationDataAction action) {
   return state.copyWith(
     loadingStatus: LoadingStatus.success,
-    timeList: action.timeList,
+    orderList: action.orderList,
   );
 }
 
@@ -53,9 +54,19 @@ ChooseReservationTimeState _beginCommit(ChooseReservationTimeState state, BeginC
 }
 
 ChooseReservationTimeState _commitSuccess(ChooseReservationTimeState state, CommitReservationSuccessAction action) {
-  return state.copyWith(commitStatus: CommitStatus.success);
+  return state.copyWith(
+    commitStatus: CommitStatus.success,
+    selectedTime: null,
+  );
 }
 
 ChooseReservationTimeState _commitFailed(ChooseReservationTimeState state, CommitReservationFailedAction action) {
-  return state.copyWith(commitStatus: CommitStatus.failed);
+  return state.copyWith(
+    commitStatus: CommitStatus.failed,
+    selectedTime: null,
+  );
+}
+
+ChooseReservationTimeState _setCurrentBarber(ChooseReservationTimeState state, SetCurrentBarberAction action) {
+  return state.copyWith(currentBarber: action.barber);
 }

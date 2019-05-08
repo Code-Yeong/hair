@@ -40,7 +40,6 @@ ShopState _loadFailedShopDetail(ShopState state, FetchShopDetailFailedAction act
 }
 
 ShopState _selectedShop(ShopState state, SelectedShopAction action) {
-  print("selected:${action.id}");
   return state.copyWith(
     selectedShopId: action.id,
   );

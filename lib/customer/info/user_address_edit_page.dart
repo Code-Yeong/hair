@@ -236,6 +236,7 @@ class UserAddressEditPageState extends State<UserAddressEditPage> {
                       globalStore.dispatch(new EditCusAddressInfoAction(
                           address: Address(
                         id: widget.id,
+                        cusId: globalStore.state.loginState?.customer?.id,
                         status: widget.selected ? '2' : '1',
                         name: _controllerName.text,
                         phone: _controllerPhone.text,

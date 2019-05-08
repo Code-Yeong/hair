@@ -21,12 +21,11 @@ class ReservationMiddleware extends MiddlewareClass<AppState> {
     //获取店铺的订单数量、评分和坐标（计算巨鹿）
     if (action is BeginFetchReservationListAction) {
 //      String reservationId = store.state.reservationState.selectedReservationId;
-      String cusId = store.state.cusInfoState.customer.id;
+      String cusId = store.state.cusInfoState.customer?.id;
       var res = await ServerApi.api.getOrderList(id: cusId, role: Role.customer);
       if (res != null && res?.data['status'] == 100) {
         print("获取订单信息成功，返回订单detail:$res");
         List<Reservation> reservationList = Reservation.fromObjList(res.data['result']);
-        print(reservationList);
         globalStore.dispatch(new ReceivedReservationListAction(reservationList: reservationList));
       } else {
         print('获取订单信息失败');

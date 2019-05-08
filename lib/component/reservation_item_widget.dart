@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
 
@@ -9,13 +10,15 @@ class ReservationItemWidget extends StatelessWidget {
   final String createTime;
   final OrderStatus status;
   final String serviceType;
-  final double money;
+  final String serveName;
+  final num money;
   final VoidCallback onTap;
 
   ReservationItemWidget({
     this.avatar,
     this.staffName,
     this.shopName,
+    this.serveName,
     this.createTime,
     this.status,
     this.money,
@@ -60,7 +63,7 @@ class ReservationItemWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text('$createTime'),
+                        Text('${DateTimeUtils.formatTimeForStr(time: createTime)}'),
                       ],
                     ),
                   ),
@@ -81,13 +84,12 @@ class ReservationItemWidget extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(
-                  left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    '$serviceType',
+                    '$serveName',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,

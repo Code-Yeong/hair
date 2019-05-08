@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/component/one_button.dart';
 import 'package:hair/component/time_item_widget.dart';
 import 'package:hair/customer/choose_reservation_time/choose_reservation_time_view_model.dart';
+import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/redux/store.dart';
@@ -14,6 +15,7 @@ class ChooseReservationTimePage extends StatefulWidget {
 }
 
 class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
+  String selectedItem = "";
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,7 +31,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
           ),
           body: StoreConnector<AppState, ChooseReservationTimeViewModel>(
             onInit: (store) {
-              store.dispatch(new InitChooseReservationAction());
+              store.dispatch(new BeginFetchChooseReservationDataAction(id: store.state.chooseReservationTimeState.currentBarber.id));
             },
             converter: (store) => ChooseReservationTimeViewModel.fromStore(store),
             builder: (context, viewModel) {
@@ -59,7 +61,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                                         ),
                                         Icon(Icons.location_on, color: Colors.red),
                                         Text(
-                                          '北京市海淀区马连洼',
+                                          '${viewModel.defaultAddress}',
                                           style: TextStyle(fontSize: 18.0),
                                         ),
                                         Icon(Icons.arrow_forward_ios),
@@ -73,7 +75,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                                 padding: EdgeInsets.all(10.0),
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  '5月4日 星期三',
+                                  '${DateTimeUtils.today()}',
                                   style: TextStyle(fontSize: 18.0),
                                 ),
                               ),
@@ -98,7 +100,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                                 padding: EdgeInsets.all(10.0),
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  '5月5日 星期三',
+                                  '${DateTimeUtils.nextOneDay()}',
                                   style: TextStyle(fontSize: 18.0),
                                 ),
                               ),
@@ -123,7 +125,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                                 padding: EdgeInsets.all(10.0),
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  '5月6日 星期三',
+                                  '${DateTimeUtils.nextTwoDay()}',
                                   style: TextStyle(fontSize: 18.0),
                                 ),
                               ),
@@ -152,7 +154,20 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                       child: BottomOneButton(
                         title: '下单',
                         disabled: !viewModel.isSelectedTimeItem,
-                        onTap: () {},
+                        onTap: () {
+                          selectedItem = "";
+                          String cusId = globalStore.state.loginState.customer.id;
+                          String barberid = viewModel.currentBarber?.id;
+                          String shopId = globalStore.state.shopState.selectedShopId;
+                          globalStore.dispatch(new BeginCommitReservationAction(
+                            cusId: cusId,
+                            barberId: barberid,
+                            shopId: shopId,
+                            serveTime: viewModel.selectedTime,
+                            money: 35,
+                            serveName: "理发",
+                          ));
+                        },
                       ),
                     )
                   ],
@@ -163,7 +178,23 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
     );
   }
 
-  _selectedTime(String time) {
+  _selectedTime(int block, int timeArea) {
+    if (selectedItem == "" || selectedItem != "$block-$timeArea") {
+      selectedItem = "$block-$timeArea";
+    } else {
+      selectedItem = "";
+    }
+    //block表示第几天的（取值为1，2，3，1：表示今天，2、3以此类推），timerArea:第几个时间段
+    //存储到数据库的时间格式为 xxxxxx-x,
+    String time = "";
+    if (block == 1) {
+      time = "${DateTimeUtils.todayInMillSeconds()}-$timeArea";
+    } else if (block == 2) {
+      time = "${DateTimeUtils.nextOneDayInMillSeconds()}-$timeArea";
+    }
+    if (block == 3) {
+      time = "${DateTimeUtils.nextTwoDayOneDayInMillSeconds()}-$timeArea";
+    }
     globalStore.dispatch(new SelectedTimeItemAction(selectedTime: time));
   }
 
@@ -171,42 +202,57 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
     return <Widget>[
       TimeItemWidget(
         text: '10:00-12:00',
-//        disabled: viewModel.isSelectedTimeItem,
-        selected: viewModel.selectedTime == '$block-10:00-12:09',
+        disabled: viewModel.isReserved(block, 1),
+        selected: selectedItem == '$block-1',
         onTap: () {
-          _selectedTime('$block-10:00-12:09');
+          if (viewModel.isReserved(block, 1)) {
+            return;
+          }
+          _selectedTime(block, 1);
         },
       ),
       TimeItemWidget(
         text: '12:00-14:00',
-//        disabled: viewModel.isSelectedTimeItem,
-        selected: viewModel.selectedTime == '$block-12:00-14:00',
+        disabled: viewModel.isReserved(block, 2),
+        selected: selectedItem == '$block-2',
         onTap: () {
-          _selectedTime('$block-12:00-14:00');
+          if (viewModel.isReserved(block, 1)) {
+            return;
+          }
+          _selectedTime(block, 2);
         },
       ),
       TimeItemWidget(
         text: '14:00-16:00',
-//        disabled: viewModel.isSelectedTimeItem,
-        selected: viewModel.selectedTime == '$block-14:00-16:00',
+        disabled: viewModel.isReserved(block, 3),
+        selected: selectedItem == '$block-3',
         onTap: () {
-          _selectedTime('$block-14:00-16:00');
+          if (viewModel.isReserved(block, 1)) {
+            return;
+          }
+          _selectedTime(block, 3);
         },
       ),
       TimeItemWidget(
         text: '16:00-18:00',
-//        disabled: viewModel.isSelectedTimeItem,
-        selected: viewModel.selectedTime == '$block-16:00-18:00',
+        disabled: viewModel.isReserved(block, 4),
+        selected: selectedItem == '$block-4',
         onTap: () {
-          _selectedTime('$block-16:00-18:00');
+          if (viewModel.isReserved(block, 1)) {
+            return;
+          }
+          _selectedTime(block, 4);
         },
       ),
       TimeItemWidget(
         text: '18:00-20:00',
-//        disabled: viewModel.isSelectedTimeItem,
-        selected: viewModel.selectedTime == '$block-18:00-20:00',
+        disabled: viewModel.isReserved(block, 5),
+        selected: selectedItem == '$block-5',
         onTap: () {
-          _selectedTime('$block-18:00-20:00');
+          if (viewModel.isReserved(block, 1)) {
+            return;
+          }
+          _selectedTime(block, 5);
         },
       ),
     ];

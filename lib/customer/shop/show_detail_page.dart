@@ -7,7 +7,9 @@ import 'package:hair/customer/shop/shop_list_page_view_model.dart';
 import 'package:hair/model/Barber.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
+import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/redux/shop/shop_action.dart';
+import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class ShopDetailPage extends StatelessWidget {
@@ -27,7 +29,6 @@ class ShopDetailPage extends StatelessWidget {
           builder: (context, model) {
 //            print('selectedShop:${model.selectedShop.toString()}');
             Shop shop = model.selectedShop;
-            print('${shop?.barberList}');
             return Container(
               color: CommonColors.bgGray,
               child: Stack(
@@ -86,6 +87,7 @@ class ShopDetailPage extends StatelessWidget {
                                   score: barber?.score,
                                   orderCount: barber?.orderCount,
                                   onTap: () {
+                                    globalStore.dispatch(new SetCurrentBarberAction(barber: barber));
                                     GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
                                   },
                                 ),

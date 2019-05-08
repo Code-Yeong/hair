@@ -9,7 +9,6 @@ final loginReducer = combineReducers<LoginState>([
 ]);
 
 LoginState _beginLogin(LoginState state, BeginLoginAction action) {
-  print("BeginLoginAction:BeginLoginAction");
   return state.copyWith(loginStatus: LoginStatus.loading);
 }
 

@@ -1,5 +1,6 @@
 class Address {
   final String id;
+  final String cusId;
   final String name;
   final String phone;
   final String address;
@@ -7,10 +8,11 @@ class Address {
   final String modifyTime;
   final String description;
 
-  Address({this.id, this.name, this.phone, this.address, this.status, this.modifyTime, this.description});
+  Address({this.id, this.cusId, this.name, this.phone, this.address, this.status, this.modifyTime, this.description});
   factory Address.fromObj(obj) {
     return Address(
       id: obj['id'].toString() ?? '',
+      cusId: obj['cusId'].toString() ?? '',
       description: obj['description'].toString() ?? '',
       name: obj['name'].toString() ?? '',
       phone: obj['phone'].toString() ?? '',
@@ -26,6 +28,7 @@ class Address {
     for (var item in obj) {
       list.add(Address(
         id: item['id'].toString() ?? '',
+        cusId: item['cusId'].toString() ?? '',
         description: item['description'].toString() ?? '',
         name: item['name'].toString() ?? '',
         phone: item['phone'].toString() ?? '',
@@ -39,7 +42,7 @@ class Address {
 
   @override
   String toString() {
-    return 'Address{id: $id, description: $description, name: $name, phone: $phone, address: $address, status: $status, midifyTime: $modifyTime}';
+    return 'Address{id: $id,cusId: $cusId, description: $description, name: $name, phone: $phone, address: $address, status: $status, midifyTime: $modifyTime}';
   }
 
   @override
@@ -48,6 +51,7 @@ class Address {
       other is Address &&
           runtimeType == other.runtimeType &&
           id == other.id &&
+          cusId == other.cusId &&
           description == other.description &&
           name == other.name &&
           phone == other.phone &&
@@ -56,5 +60,6 @@ class Address {
           modifyTime == other.modifyTime;
 
   @override
-  int get hashCode => id.hashCode ^ description.hashCode ^ name.hashCode ^ phone.hashCode ^ address.hashCode ^ status.hashCode ^ modifyTime.hashCode;
+  int get hashCode =>
+      id.hashCode ^ cusId.hashCode ^ description.hashCode ^ name.hashCode ^ phone.hashCode ^ address.hashCode ^ status.hashCode ^ modifyTime.hashCode;
 }
