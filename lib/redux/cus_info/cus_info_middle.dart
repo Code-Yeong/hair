@@ -59,10 +59,21 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
         description: action.address?.description,
       );
       print("网络请求修改地址 response:${res?.data}");
-      if (res != null && res?.data['result'] == 'ok') {
+      if (res != null && res?.data['status'] == 100) {
         globalStore.dispatch(new CusAddressChangedAction());
       } else {
         print('地址修改失败');
+      }
+    }
+    if (action is RemoveCusAddressInfoAction) {
+      var res = await ServerApi.api.removeCustomerAddress(
+        addressId: action.addressId,
+      );
+      print("网络请求修改地址 response:${res?.data}");
+      if (res != null && res?.data['status'] == 100) {
+        globalStore.dispatch(new CusAddressChangedAction());
+      } else {
+        print('地址删除失败');
       }
     }
   }

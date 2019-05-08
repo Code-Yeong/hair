@@ -43,3 +43,8 @@ class AddCusAddressInfoAction {
   final Address address;
   AddCusAddressInfoAction({this.address});
 }
+
+class RemoveCusAddressInfoAction {
+  final String addressId;
+  RemoveCusAddressInfoAction({this.addressId});
+}

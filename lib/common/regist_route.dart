@@ -12,6 +12,7 @@ import 'package:hair/customer/choose_reservation_time/choose_reservation_time_pa
 import 'package:hair/customer/customer_home_page.dart';
 import 'package:hair/customer/info/user_address_edit_page.dart';
 import 'package:hair/customer/info/user_address_page.dart';
+import 'package:hair/customer/reservation/reservation_detail_page.dart';
 import 'package:hair/customer/shop/show_detail_page.dart';
 import 'package:hair/staff/staff_home_page.dart';
 
@@ -41,6 +42,7 @@ class CustomerRoute {
   static const String chooseReservationTimePage = 'chooseReservationTimePage';
   static const String userAddressPage = 'userAddressPage';
   static const String userAddressEditPage = 'userAddressEditPage';
+  static const String reservationDetailPage = 'reservationDetailPage';
   static void registerPageRoute() {
     GlobalNavigator.shared.registerPageRoutes({
       shopDetailPage: (context) => ShopDetailPage(),
@@ -48,7 +50,8 @@ class CustomerRoute {
       showShopDetailPage: (_) => ShopDetailPage(),
       chooseReservationTimePage: (_) => ChooseReservationTimePage(),
       userAddressPage: (_) => UserAddressPage(),
-      userAddressEditPage: (_) => UserAddressEditPage(status: '1'),
+      userAddressEditPage: (_) => UserAddressEditPage(addPage: true),
+      reservationDetailPage: (_) => ReservationDetailPage(),
     });
   }
 }

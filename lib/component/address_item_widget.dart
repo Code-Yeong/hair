@@ -66,11 +66,13 @@ class AddressItemWidget extends StatelessWidget {
       context,
       CupertinoPageRoute(
         builder: (context) => UserAddressEditPage(
+              addPage: false,
               id: id,
               status: selected ? '2' : '1', //???
               name: username,
               phone: phone,
               address: address,
+              selected: selected,
             ),
       ),
     );

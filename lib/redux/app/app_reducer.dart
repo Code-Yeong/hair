@@ -1,6 +1,7 @@
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_reducer.dart';
 import 'package:hair/redux/cus_info/cus_info_reducer.dart';
+import 'package:hair/redux/cus_reservation/reservation_reducer.dart';
 import 'package:hair/redux/login/login_reducer.dart';
 import 'package:hair/redux/shop/shop_reducer.dart';
 
@@ -10,5 +11,6 @@ AppState appReducer(AppState state, dynamic action) {
     chooseReservationTimeState: chooseReservationTimeReducers(state.chooseReservationTimeState, action),
     cusInfoState: cusInfoReducers(state.cusInfoState, action),
     shopState: shopReducers(state.shopState, action),
+    reservationState: reservationReducers(state.reservationState, action),
   );
 }

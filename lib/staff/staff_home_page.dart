@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hair/customer/info/user_info_page.dart';
-import 'package:hair/customer/reservation_page.dart';
+import 'package:hair/customer/reservation/reservation_page.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class StaffHomePage extends StatelessWidget {

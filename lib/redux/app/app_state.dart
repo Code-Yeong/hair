@@ -1,6 +1,7 @@
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_state.dart';
 import 'package:hair/redux/cus_info/cus_info_state.dart';
+import 'package:hair/redux/cus_reservation/reservation_state.dart';
 import 'package:hair/redux/login/login_state.dart';
 import 'package:hair/redux/shop/shop_state.dart';
 
@@ -11,6 +12,7 @@ class AppState {
     this.globalNavigator,
     this.cusInfoState,
     this.shopState,
+    this.reservationState,
   });
 
   final LoginState loginState;
@@ -18,6 +20,7 @@ class AppState {
   final CusInfoState cusInfoState;
   final GlobalNavigator globalNavigator;
   final ShopState shopState;
+  final ReservationState reservationState;
 
   factory AppState.initial() {
     print("initiate state");
@@ -27,6 +30,7 @@ class AppState {
       globalNavigator: GlobalNavigator.shared,
       cusInfoState: new CusInfoState.initial(),
       shopState: new ShopState.initial(),
+      reservationState: new ReservationState.initial(),
     );
   }
 }

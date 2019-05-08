@@ -68,6 +68,16 @@ class ServerApi {
     return res;
   }
 
+  Future<dynamic> removeCustomerAddress({String addressId}) async {
+    String url = 'users/deleteAddress';
+    var data = {
+      'id': addressId,
+    };
+    print("删除地址请求 request data= $data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
+
   Future<dynamic> getCustomerAddress({String cusId}) async {
     String url = 'users/getAllAddress';
     var data = {'id': cusId};
