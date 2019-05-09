@@ -15,6 +15,8 @@ import 'package:hair/customer/info/user_address_page.dart';
 import 'package:hair/customer/reservation/reservation_detail_page.dart';
 import 'package:hair/customer/shop/show_detail_page.dart';
 import 'package:hair/staff/staff_home_page.dart';
+import 'package:hair/staff/staff_info_page.dart';
+import 'package:hair/staff/staff_reservation_page.dart';
 
 void registerRoutes() {
   MainRoute.registerPageRoute();
@@ -59,9 +61,13 @@ class CustomerRoute {
 ///'理发师'页面
 class StaffRoute {
   static const String staffHomePage = 'staffHomePage';
+  static const String staffReservationPage = 'staffReservationPage';
+  static const String staffInfoPage = 'staffInfoPage';
   static void registerPageRoute() {
     GlobalNavigator.shared.registerPageRoutes({
       staffHomePage: (_) => StaffHomePage(),
+      staffReservationPage: (_) => StaffReservationPage(),
+      staffInfoPage: (_) => StaffInfoPage(),
     });
   }
 }

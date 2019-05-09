@@ -89,6 +89,7 @@ class ServerApi {
     return res;
   }
 
+//============================================================================
   Future<dynamic> getShopList() async {
     String url = 'shop/getAllShop';
     Response res = await _dio.get(url);
@@ -105,6 +106,7 @@ class ServerApi {
     return res;
   }
 
+//============================================================================
   //增加订单
   Future<dynamic> addOrder({String cusId, String serveName, String barberId, String shopId, String serveTime, num money}) async {
     String url = 'order/addOrder';

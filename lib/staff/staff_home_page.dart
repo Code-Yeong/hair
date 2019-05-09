@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hair/customer/info/user_info_page.dart';
-import 'package:hair/customer/reservation/reservation_page.dart';
+import 'package:hair/staff/staff_info_page.dart';
+import 'package:hair/staff/staff_reservation_page.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class StaffHomePage extends StatelessWidget {
@@ -13,14 +13,14 @@ class StaffHomePage extends StatelessWidget {
             Container(
               height: 200.0,
               key: PageStorageKey("page1"),
-              child: ReservationPage(),
+              child: StaffReservationPage(),
             ),
             Container(
               key: PageStorageKey("page2"),
-              child: UserInfoPage(),
+              child: StaffInfoPage(),
             ),
           ]),
-          backgroundColor: CommonColors.bgGray,
+          backgroundColor: Colors.blueGrey,
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
               border: Border(
@@ -28,8 +28,8 @@ class StaffHomePage extends StatelessWidget {
               ),
             ),
             child: TabBar(
-              unselectedLabelColor: Colors.grey.withOpacity(0.7),
-              labelColor: Colors.grey,
+              unselectedLabelColor: Colors.white70,
+              labelColor: Colors.white,
               onTap: (index) {
                 print("index:$index");
               },
