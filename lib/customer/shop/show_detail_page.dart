@@ -5,7 +5,7 @@ import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/empty_widget.dart';
 import 'package:hair/component/stars_widget.dart';
 import 'package:hair/customer/shop/shop_list_page_view_model.dart';
-import 'package:hair/model/Barber.dart';
+import 'package:hair/model/barber.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';

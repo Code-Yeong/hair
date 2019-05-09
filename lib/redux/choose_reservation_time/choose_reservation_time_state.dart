@@ -1,4 +1,4 @@
-import 'package:hair/model/Barber.dart';
+import 'package:hair/model/barber.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/utils/enum.dart';

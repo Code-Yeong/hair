@@ -1,4 +1,4 @@
-import 'package:hair/model/Barber.dart';
+import 'package:hair/model/barber.dart';
 
 class Shop {
   final String id;

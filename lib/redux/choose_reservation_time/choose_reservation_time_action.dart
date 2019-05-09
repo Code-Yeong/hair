@@ -1,4 +1,4 @@
-import 'package:hair/model/Barber.dart';
+import 'package:hair/model/barber.dart';
 import 'package:hair/model/reservation.dart';
 
 enum CommitStatus {
