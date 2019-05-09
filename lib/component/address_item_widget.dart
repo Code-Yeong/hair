@@ -31,33 +31,53 @@ class AddressItemWidget extends StatelessWidget {
       ),
       padding: EdgeInsets.only(bottom: 5.0),
       child: ListTile(
-        title: Row(children: <Widget>[
-          Text(
-            username + ' ',
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              color: selected ? Colors.white : Colors.black,
+          title: Row(children: <Widget>[
+            Text(
+              username + ' ',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: selected ? Colors.white : Colors.black,
+              ),
             ),
-          ),
-          Text(
-            phone,
-            style: TextStyle(
-              color: selected ? Colors.white : Colors.black,
+            Text(
+              phone,
+              style: TextStyle(
+                color: selected ? Colors.white : Colors.black,
+              ),
             ),
+          ]),
+          subtitle: Text(
+            address,
+            style: TextStyle(color: selected ? Colors.white : Colors.grey),
           ),
-        ]),
-        subtitle: Text(
-          address,
-          style: TextStyle(color: selected ? Colors.white : Colors.grey),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.edit),
-          onPressed: () {
-            _pushAddressEidtor(id, context);
-          },
-        ),
-      ),
+          trailing: Container(
+            width: 100.0,
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  iconSize: 30.0,
+                  icon: Icon(
+                    Icons.delete_outline,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+//                    _deleteAddress(id, context);
+                  },
+                ),
+                IconButton(
+                  iconSize: 30.0,
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.blueAccent,
+                  ),
+                  onPressed: () {
+                    _pushAddressEidtor(id, context);
+                  },
+                ),
+              ],
+            ),
+          )),
     );
   }
 

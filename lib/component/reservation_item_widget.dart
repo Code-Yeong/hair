@@ -45,7 +45,7 @@ class ReservationItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundImage: AssetImage('$avatar'),
+                    backgroundImage: NetworkImage('$avatar'),
                     radius: 25.0,
                   ),
                   SizedBox(

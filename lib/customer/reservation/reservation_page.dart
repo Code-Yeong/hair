@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
+import 'package:hair/component/empty_widget.dart';
 import 'package:hair/component/reservation_item_widget.dart';
 import 'package:hair/customer/reservation/reservation_page_view_model.dart';
 import 'package:hair/model/reservation.dart';
@@ -65,6 +66,11 @@ class ReservationPage extends StatelessWidget {
                   converter: (store) => ReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
 //                    return Container(
+                    if (viewModel.reservationList?.length == 0) {
+                      return EmptyWidget(
+                        text: "没有订单哦",
+                      );
+                    }
                     return ListView.separated(
                       itemCount: viewModel.reservationList?.length,
                       itemBuilder: (context, index) {
@@ -72,12 +78,12 @@ class ReservationPage extends StatelessWidget {
 
                         ///这里只传参数，不拼接字符串，需要修改
                         return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
-                          status: buildOrderStatusType(int.parse(reservation.status)),
-                          serviceType: "${reservation?.serviceType}",
-                          serveName: "${reservation?.serveName}",
+                          avatar: reservation?.avatar,
+                          shopName: viewModel.getShopName(reservation?.shopId),
+                          staffName: reservation?.staffName,
+                          status: buildOrderStatusType(int.parse(reservation.status)), //???
+                          serviceType: "内容:${reservation?.serviceType}",
+                          serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
                           onTap: () {
@@ -101,19 +107,22 @@ class ReservationPage extends StatelessWidget {
                   converter: (store) => ReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
                     List<Reservation> reservationList = viewModel.getCommentingList();
+                    if (reservationList.length == 0) {
+                      return EmptyWidget(
+                        text: "没有订单哦",
+                      );
+                    }
                     return ListView.separated(
                       itemCount: reservationList?.length,
                       itemBuilder: (context, index) {
                         Reservation reservation = reservationList[index];
-
-                        ///这里只传参数，不拼接字符串，需要修改
                         return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
-                          status: buildOrderStatusType(int.parse(reservation.status)),
-                          serviceType: "${reservation?.serviceType}",
-                          serveName: "${reservation?.serveName}",
+                          avatar: reservation?.avatar,
+                          shopName: viewModel.getShopName(reservation?.shopId),
+                          staffName: reservation?.staffName,
+                          status: buildOrderStatusType(int.parse(reservation.status)), //???
+                          serviceType: "内容:${reservation?.serviceType}",
+                          serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
                           onTap: () {
@@ -138,19 +147,22 @@ class ReservationPage extends StatelessWidget {
                   converter: (store) => ReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
                     List<Reservation> reservationList = viewModel.getCanceledList();
+                    if (reservationList?.length == null || reservationList?.length == 0) {
+                      return EmptyWidget(
+                        text: "没有订单哦",
+                      );
+                    }
                     return ListView.separated(
-                      itemCount: reservationList?.length,
+                      itemCount: reservationList?.length ?? 0,
                       itemBuilder: (context, index) {
                         Reservation reservation = reservationList[index];
-
-                        ///这里只传参数，不拼接字符串，需要修改
                         return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
-                          status: buildOrderStatusType(int.parse(reservation.status)),
-                          serviceType: "${reservation?.serviceType}",
-                          serveName: "${reservation?.serveName}",
+                          avatar: reservation?.avatar,
+                          shopName: viewModel.getShopName(reservation?.shopId),
+                          staffName: reservation?.staffName,
+                          status: buildOrderStatusType(int.parse(reservation.status)), //???
+                          serviceType: "内容:${reservation?.serviceType}",
+                          serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
                           onTap: () {
