@@ -72,12 +72,12 @@ class ReservationPage extends StatelessWidget {
 
                         ///这里只传参数，不拼接字符串，需要修改
                         return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
-                          status: buildOrderStatusType(int.parse(reservation.status)),
-                          serviceType: "${reservation?.serviceType}",
-                          serveName: "${reservation?.serveName}",
+                          avatar: reservation?.avatar,
+                          shopName: viewModel.getShopName(reservation?.shopId),
+                          staffName: reservation?.staffName,
+                          status: buildOrderStatusType(int.parse(reservation.status)), //???
+                          serviceType: "内容:${reservation?.serviceType}",
+                          serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
                           onTap: () {
@@ -105,15 +105,13 @@ class ReservationPage extends StatelessWidget {
                       itemCount: reservationList?.length,
                       itemBuilder: (context, index) {
                         Reservation reservation = reservationList[index];
-
-                        ///这里只传参数，不拼接字符串，需要修改
                         return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
-                          status: buildOrderStatusType(int.parse(reservation.status)),
-                          serviceType: "${reservation?.serviceType}",
-                          serveName: "${reservation?.serveName}",
+                          avatar: reservation?.avatar,
+                          shopName: viewModel.getShopName(reservation?.shopId),
+                          staffName: reservation?.staffName,
+                          status: buildOrderStatusType(int.parse(reservation.status)), //???
+                          serviceType: "内容:${reservation?.serviceType}",
+                          serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
                           onTap: () {
@@ -143,14 +141,13 @@ class ReservationPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         Reservation reservation = reservationList[index];
 
-                        ///这里只传参数，不拼接字符串，需要修改
                         return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
-                          status: buildOrderStatusType(int.parse(reservation.status)),
-                          serviceType: "${reservation?.serviceType}",
-                          serveName: "${reservation?.serveName}",
+                          avatar: reservation?.avatar,
+                          shopName: viewModel.getShopName(reservation?.shopId),
+                          staffName: reservation?.staffName,
+                          status: buildOrderStatusType(int.parse(reservation.status)), //???
+                          serviceType: "内容:${reservation?.serviceType}",
+                          serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
                           onTap: () {

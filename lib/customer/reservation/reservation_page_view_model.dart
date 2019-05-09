@@ -26,7 +26,7 @@ class ReservationPageViewModel {
 
   List<Reservation> getCommentingList() {
     if (this.reservationList.length <= 0) {
-      return null;
+      return [];
     }
     List<Reservation> list = this.reservationList.where((reservation) => reservation.status == '3').toList();
     return list;

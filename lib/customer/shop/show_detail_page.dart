@@ -183,10 +183,10 @@ class BarberItem extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Text("$name", style: TextStyle(fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Text("$orderCount单", style: TextStyle(fontSize: 17.0, color: Colors.grey)),
+//                      SizedBox(
+//                        width: 10.0,
+//                      ),
+//                      Text("$orderCount单", style: TextStyle(fontSize: 17.0, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(
