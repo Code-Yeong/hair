@@ -13,6 +13,7 @@ final chooseReservationTimeReducers = combineReducers<ChooseReservationTimeState
   new TypedReducer<ChooseReservationTimeState, CommitReservationSuccessAction>(_commitSuccess),
   new TypedReducer<ChooseReservationTimeState, CommitReservationFailedAction>(_commitFailed),
   new TypedReducer<ChooseReservationTimeState, SetCurrentBarberAction>(_setCurrentBarber),
+  new TypedReducer<ChooseReservationTimeState, SetAddressAction>(_setAddressOnTap),
 ]);
 
 ChooseReservationTimeState _init(ChooseReservationTimeState state, InitChooseReservationAction action) {
@@ -69,4 +70,8 @@ ChooseReservationTimeState _commitFailed(ChooseReservationTimeState state, Commi
 
 ChooseReservationTimeState _setCurrentBarber(ChooseReservationTimeState state, SetCurrentBarberAction action) {
   return state.copyWith(currentBarber: action.barber);
+}
+
+ChooseReservationTimeState _setAddressOnTap(ChooseReservationTimeState state, SetAddressAction action) {
+  return state.copyWith(enableOnTapPop: action.enableOnTapPop);
 }

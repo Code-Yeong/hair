@@ -27,6 +27,7 @@ class EditCusPhoneInfoAction {
   EditCusPhoneInfoAction({this.phone});
 }
 
+// ------------------ Address ------------------------------
 class EditCusAddressInfoAction {
   final Address address;
   EditCusAddressInfoAction({this.address});

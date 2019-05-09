@@ -7,6 +7,9 @@ import 'package:hair/component/one_button.dart';
 import 'package:hair/customer/info/user_info_page_view_model.dart';
 import 'package:hair/model/address.dart';
 import 'package:hair/redux/app/app_state.dart';
+import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
+import 'package:hair/redux/cus_info/cus_info_action.dart';
+import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class UserAddressPage extends StatefulWidget {
@@ -41,13 +44,30 @@ class UserAddressPageState extends State<UserAddressPage> {
                     itemCount: model?.addressList?.length,
                     itemBuilder: (context, index) {
                       Address addr = model?.addressList[index];
-                      return AddressItemWidget(
-                        id: addr?.id,
-                        username: addr?.name,
-                        phone: addr?.phone,
-                        address: addr?.address,
-                        selected: addr?.status == '2',
-                        onTap: (index) {},
+                      return GestureDetector(
+                        onTap: () {
+                          print("快来看看！enableOnTapPop${globalStore.state.chooseReservationTimeState.enableOnTapPop}");
+                          if (globalStore.state.chooseReservationTimeState.enableOnTapPop) {
+                            globalStore.dispatch(EditCusAddressInfoAction(
+                                address: Address(
+                              id: addr?.id,
+                              cusId: globalStore.state.loginState?.customer?.id,
+                              status: '2',
+                              name: addr?.name,
+                              phone: addr?.phone,
+                              address: addr?.address,
+                              description: addr?.description,
+                            )));
+                            globalStore.dispatch(SetAddressAction(enableOnTapPop: false));
+                          }
+                        },
+                        child: AddressItemWidget(
+                          id: addr?.id,
+                          username: addr?.name,
+                          phone: addr?.phone,
+                          address: addr?.address,
+                          selected: addr?.status == '2',
+                        ),
                       );
                     },
                     separatorBuilder: (context, index) {

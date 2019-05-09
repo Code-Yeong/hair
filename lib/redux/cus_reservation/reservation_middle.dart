@@ -18,9 +18,7 @@ class ReservationMiddleware extends MiddlewareClass<AppState> {
   void call(Store<AppState> store, dynamic action, NextDispatcher next) async {
     next(action);
 
-    //获取店铺的订单数量、评分和坐标（计算巨鹿）
     if (action is BeginFetchReservationListAction) {
-//      String reservationId = store.state.reservationState.selectedReservationId;
       String cusId = store.state.cusInfoState.customer?.id;
       var res = await ServerApi.api.getOrderList(id: cusId, role: Role.customer);
       if (res != null && res?.data['status'] == 100) {

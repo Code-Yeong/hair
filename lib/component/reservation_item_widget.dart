@@ -96,7 +96,7 @@ class ReservationItemWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '¥$money元',
+                    '¥$money 元',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,

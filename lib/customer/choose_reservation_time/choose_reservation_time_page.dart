@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:hair/common/global_navigator.dart';
+import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/one_button.dart';
 import 'package:hair/component/time_item_widget.dart';
 import 'package:hair/customer/choose_reservation_time/choose_reservation_time_view_model.dart';
@@ -46,6 +48,8 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                               child: GestureDetector(
                                 onTap: () {
                                   print("未实现");
+                                  globalStore.dispatch(SetAddressAction(enableOnTapPop: true));
+                                  GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressPage);
                                 },
                                 child: Container(
                                     color: CommonColors.textGray.withOpacity(0.1),

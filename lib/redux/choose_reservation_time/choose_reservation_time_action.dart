@@ -50,6 +50,11 @@ class BeginCommitReservationAction {
   });
 }
 
+class SetAddressAction {
+  final bool enableOnTapPop; // 使 Address Page 中 address item 点击函数生效
+  SetAddressAction({this.enableOnTapPop});
+}
+
 class CommitReservationSuccessAction {}
 
 class CommitReservationFailedAction {}

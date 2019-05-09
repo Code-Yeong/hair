@@ -10,6 +10,7 @@ final cusInfoReducers = combineReducers<CusInfoState>([
   new TypedReducer<CusInfoState, ReceivedCusInfoAction>(_received),
   new TypedReducer<CusInfoState, CusInfoLoadingErrorAction>(_errorLoading),
   new TypedReducer<CusInfoState, ReceivedAddressListAction>(_receivedAddressList),
+//  new TypedReducer<CusInfoState, SelectNewAddressAction>(_editCusSelectedAddress), // 未改数据库
 //  new TypedReducer<CusInfoState, EditCusGenderInfoAction>(_editCusGender),
 //  new TypedReducer<CusInfoState, EditCusPhoneInfoAction>(_editCusPhone),
 //  new TypedReducer<CusInfoState, EditCusAddressInfoAction>(_editCusAddress),
@@ -47,6 +48,13 @@ CusInfoState _receivedAddressList(CusInfoState state, ReceivedAddressListAction 
     customer: state.customer?.copyWith(addrList: action.addressList),
   );
 }
+
+//CusInfoState _editCusSelectedAddress(CusInfoState state, SelectNewAddressAction action) {
+//  return state.copyWith(
+//    selectedAddress: Address(id: action.addressId, address: action.address),
+//  );
+//}
+
 //CusInfoState _editCusName(CusInfoState state, EditCusNameInfoAction action) {
 //  return state.copyWith(
 //

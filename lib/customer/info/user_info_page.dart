@@ -75,7 +75,7 @@ class UserInfoPage extends StatelessWidget {
                             GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressPage);
                           },
                           child: ListCell(
-                            title: "地址",
+                            title: "地址管理",
                             showDivider: true,
                             child: Text('${model?.selectedAddress?.address ?? ''}', style: TextStyle(fontSize: 16.0)),
                           ),

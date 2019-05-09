@@ -7,7 +7,7 @@ final reservationReducers = combineReducers<ReservationState>([
   new TypedReducer<ReservationState, ReceivedReservationListAction>(_receivedReservationList),
 //  new TypedReducer<ReservationState, ReceivedReservationDetailAction>(_receivedReservationDetail),
 //  new TypedReducer<ReservationState, FetchReservationDetailFailedAction>(_loadFailedReservationDetail),
-//  new TypedReducer<ReservationState, SelectedReservationAction>(_selectedReservation),
+  new TypedReducer<ReservationState, SelectedReservationAction>(_selectedReservation),
 ]);
 
 ReservationState _receivedReservationList(ReservationState state, ReceivedReservationListAction action) {
@@ -38,9 +38,9 @@ ReservationState _receivedReservationList(ReservationState state, ReceivedReserv
 //  );
 //}
 //
-//ReservationState _selectedReservation(ReservationState state, SelectedReservationAction action) {
-//  print("selected:${action.id}");
-//  return state.copyWith(
-//    selectedReservationId: action.id,
-//  );
-//}
+ReservationState _selectedReservation(ReservationState state, SelectedReservationAction action) {
+  print("selected:${action.rId}");
+  return state.copyWith(
+    selectedReservationId: action.rId,
+  );
+}

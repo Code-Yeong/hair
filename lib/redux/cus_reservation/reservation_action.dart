@@ -9,11 +9,11 @@ class ReceivedReservationListAction {
 //要获取所有订单列表时发出
 class BeginFetchReservationListAction {}
 
-//要获取某个订单详细信息时调用
-class BeginFetchReservationDetailAction {
-  String reservationId;
-  BeginFetchReservationDetailAction({this.reservationId});
-}
+////要获取某个订单详细信息时调用
+//class BeginFetchReservationDetailAction {
+//  String reservationId;
+//  BeginFetchReservationDetailAction({this.reservationId});
+//}
 
 //获取到了某个订单详细信息时发出
 class ReceivedReservationDetailAction {
