@@ -1,6 +1,6 @@
 import 'package:hair/customer/reservation/time_zone.dart';
-import 'package:hair/model/barber.dart';
 import 'package:hair/model/address.dart';
+import 'package:hair/model/barber.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
