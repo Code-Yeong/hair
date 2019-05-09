@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
+import 'package:hair/component/empty_widget.dart';
 import 'package:hair/customer/shop/shop_list_page_view_model.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
@@ -36,24 +37,28 @@ class ShopListPage extends StatelessWidget {
                   ),
                   SizedBox(height: 20.0),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: viewModel.shopList.length,
-                      itemBuilder: (context, index) {
-                        Shop shop = viewModel.shopList[index];
-                        return Container(
-                          margin: EdgeInsets.only(bottom: 20.0),
-                          child: ShopItem(
-                            showName: "${shop.name}",
-                            picture: "${shop.avatar}",
-                            status: shop.status,
-                            onTap: () {
-                              globalStore.dispatch(new SelectedShopAction(id: shop?.id));
-                              GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
+                    child: viewModel.shopList?.length == 0
+                        ? EmptyWidget(
+                            text: "店铺空空如也",
+                          )
+                        : ListView.builder(
+                            itemCount: viewModel.shopList.length,
+                            itemBuilder: (context, index) {
+                              Shop shop = viewModel.shopList[index];
+                              return Container(
+                                margin: EdgeInsets.only(bottom: 20.0),
+                                child: ShopItem(
+                                  showName: "${shop.name}",
+                                  picture: "${shop.avatar}",
+                                  status: shop.status,
+                                  onTap: () {
+                                    globalStore.dispatch(new SelectedShopAction(id: shop?.id));
+                                    GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
+                                  },
+                                ),
+                              );
                             },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ],
               ),

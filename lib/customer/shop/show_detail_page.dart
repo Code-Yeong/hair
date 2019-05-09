@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
+import 'package:hair/component/empty_widget.dart';
 import 'package:hair/component/stars_widget.dart';
 import 'package:hair/customer/shop/shop_list_page_view_model.dart';
 import 'package:hair/model/Barber.dart';
@@ -38,7 +39,7 @@ class ShopDetailPage extends StatelessWidget {
                       Container(
 //                  height: 150.0,
                         color: Colors.grey,
-                        child: Image.network(model.selectedShop?.avatar),
+                        child: Image.network(model.selectedShop?.avatar ?? ""),
                       ),
                       Container(
                         child: Column(
@@ -73,28 +74,32 @@ class ShopDetailPage extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                          child: ListView.builder(
-                            itemCount: shop.barberList.length,
-                            itemBuilder: (_, index) {
-                              Barber barber = shop.barberList[index];
-                              return Container(
-                                margin: EdgeInsets.only(bottom: 20.0),
-                                child: BarberItem(
-                                  avatar: barber?.avatar,
-                                  name: barber?.name,
-                                  score: barber?.score,
-                                  orderCount: barber?.orderCount,
-                                  onTap: () {
-                                    globalStore.dispatch(new SetCurrentBarberAction(barber: barber));
-                                    GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
+                        child: shop?.barberList?.length == 0
+                            ? EmptyWidget(
+                                text: "员工都离开了",
+                              )
+                            : Container(
+                                padding: EdgeInsets.only(left: 12.0, right: 12.0),
+                                child: ListView.builder(
+                                  itemCount: shop?.barberList?.length ?? 0,
+                                  itemBuilder: (_, index) {
+                                    Barber barber = shop.barberList[index];
+                                    return Container(
+                                      margin: EdgeInsets.only(bottom: 20.0),
+                                      child: BarberItem(
+                                        avatar: barber?.avatar,
+                                        name: barber?.name,
+                                        score: barber?.score,
+                                        orderCount: barber?.orderCount,
+                                        onTap: () {
+                                          globalStore.dispatch(new SetCurrentBarberAction(barber: barber));
+                                          GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
+                                        },
+                                      ),
+                                    );
                                   },
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              ),
                       ),
                       Container(
                         height: 70.0,

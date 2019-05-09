@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
+import 'package:hair/component/empty_widget.dart';
 import 'package:hair/component/reservation_item_widget.dart';
 import 'package:hair/customer/reservation/reservation_page_view_model.dart';
 import 'package:hair/model/reservation.dart';
@@ -65,6 +66,11 @@ class ReservationPage extends StatelessWidget {
                   converter: (store) => ReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
 //                    return Container(
+                    if (viewModel.reservationList?.length == 0) {
+                      return EmptyWidget(
+                        text: "没有订单哦",
+                      );
+                    }
                     return ListView.separated(
                       itemCount: viewModel.reservationList?.length,
                       itemBuilder: (context, index) {
@@ -101,6 +107,11 @@ class ReservationPage extends StatelessWidget {
                   converter: (store) => ReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
                     List<Reservation> reservationList = viewModel.getCommentingList();
+                    if (reservationList.length == 0) {
+                      return EmptyWidget(
+                        text: "没有订单哦",
+                      );
+                    }
                     return ListView.separated(
                       itemCount: reservationList?.length,
                       itemBuilder: (context, index) {
@@ -136,11 +147,15 @@ class ReservationPage extends StatelessWidget {
                   converter: (store) => ReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
                     List<Reservation> reservationList = viewModel.getCanceledList();
+                    if (reservationList?.length == null || reservationList?.length == 0) {
+                      return EmptyWidget(
+                        text: "没有订单哦",
+                      );
+                    }
                     return ListView.separated(
-                      itemCount: reservationList?.length,
+                      itemCount: reservationList?.length ?? 0,
                       itemBuilder: (context, index) {
                         Reservation reservation = reservationList[index];
-
                         return ReservationItemWidget(
                           avatar: reservation?.avatar,
                           shopName: viewModel.getShopName(reservation?.shopId),
