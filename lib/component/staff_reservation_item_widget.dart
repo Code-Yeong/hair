@@ -27,7 +27,7 @@ class StaffReservationItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(12.0),
+        padding: EdgeInsets.only(top: 12.0, left: 12.0, right: 20.0, bottom: 12.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
@@ -49,7 +49,7 @@ class StaffReservationItemWidget extends StatelessWidget {
                         Text(
                           '$cusName',
                           style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -61,13 +61,13 @@ class StaffReservationItemWidget extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.only(top: 3.0, right: 15.0),
+                      padding: EdgeInsets.only(top: 3.0, right: 10.0),
                       alignment: Alignment.topRight,
                       child: Text(
                         '${getStaffOrderStatusText(status)}',
                         style: TextStyle(
                           color: getColorFromOrderStatus(status),
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                         ),
                       ),
                     ),
@@ -81,7 +81,7 @@ class StaffReservationItemWidget extends StatelessWidget {
                 child: Text(
                   '${formatTime(serveTime)}',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -90,7 +90,7 @@ class StaffReservationItemWidget extends StatelessWidget {
                 onTap: () {},
                 child: showButton(status)
                     ? Container(
-                        width: 80.0,
+                        width: 70.0,
                         height: 30.0,
                         color: getColorFromOrderStatus(status),
                         alignment: Alignment.center,
