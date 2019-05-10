@@ -134,7 +134,7 @@ class ServerApi {
       url = 'order/getCusOrder';
       idName = "cusId";
     } else {
-      url = 'order/getBarberOrder';
+      url = 'order/getStaffOrder';
       idName = "barberId";
     }
     var data = {idName: id};

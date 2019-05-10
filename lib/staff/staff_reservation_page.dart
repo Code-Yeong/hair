@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
-import 'package:hair/component/reservation_item_widget.dart';
+import 'package:hair/component/staff_reservation_item_widget.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_reservation/reservation_action.dart';
@@ -81,15 +81,13 @@ class StaffReservationPage extends StatelessWidget {
                       itemCount: viewModel.reservationList?.length,
                       itemBuilder: (context, index) {
                         Reservation reservation = viewModel.reservationList[index];
-                        return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
+                        return StaffReservationItemWidget(
+                          cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
+                          address: "${reservation?.adddress}",
                           serviceType: "${reservation?.serviceType}",
                           serveName: "${reservation?.serveName}",
-                          createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
-                          money: int.parse(reservation?.money),
+                          serveTime: "${reservation?.serveTime}", //'2019年5月2日 10:00-12:00'
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
@@ -106,26 +104,22 @@ class StaffReservationPage extends StatelessWidget {
               // Tab :进行中
               StoreConnector<AppState, StaffReservationPageViewModel>(
                   onInit: (store) {
-                    store.dispatch(new BeginFetchReservationListAction());
+                    store.dispatch(new SBeginFetchReservationListAction());
                   },
                   converter: (store) => StaffReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
-                    List<Reservation> reservationList = viewModel.getCommentingList();
+//                    return Container(
                     return ListView.separated(
-                      itemCount: reservationList?.length,
+                      itemCount: viewModel.reservationList?.length,
                       itemBuilder: (context, index) {
-                        Reservation reservation = reservationList[index];
-
-                        ///这里只传参数，不拼接字符串，需要修改
-                        return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
+                        Reservation reservation = viewModel.reservationList[index];
+                        return StaffReservationItemWidget(
+                          cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
+                          address: "${reservation?.adddress}",
                           serviceType: "${reservation?.serviceType}",
                           serveName: "${reservation?.serveName}",
-                          createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
-                          money: int.parse(reservation?.money),
+                          serveTime: "${reservation?.serveTime}", //'2019年5月2日 10:00-12:00'
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
@@ -142,26 +136,22 @@ class StaffReservationPage extends StatelessWidget {
               // Tab :已完成
               StoreConnector<AppState, StaffReservationPageViewModel>(
                   onInit: (store) {
-                    store.dispatch(new BeginFetchReservationListAction());
+                    store.dispatch(new SBeginFetchReservationListAction());
                   },
                   converter: (store) => StaffReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
-                    List<Reservation> reservationList = viewModel.getCommentingList();
+//                    return Container(
                     return ListView.separated(
-                      itemCount: reservationList?.length,
+                      itemCount: viewModel.reservationList?.length,
                       itemBuilder: (context, index) {
-                        Reservation reservation = reservationList[index];
-
-                        ///这里只传参数，不拼接字符串，需要修改
-                        return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
+                        Reservation reservation = viewModel.reservationList[index];
+                        return StaffReservationItemWidget(
+                          cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
+                          address: "${reservation?.adddress}",
                           serviceType: "${reservation?.serviceType}",
                           serveName: "${reservation?.serveName}",
-                          createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
-                          money: int.parse(reservation?.money),
+                          serveTime: "${reservation?.serveTime}", //'2019年5月2日 10:00-12:00'
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
@@ -179,26 +169,22 @@ class StaffReservationPage extends StatelessWidget {
               // Tab :已取消
               StoreConnector<AppState, StaffReservationPageViewModel>(
                   onInit: (store) {
-                    store.dispatch(new BeginFetchReservationListAction());
+                    store.dispatch(new SBeginFetchReservationListAction());
                   },
                   converter: (store) => StaffReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
-                    List<Reservation> reservationList = viewModel.getCanceledList();
+//                    return Container(
                     return ListView.separated(
-                      itemCount: reservationList?.length,
+                      itemCount: viewModel.reservationList?.length,
                       itemBuilder: (context, index) {
-                        Reservation reservation = reservationList[index];
-
-                        ///这里只传参数，不拼接字符串，需要修改
-                        return ReservationItemWidget(
-                          avatar: 'assets/images/barber.jpg',
-                          shopName: "${viewModel.getShopName(reservation?.shopId)}",
-                          staffName: "理发师${reservation?.barberId}", // TODO 解析staff name
+                        Reservation reservation = viewModel.reservationList[index];
+                        return StaffReservationItemWidget(
+                          cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
+                          address: "${reservation?.adddress}",
                           serviceType: "${reservation?.serviceType}",
                           serveName: "${reservation?.serveName}",
-                          createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
-                          money: int.parse(reservation?.money),
+                          serveTime: "${reservation?.serveTime}", //'2019年5月2日 10:00-12:00'
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
