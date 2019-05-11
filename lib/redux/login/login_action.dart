@@ -1,20 +1,19 @@
-import 'package:hair/model/customer.dart';
 import 'package:hair/utils/enum.dart';
 
-class BeginLoginAction {
+class ChangeRoleAction {
   final Role role;
+  ChangeRoleAction({this.role});
+}
+
+class BeginLoginAction {
   final String phone;
   final String name;
   final String password;
 
-  BeginLoginAction({this.role, this.phone, this.name, this.password});
+  BeginLoginAction({this.phone, this.name, this.password});
 }
 
-class LoginSuccessAction {
-  final Customer customer;
-
-  LoginSuccessAction({this.customer});
-}
+class LoginSuccessAction {}
 
 class LoginFailedAction {}
 
@@ -24,9 +23,8 @@ class BeginSignupAction {
   final String phone;
   final String name;
   final String password;
-  final Role role;
 
-  BeginSignupAction({this.role, this.phone, this.name, this.password});
+  BeginSignupAction({this.phone, this.name, this.password});
 }
 
 class SignupSuccessAction {}
