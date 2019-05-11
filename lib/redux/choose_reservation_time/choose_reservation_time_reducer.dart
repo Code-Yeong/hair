@@ -1,3 +1,4 @@
+import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_state.dart';
 import 'package:hair/utils/enum.dart';
@@ -26,7 +27,7 @@ ChooseReservationTimeState _init(ChooseReservationTimeState state, InitChooseRes
 }
 
 ChooseReservationTimeState _loadingData(ChooseReservationTimeState state, BeginFetchChooseReservationDataAction action) {
-  return state.copyWith(loadingStatus: LoadingStatus.loading);
+  return state.copyWith(loadingStatus: LoadingStatus.loading, selectedTime: '');
 }
 
 ChooseReservationTimeState _receivedData(ChooseReservationTimeState state, ReceivedChooseReservationDataAction action) {
@@ -42,7 +43,19 @@ ChooseReservationTimeState _loadError(ChooseReservationTimeState state, ChooseRe
 
 ChooseReservationTimeState _selectedTimeItem(ChooseReservationTimeState state, SelectedTimeItemAction action) {
   String _selectedTime = '';
-  if (state.selectedTime == action.selectedTime) {
+
+  if (state.selectedTime == null || state.selectedTime.length == 0) {
+    return state.copyWith(selectedTime: action.selectedTime);
+  }
+  String timeStrOld = state.selectedTime?.substring(0, state.selectedTime?.indexOf('-'));
+  String timeStrNew = action.selectedTime?.substring(0, action.selectedTime?.indexOf('-'));
+  String tailOld = state.selectedTime?.substring(state.selectedTime?.indexOf('-') ?? 0 + 1, state.selectedTime.length);
+  String tailNew = action.selectedTime?.substring(action.selectedTime?.indexOf('-') ?? 0 + 1, action.selectedTime.length);
+
+  String formatOld = timeStrOld != null ? DateTimeUtils?.getDayFromStr(timeInMillSecondStr: timeStrOld) : "";
+  String formatNew = timeStrNew != null ? DateTimeUtils?.getDayFromStr(timeInMillSecondStr: timeStrNew) : "";
+
+  if (formatOld == formatNew && tailNew == tailOld) {
     _selectedTime = '';
   } else {
     _selectedTime = action.selectedTime;

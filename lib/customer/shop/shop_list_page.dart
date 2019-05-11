@@ -30,7 +30,7 @@ class ShopListPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Icon(Icons.location_on, color: Colors.grey),
+                        Icon(Icons.location_on, color: Colors.red),
                         Text("55楼"),
                       ],
                     ),
@@ -92,13 +92,9 @@ class ShopItem extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-//              height: 150.0,
-              color: Colors.grey,
-//              child: Image.asset(
-//                "assets/images/shop2.jpg",
-//                fit: BoxFit.cover,
-//              ),
-              child: Image.network(picture),
+              constraints: BoxConstraints(minHeight: 200.0),
+              color: Colors.grey.withOpacity(0.4),
+              child: picture == null ? null : Image.network(picture),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -4,6 +4,7 @@ class BottomOneButton extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
   final bool disabled;
+  final double fontSize;
   final num width;
   final Color color;
   final Color bgColor;
@@ -13,6 +14,7 @@ class BottomOneButton extends StatelessWidget {
   BottomOneButton({
     this.onTap,
     this.title,
+    this.fontSize = 18.0,
     this.disabled = false,
     this.color = Colors.white,
     this.bgColor = Colors.blueAccent,
@@ -36,7 +38,7 @@ class BottomOneButton extends StatelessWidget {
           "$title",
           style: TextStyle(
             color: disabled ? colorDisabled : color,
-            fontSize: 18.0,
+            fontSize: fontSize,
           ),
         ),
       ),

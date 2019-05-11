@@ -11,7 +11,14 @@ class ChooseReservationTimeState {
   final LoadingStatus loadingStatus;
   final bool enableOnTapPop;
 
-  ChooseReservationTimeState({this.orderList, this.currentBarber, this.commitStatus, this.selectedTime, this.loadingStatus, this.enableOnTapPop});
+  ChooseReservationTimeState({
+    this.orderList,
+    this.currentBarber,
+    this.commitStatus,
+    this.selectedTime,
+    this.loadingStatus,
+    this.enableOnTapPop,
+  });
 
   factory ChooseReservationTimeState.initial() {
     return ChooseReservationTimeState(
@@ -31,6 +38,7 @@ class ChooseReservationTimeState {
     LoadingStatus loadingStatus,
     Barber currentBarber,
     bool enableOnTapPop,
+    String serveAddress,
   }) {
     return ChooseReservationTimeState(
       orderList: orderList ?? this.orderList,

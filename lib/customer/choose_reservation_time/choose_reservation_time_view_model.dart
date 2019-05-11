@@ -30,7 +30,7 @@ class ChooseReservationTimeViewModel {
       commitStatus: store.state.chooseReservationTimeState.commitStatus,
       selectedTime: store.state.chooseReservationTimeState.selectedTime,
       loadingStatus: store.state.chooseReservationTimeState.loadingStatus,
-      userAddressList: store.state.loginState.customer.addrList,
+      userAddressList: store.state.cusInfoState.customer?.addrList ?? [],
       currentBarber: store.state.chooseReservationTimeState.currentBarber,
     );
   }
@@ -74,8 +74,8 @@ class ChooseReservationTimeViewModel {
   String get defaultAddress {
     List<Address> userDefaultAddressList = userAddressList.where((address) => address.status == "2").toList();
     if (userDefaultAddressList.length > 0) {
-      return userDefaultAddressList.first?.address ?? "";
+      return userDefaultAddressList.first?.address ?? null;
     }
-    return "";
+    return null;
   }
 }

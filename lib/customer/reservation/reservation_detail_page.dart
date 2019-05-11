@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:hair/component/one_button.dart';
 import 'package:hair/customer/reservation/reservation_page_view_model.dart';
 import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/model/dart.dart';
@@ -82,20 +83,50 @@ class _TimelinePageState extends State<ReservationDetailPage> {
             width: double.infinity,
             height: i == 1 ? 150.0 : 50,
             child: i == 1
-                ? FlutterMap(
-                    options: MapOptions(
-                      center: LatLng(51.5, -0.09),
-                      zoom: 5.0,
-                    ),
-                    layers: [
-                      TileLayerOptions(
-                        urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        subdomains: ['a', 'b', 'c'],
+                ? Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: Text(statusText[i]),
                       ),
-                      MarkerLayerOptions(markers: markers)
+                      Expanded(
+                        child: FlutterMap(
+                          options: MapOptions(
+                            center: LatLng(51.5, -0.09),
+                            zoom: 5.0,
+                          ),
+                          layers: [
+                            TileLayerOptions(
+                              urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                              subdomains: ['a', 'b', 'c'],
+                            ),
+                            MarkerLayerOptions(markers: markers)
+                          ],
+                        ),
+                      )
                     ],
                   )
-                : Text(OrderStatusValue[i]),
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(statusText[i]),
+                        ),
+                      ),
+                      i == 3
+                          ? Container(
+                              width: 60.0,
+                              height: 30.0,
+                              child: BottomOneButton(
+                                title: '去评价',
+                                fontSize: 14.0,
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
           ),
           icon: i == status
               ? Icon(

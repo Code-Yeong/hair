@@ -18,6 +18,7 @@ class ChooseReservationTimePage extends StatefulWidget {
 
 class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
   String selectedItem = "";
+  String address;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,11 +34,13 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
           ),
           body: StoreConnector<AppState, ChooseReservationTimeViewModel>(
             onInit: (store) {
-              store.dispatch(new BeginFetchChooseReservationDataAction(id: store.state.chooseReservationTimeState.currentBarber.id));
+              store.dispatch(new BeginFetchChooseReservationDataAction(id: store.state.chooseReservationTimeState.currentBarber?.id));
             },
             converter: (store) => ChooseReservationTimeViewModel.fromStore(store),
             builder: (context, viewModel) {
+              address = viewModel.defaultAddress;
               return Container(
+                color: CommonColors.bgGray,
                 child: Column(
                   children: <Widget>[
                     Expanded(
@@ -45,106 +48,231 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                         child: CustomScrollView(
                           slivers: <Widget>[
                             SliverToBoxAdapter(
-                              child: GestureDetector(
-                                onTap: () {
-                                  print("未实现");
-                                  globalStore.dispatch(SetAddressAction(enableOnTapPop: true));
-                                  GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressPage);
-                                },
-                                child: Container(
-                                    color: CommonColors.textGray.withOpacity(0.1),
-                                    padding: EdgeInsets.all(10.0),
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Text(
-                                            '地址:',
-                                            style: TextStyle(fontSize: 18.0),
+                              child: Container(
+                                margin: EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.all(10.0),
+                                      height: 60.0,
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Text(
+                                              '服务类型',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        Icon(Icons.location_on, color: Colors.red),
-                                        Text(
-                                          '${viewModel.defaultAddress}',
-                                          style: TextStyle(fontSize: 18.0),
-                                        ),
-                                        Icon(Icons.arrow_forward_ios),
-                                      ],
-                                    )),
+                                          Icon(Icons.face, color: Colors.brown),
+                                          SizedBox(
+                                            width: 5.0,
+                                          ),
+                                          Text(
+                                            '理发',
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Divider(),
+                                    GestureDetector(
+                                      onTap: () {
+                                        globalStore.dispatch(SetAddressAction(enableOnTapPop: true));
+                                        GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressPage);
+                                      },
+                                      child: Container(
+                                          padding: EdgeInsets.all(10.0),
+                                          height: 60.0,
+                                          alignment: Alignment.centerLeft,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Text(
+                                                  '服务地址',
+                                                  style: TextStyle(
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                              Icon(Icons.location_on, color: Colors.red),
+                                              address == null
+                                                  ? Text(
+                                                      '请选择服务地址',
+                                                      style: TextStyle(
+                                                        fontSize: 18.0,
+                                                        color: Colors.black.withOpacity(0.2),
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      address,
+                                                      style: TextStyle(fontSize: 18.0),
+                                                    ),
+                                              Icon(Icons.arrow_forward_ios),
+                                            ],
+                                          )),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
+//
                             SliverToBoxAdapter(
                               child: Container(
-                                color: CommonColors.textGray.withOpacity(0.1),
-                                padding: EdgeInsets.all(10.0),
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  '${DateTimeUtils.today()}',
-                                  style: TextStyle(fontSize: 18.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                                ),
+                                margin: EdgeInsets.all(12.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      color: CommonColors.textGray.withOpacity(0.1),
+                                      padding: EdgeInsets.all(10.0),
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.timer,
+                                            color: Colors.red,
+                                          ),
+                                          SizedBox(
+                                            width: 3.0,
+                                          ),
+                                          Text(
+                                            '${DateTimeUtils.today()}',
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.all(16.0),
+                                      width: double.infinity,
+                                      child: GridView.count(
+                                        crossAxisCount: 3,
+                                        childAspectRatio: 2,
+                                        mainAxisSpacing: 12.0,
+                                        crossAxisSpacing: 20.0,
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        children: buildTimeItemListBlock(viewModel, 1),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                             SliverToBoxAdapter(
                               child: Container(
-                                padding: EdgeInsets.all(16.0),
-                                width: double.infinity,
-                                child: GridView.count(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: 2,
-                                  mainAxisSpacing: 12.0,
-                                  crossAxisSpacing: 48.0,
-                                  shrinkWrap: true,
-                                  children: buildTimeItemListBlock(viewModel, 1),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                                ),
+                                margin: EdgeInsets.all(12.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      color: CommonColors.textGray.withOpacity(0.1),
+                                      padding: EdgeInsets.all(10.0),
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.timer,
+                                            color: Colors.red,
+                                          ),
+                                          SizedBox(
+                                            width: 3.0,
+                                          ),
+                                          Text(
+                                            '${DateTimeUtils.nextOneDay()}',
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.all(16.0),
+                                      width: double.infinity,
+                                      child: GridView.count(
+                                        crossAxisCount: 3,
+                                        childAspectRatio: 2,
+                                        mainAxisSpacing: 12.0,
+                                        crossAxisSpacing: 20.0,
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        children: buildTimeItemListBlock(viewModel, 2),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
+
                             SliverToBoxAdapter(
                               child: Container(
-                                color: CommonColors.textGray.withOpacity(0.1),
-                                padding: EdgeInsets.all(10.0),
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  '${DateTimeUtils.nextOneDay()}',
-                                  style: TextStyle(fontSize: 18.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
                                 ),
-                              ),
-                            ),
-                            SliverToBoxAdapter(
-                              child: Container(
-                                padding: EdgeInsets.all(16.0),
-                                width: double.infinity,
-                                child: GridView.count(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: 2,
-                                  mainAxisSpacing: 12.0,
-                                  crossAxisSpacing: 48.0,
-                                  shrinkWrap: true,
-                                  children: buildTimeItemListBlock(viewModel, 2),
-                                ),
-                              ),
-                            ),
-                            SliverToBoxAdapter(
-                              child: Container(
-                                color: CommonColors.textGray.withOpacity(0.1),
-                                padding: EdgeInsets.all(10.0),
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  '${DateTimeUtils.nextTwoDay()}',
-                                  style: TextStyle(fontSize: 18.0),
-                                ),
-                              ),
-                            ),
-                            SliverToBoxAdapter(
-                              child: Container(
-                                padding: EdgeInsets.all(16.0),
-                                width: double.infinity,
-                                child: GridView.count(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: 2,
-                                  mainAxisSpacing: 12.0,
-                                  crossAxisSpacing: 48.0,
-                                  shrinkWrap: true,
-                                  children: buildTimeItemListBlock(viewModel, 3),
+                                margin: EdgeInsets.all(12.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      color: CommonColors.textGray.withOpacity(0.1),
+                                      padding: EdgeInsets.all(10.0),
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.timer,
+                                            color: Colors.red,
+                                          ),
+                                          SizedBox(
+                                            width: 3.0,
+                                          ),
+                                          Text(
+                                            '${DateTimeUtils.nextTwoDay()}',
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.all(16.0),
+                                      width: double.infinity,
+                                      child: GridView.count(
+                                        crossAxisCount: 3,
+                                        childAspectRatio: 2,
+                                        mainAxisSpacing: 12.0,
+                                        crossAxisSpacing: 20.0,
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        children: buildTimeItemListBlock(viewModel, 3),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -157,10 +285,10 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                       child: BottomOneButton(
                         title: '下单',
-                        disabled: !viewModel.isSelectedTimeItem,
+                        disabled: !viewModel.isSelectedTimeItem || address == null,
                         onTap: () {
                           selectedItem = "";
-                          String cusId = globalStore.state.loginState.customer.id;
+                          String cusId = globalStore.state.cusInfoState.customer?.id;
                           String barberid = viewModel.currentBarber?.id;
                           String shopId = globalStore.state.shopState.selectedShopId;
                           globalStore.dispatch(new BeginCommitReservationAction(
@@ -220,7 +348,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         disabled: viewModel.isReserved(block, 2),
         selected: selectedItem == '$block-2',
         onTap: () {
-          if (viewModel.isReserved(block, 1)) {
+          if (viewModel.isReserved(block, 2)) {
             return;
           }
           _selectedTime(block, 2);
@@ -231,7 +359,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         disabled: viewModel.isReserved(block, 3),
         selected: selectedItem == '$block-3',
         onTap: () {
-          if (viewModel.isReserved(block, 1)) {
+          if (viewModel.isReserved(block, 3)) {
             return;
           }
           _selectedTime(block, 3);
@@ -242,7 +370,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         disabled: viewModel.isReserved(block, 4),
         selected: selectedItem == '$block-4',
         onTap: () {
-          if (viewModel.isReserved(block, 1)) {
+          if (viewModel.isReserved(block, 4)) {
             return;
           }
           _selectedTime(block, 4);
@@ -253,7 +381,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         disabled: viewModel.isReserved(block, 5),
         selected: selectedItem == '$block-5',
         onTap: () {
-          if (viewModel.isReserved(block, 1)) {
+          if (viewModel.isReserved(block, 5)) {
             return;
           }
           _selectedTime(block, 5);

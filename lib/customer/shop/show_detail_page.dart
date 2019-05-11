@@ -37,9 +37,9 @@ class ShopDetailPage extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       Container(
-//                  height: 150.0,
-                        color: Colors.grey,
-                        child: Image.network(model.selectedShop?.avatar ?? ""),
+                        constraints: BoxConstraints(minHeight: 200.0),
+                        color: Colors.grey.withOpacity(0.4),
+                        child: model.selectedShop?.avatar == null ? null : Image.network(model.selectedShop?.avatar ?? ""),
                       ),
                       Container(
                         child: Column(
@@ -48,7 +48,7 @@ class ShopDetailPage extends StatelessWidget {
                               padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0, bottom: 6.0),
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "${shop?.name}",
+                                "${shop?.name ?? '未命名'}",
                                 style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -59,13 +59,42 @@ class ShopDetailPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Row(
-                                    children: <Widget>[Icon(Icons.format_line_spacing), Text("${shop?.score}分")],
-                                  ),
-                                  Container(
-                                    child: Text("${shop?.orderCount}单"),
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                      ),
+                                      Text(
+                                        "${shop?.score ?? 0}分",
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
                                   Row(
-                                    children: <Widget>[Icon(Icons.location_on), Text("1.3km")],
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.face,
+                                        color: Colors.brown,
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          "${shop?.orderCount ?? 0}单",
+                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.location_on,
+                                        color: Colors.red,
+                                      ),
+                                      Text(
+                                        "1.3km",
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

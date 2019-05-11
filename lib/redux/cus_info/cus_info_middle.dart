@@ -22,7 +22,7 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
 //    }
     if (action is CusAddressChangedAction) {
       // fetch address list
-      String cusId = globalStore.state.loginState.customer?.id;
+      String cusId = globalStore.state.cusInfoState.customer?.id;
       var res = await ServerApi.api.getCustomerAddress(cusId: cusId);
 //      print("地址查询结果：${res?.data}"); // array
       if (res != null && res?.data['status'] == 100) {
@@ -34,7 +34,7 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
       }
     }
     if (action is AddCusAddressInfoAction) {
-      String cusId = store.state.loginState?.customer?.id;
+      String cusId = store.state.cusInfoState?.customer?.id;
       var res = await ServerApi.api.addCustomerAddress(
         cusId: cusId,
         name: action.address?.name,

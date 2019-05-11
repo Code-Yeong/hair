@@ -51,7 +51,7 @@ class UserAddressPageState extends State<UserAddressPage> {
                             globalStore.dispatch(EditCusAddressInfoAction(
                                 address: Address(
                               id: addr?.id,
-                              cusId: globalStore.state.loginState?.customer?.id,
+                              cusId: globalStore.state.cusInfoState?.customer?.id,
                               status: '2',
                               name: addr?.name,
                               phone: addr?.phone,

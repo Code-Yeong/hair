@@ -20,7 +20,11 @@ class TimeItemWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           '$text',
-          style: TextStyle(color: disabled ? buildColor() : Colors.black, fontSize: 14.0),
+          style: TextStyle(
+            color: buildTextColor(),
+            fontSize: 15.0,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
     );
@@ -30,8 +34,17 @@ class TimeItemWidget extends StatelessWidget {
     if (selected) {
       return Colors.blueAccent;
     } else if (disabled) {
-      return CommonColors.textLightGray.withOpacity(0.5);
+      return CommonColors.textLightGray.withOpacity(0.1);
     }
     return Colors.white;
+  }
+
+  Color buildTextColor() {
+    if (selected) {
+      return Colors.white;
+    } else if (disabled) {
+      return CommonColors.textLightGray.withOpacity(0.3);
+    }
+    return Colors.black;
   }
 }
