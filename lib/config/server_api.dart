@@ -154,4 +154,16 @@ class ServerApi {
     Response res = await _dio.get(url, queryParameters: data);
     return res;
   }
+
+  //查询理发师对应的"所有未完成"订单
+  Future<dynamic> editOrderStatus({String orderId, String status}) async {
+    String url = 'order/updateOrderStatus';
+    var data = {
+      'id': orderId,
+      'status': status,
+    };
+//    print("修改订单的data ：$data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
 }

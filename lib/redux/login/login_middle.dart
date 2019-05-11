@@ -5,6 +5,7 @@ import 'package:hair/model/customer.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_info/cus_info_action.dart';
 import 'package:hair/redux/login/login_action.dart';
+import 'package:hair/utils/enum.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createLoginMiddleware() {
@@ -23,7 +24,7 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
     //  登录
     if (action is BeginLoginAction) {
       var toastMsg;
-      if (action.isCustomer) {
+      if (action.role == Role.customer) {
         var res = await ServerApi.api.customerSignIn(phone: action.phone, password: action.password);
         if (res != null && res?.data['status'] == 100) {
           Customer customer = Customer.fromObj(res?.data['result']);
@@ -36,18 +37,30 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
           store.dispatch(new LoginFailedAction());
           toastMsg = '登录失败，请重试';
         }
-      } else {
+      } else if (action.role == Role.barber) {
         //  TODO: 职工登录dio
         toastMsg = '待完成的staff登录功能';
-        GlobalNavigator.shared.pushNamed(StaffRoute.staffHomePage);
+        var res = await ServerApi.api.customerSignIn(phone: action.phone, password: action.password);
+        if (res != null && res?.data['status'] == 100) {
+          Customer customer = Customer.fromObj(res?.data['result']);
+          print("正在登录的 coustomer id=${customer.id}");
+          store.dispatch(new LoginSuccessAction(customer: customer));
+          store.dispatch(new ReceivedCusInfoAction(customer: customer));
+          GlobalNavigator.shared.pushNamed(CustomerRoute.customerHomePage);
+          toastMsg = '登录成功！';
+        } else {
+          store.dispatch(new LoginFailedAction());
+          toastMsg = '登录失败，请重试';
+          GlobalNavigator.shared.pushNamed(StaffRoute.staffHomePage);
+        }
+        print(toastMsg);
       }
-      print(toastMsg);
     }
     //  注册
     if (action is BeginSignupAction) {
       var toastMsg;
 
-      if (action.isCustomer) {
+      if (action.role == Role.customer) {
         var res = await ServerApi.api.customerRegist(phone: action.phone, name: action.name, password: action.password);
         print("发送注册 data= ${res?.data}");
         if (res != null && res?.data['result'] == 'ok') {
@@ -65,15 +78,6 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
       }
 
       print(toastMsg);
-//      报错的toast
-//      Fluttertoast.showToast(
-//          msg: toastMsg,
-//          toastLength: Toast.LENGTH_SHORT,
-//          gravity: ToastGravity.CENTER,
-//          timeInSecForIos: 1,
-//          backgroundColor: Colors.black.withOpacity(0.8),
-//          textColor: Colors.white,
-//          fontSize: 16.0);
     }
   }
 }

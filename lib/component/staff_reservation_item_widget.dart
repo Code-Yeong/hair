@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hair/common/global_navigator.dart';
+import 'package:hair/common/regist_route.dart';
 import 'package:hair/customer/reservation/time_zone.dart';
+import 'package:hair/redux/staff_reservation/s_reservation_action.dart';
+import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
 
 class StaffReservationItemWidget extends StatelessWidget {
+  final String resId;
   final String cusName;
   final OrderStatus status;
   final String address;
@@ -13,6 +18,7 @@ class StaffReservationItemWidget extends StatelessWidget {
   final VoidCallback onTap;
 
   StaffReservationItemWidget({
+    this.resId,
     this.cusName,
     this.status,
     this.address,
@@ -89,12 +95,25 @@ class StaffReservationItemWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () {},
                 child: showButton(status)
-                    ? Container(
-                        width: 70.0,
-                        height: 30.0,
-                        color: getColorFromOrderStatus(status),
-                        alignment: Alignment.center,
-                        child: Text(getButtonText(status), style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                    ? GestureDetector(
+                        onTap: () {
+                          if (status == OrderStatus.waiting) {
+                            globalStore.dispatch(SBeginEditReservationStatusAction(status: '2', resId: resId));
+                          } else if (status == OrderStatus.processing) {
+                            print("跳转服务流程页面");
+                            globalStore.dispatch(new SSelectedReservationAction(rId: resId));
+                            GlobalNavigator.shared.pushNamed(StaffRoute.staffReservationDetailPage);
+//                            GlobalNavigator.shared.pushNamed(StaffRoute.reservationDetailPage);
+//                            globalStore.dispatch(SBeginEditReservationStatusAction(status: '3'));
+                          }
+                        },
+                        child: Container(
+                          width: 70.0,
+                          height: 30.0,
+                          color: getColorFromOrderStatus(status),
+                          alignment: Alignment.center,
+                          child: Text(getButtonText(status), style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                        ),
                       )
                     : Container(),
               )

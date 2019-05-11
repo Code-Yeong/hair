@@ -27,4 +27,15 @@ class SReservationState {
       loadingStatus: loadingStatus ?? this.loadingStatus,
     );
   }
+
+  Reservation findById(String id) {
+    if (selectedSReservationId == null) {
+      return null;
+    }
+    List<Reservation> selectedReservationList = this.sReservationList.where((reservation) => reservation.rId == id).toList();
+    if (selectedReservationList.length > 0) {
+      return selectedReservationList.first;
+    }
+    return null;
+  }
 }

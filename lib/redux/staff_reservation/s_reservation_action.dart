@@ -9,7 +9,14 @@ class SReceivedReservationListAction {
 //要获取所有订单列表时发出
 class SBeginFetchReservationListAction {}
 
-////要获取某个订单详细信息时调用
+//要修改某个订单状态时发出
+class SBeginEditReservationStatusAction {
+  final String status;
+  final String resId;
+  SBeginEditReservationStatusAction({this.status, this.resId});
+}
+
+////要获取订单详细信息时调用
 //class SBeginFetchReservationDetailAction {
 //  String sReservationId;
 //  SBeginFetchReservationDetailAction({this.sReservationId});

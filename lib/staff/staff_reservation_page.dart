@@ -24,22 +24,19 @@ class StaffReservationPage extends StatelessWidget {
             title: TabBar(
               unselectedLabelColor: Colors.white70,
               labelColor: Colors.white,
-              indicatorColor: Colors.yellow,
+              indicatorColor: Colors.blue,
               tabs: <Widget>[
                 Tab(
-                  child: Container(
-                    width: 50.0,
-                    child: Text(
-                      '全部订单',
-                      style: TextStyle(
-                        fontSize: 17.0,
-                      ),
+                  child: Text(
+                    '进行中',
+                    style: TextStyle(
+                      fontSize: 17.0,
                     ),
                   ),
                 ),
                 Tab(
                   child: Text(
-                    '进行中',
+                    '待服务',
                     style: TextStyle(
                       fontSize: 17.0,
                     ),
@@ -54,10 +51,13 @@ class StaffReservationPage extends StatelessWidget {
                   ),
                 ),
                 Tab(
-                  child: Text(
-                    '已取消',
-                    style: TextStyle(
-                      fontSize: 17.0,
+                  child: Container(
+                    width: 50.0,
+                    child: Text(
+                      '所有订单',
+                      style: TextStyle(
+                        fontSize: 17.0,
+                      ),
                     ),
                   ),
                 ),
@@ -70,6 +70,7 @@ class StaffReservationPage extends StatelessWidget {
             padding: EdgeInsets.all(12.0),
             color: CommonColors.bgGray,
             child: TabBarView(children: <Widget>[
+              // Tab :进行中
               StoreConnector<AppState, StaffReservationPageViewModel>(
                   onInit: (store) {
                     store.dispatch(new SBeginFetchReservationListAction());
@@ -78,9 +79,9 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.reservationList?.length,
+                      itemCount: viewModel.getProcessingList()?.length,
                       itemBuilder: (context, index) {
-                        Reservation reservation = viewModel.reservationList[index];
+                        Reservation reservation = viewModel.getProcessingList()[index];
                         return StaffReservationItemWidget(
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
@@ -101,7 +102,8 @@ class StaffReservationPage extends StatelessWidget {
                       },
                     );
                   }),
-              // Tab :进行中
+
+              // Tab :待服务
               StoreConnector<AppState, StaffReservationPageViewModel>(
                   onInit: (store) {
                     store.dispatch(new SBeginFetchReservationListAction());
@@ -110,9 +112,9 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.reservationList?.length,
+                      itemCount: viewModel.getWaitingList()?.length,
                       itemBuilder: (context, index) {
-                        Reservation reservation = viewModel.reservationList[index];
+                        Reservation reservation = viewModel.getWaitingList()[index];
                         return StaffReservationItemWidget(
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
@@ -142,9 +144,9 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.reservationList?.length,
+                      itemCount: viewModel.getCompleteList()?.length,
                       itemBuilder: (context, index) {
-                        Reservation reservation = viewModel.reservationList[index];
+                        Reservation reservation = viewModel.getCompleteList()[index];
                         return StaffReservationItemWidget(
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
@@ -165,8 +167,7 @@ class StaffReservationPage extends StatelessWidget {
                       },
                     );
                   }),
-
-              // Tab :已取消
+              // Tab :全部订单
               StoreConnector<AppState, StaffReservationPageViewModel>(
                   onInit: (store) {
                     store.dispatch(new SBeginFetchReservationListAction());
@@ -179,12 +180,13 @@ class StaffReservationPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         Reservation reservation = viewModel.reservationList[index];
                         return StaffReservationItemWidget(
-                          cusName: "${reservation?.cusName}", // TODO 解析staff name
+                          resId: reservation?.rId,
+                          cusName: reservation?.cusName, // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
-                          address: "${reservation?.adddress}",
-                          serviceType: "${reservation?.serviceType}",
-                          serveName: "${reservation?.serveName}",
-                          serveTime: "${reservation?.serveTime}", //'2019年5月2日 10:00-12:00'
+                          address: reservation?.adddress,
+                          serviceType: reservation?.serviceType,
+                          serveName: reservation?.serveName,
+                          serveTime: reservation?.serveTime, //'2019年5月2日 10:00-12:00'
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);

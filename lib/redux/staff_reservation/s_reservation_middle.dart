@@ -31,5 +31,18 @@ class SReservationMiddleware extends MiddlewareClass<AppState> {
         print('获取订单信息失败');
       }
     }
+
+    // edit status
+    if (action is SBeginEditReservationStatusAction) {
+//      String staffId = store.state.staffInfoState.barber?.id;
+      var res = await ServerApi.api.editOrderStatus(orderId: action.resId, status: action.status);
+//      print("获取订单信息res:$res");
+      if (res != null && res?.data['status'] == 100) {
+        print("修改订单状态成功，返回res:$res");
+        globalStore.dispatch(new SBeginFetchReservationListAction());
+      } else {
+        print('修改订单信息失败');
+      }
+    }
   }
 }

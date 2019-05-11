@@ -24,19 +24,28 @@ class StaffReservationPageViewModel {
     return "";
   }
 
-  List<Reservation> getCommentingList() {
+  List<Reservation> getWaitingList() {
     if (this.reservationList.length <= 0) {
       return null;
     }
-    List<Reservation> list = this.reservationList.where((reservation) => reservation.status == '3').toList();
+    List<Reservation> list = this.reservationList.where((reservation) => reservation.status == '1').toList();
     return list;
   }
 
-  List<Reservation> getCanceledList() {
+  List<Reservation> getProcessingList() {
     if (this.reservationList.length <= 0) {
       return null;
     }
-    List<Reservation> list = this.reservationList.where((reservation) => reservation.status == '5').toList();
+    List<Reservation> list = this.reservationList.where((reservation) => reservation.status == '2').toList();
+    return list;
+  }
+
+  List<Reservation> getCompleteList() {
+    if (this.reservationList.length <= 0) {
+      return null;
+    }
+    List<Reservation> list =
+        this.reservationList.where((reservation) => reservation.status == '3' || reservation.status == '4' || reservation.status == '5').toList();
     return list;
   }
 

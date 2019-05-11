@@ -3,6 +3,7 @@ import 'package:hair/common/global_navigator.dart';
 import 'package:hair/component/one_button.dart';
 import 'package:hair/redux/login/login_action.dart';
 import 'package:hair/redux/store.dart';
+import 'package:hair/utils/enum.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -210,7 +211,7 @@ class SignupPageState extends State<SignupPage> {
                       disabled: _isDisabled(),
                       onTap: () {
                         globalStore.dispatch(new BeginSignupAction(
-                          isCustomer: !_isStaff,
+                          role: !_isStaff ? Role.barber : Role.customer,
                           phone: textPhone,
                           name: textName,
                           password: textPassword,

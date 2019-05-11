@@ -7,6 +7,7 @@ import 'package:hair/component/one_button.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/login/login_action.dart';
 import 'package:hair/redux/store.dart';
+import 'package:hair/utils/enum.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -175,7 +176,7 @@ class LoginPageState extends State<LoginPage> {
                             title: "登录",
                             disabled: false,
                             onTap: () {
-                              globalStore.dispatch(new BeginLoginAction(isCustomer: !_isStaff, phone: _phone, password: _password));
+                              globalStore.dispatch(new BeginLoginAction(role: _isStaff ? Role.barber : Role.customer, phone: _phone, password: _password));
 //                  store.state.globalNavigator.pushNamed(CustomerRoute.customerHomePage);
 //                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
 //                    return CustomerHomePage();
