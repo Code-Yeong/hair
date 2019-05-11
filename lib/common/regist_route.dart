@@ -13,6 +13,7 @@ import 'package:hair/customer/customer_home_page.dart';
 import 'package:hair/customer/info/user_address_edit_page.dart';
 import 'package:hair/customer/info/user_address_page.dart';
 import 'package:hair/customer/reservation/reservation_detail_page.dart';
+import 'package:hair/customer/reservation_comment/reservation_coment_page.dart';
 import 'package:hair/customer/shop/show_detail_page.dart';
 import 'package:hair/staff/staff_home_page.dart';
 import 'package:hair/staff/staff_info_page.dart';
@@ -65,12 +66,14 @@ class StaffRoute {
   static const String staffReservationPage = 'staffReservationPage';
   static const String staffInfoPage = 'staffInfoPage';
   static const String staffReservationDetailPage = 'staffReservationDetailPage';
+  static const String reservationComment = 'ReservationComment';
   static void registerPageRoute() {
     GlobalNavigator.shared.registerPageRoutes({
       staffHomePage: (_) => StaffHomePage(),
       staffReservationPage: (_) => StaffReservationPage(),
       staffInfoPage: (_) => StaffInfoPage(),
       staffReservationDetailPage: (_) => StaffReservationDetailPage(),
+      reservationComment: (_) => ReservationComment(),
     });
   }
 }

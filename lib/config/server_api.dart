@@ -166,4 +166,18 @@ class ServerApi {
     Response res = await _dio.post(url, data: data);
     return res;
   }
+
+  //查询理发师对应的"所有未完成"订单
+  Future<dynamic> commentOrder({String orderId, String content, num barberScore, num shopScore}) async {
+    String url = 'order/commentOrder';
+    var data = {
+      'id': orderId,
+      'barberScore': barberScore,
+      'shopScore': shopScore,
+      'content': content,
+    };
+    print("评价订单的data ：$data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
 }

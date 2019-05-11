@@ -12,6 +12,7 @@ class ReservationItemWidget extends StatelessWidget {
   final String serviceType;
   final String serveName;
   final num money;
+  final String comment;
   final VoidCallback onTap;
 
   ReservationItemWidget({
@@ -23,6 +24,7 @@ class ReservationItemWidget extends StatelessWidget {
     this.status,
     this.money,
     this.serviceType,
+    this.comment,
     this.onTap,
   });
 

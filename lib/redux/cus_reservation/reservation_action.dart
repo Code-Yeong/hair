@@ -29,3 +29,18 @@ class SelectedReservationAction {
   final String rId;
   SelectedReservationAction({this.rId});
 }
+
+//评价某个订单
+class CommentReservationAction {
+  final String resId;
+  final String content;
+  final num shopScore;
+  final num barberScore;
+
+  CommentReservationAction({
+    this.resId,
+    this.content,
+    this.shopScore,
+    this.barberScore,
+  });
+}

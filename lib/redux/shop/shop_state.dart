@@ -27,4 +27,15 @@ class ShopState {
       loadingStatus: loadingStatus ?? this.loadingStatus,
     );
   }
+
+  Shop findById(String id) {
+    if (id == null) {
+      return null;
+    }
+    List<Shop> shopListTemp = this.shopList.where((shop) => shop.id == id).toList();
+    if (shopListTemp.length > 0) {
+      return shopListTemp.first;
+    }
+    return null;
+  }
 }

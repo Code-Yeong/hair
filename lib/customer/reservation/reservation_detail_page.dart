@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/component/one_button.dart';
 import 'package:hair/customer/reservation/reservation_page_view_model.dart';
 import 'package:hair/customer/reservation/time_zone.dart';
+import 'package:hair/customer/reservation_comment/reservation_coment_page.dart';
 import 'package:hair/model/dart.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
@@ -112,7 +114,7 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                       Expanded(
                         child: Container(
                           alignment: Alignment.centerLeft,
-                          child: Text(statusText[i]),
+                          child: Text(i == 4 ? viewModel.selectedReservation?.comment : statusText[i]),
                         ),
                       ),
                       i == 3
@@ -122,6 +124,15 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                               child: BottomOneButton(
                                 title: '去评价',
                                 fontSize: 14.0,
+                                onTap: () {
+//                                  GlobalNavigator.shared.pushNamed(StaffRoute.reservationComment);
+                                  Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) => ReservationComment(),
+                                    ),
+                                  );
+                                },
                               ),
                             )
                           : Container(),

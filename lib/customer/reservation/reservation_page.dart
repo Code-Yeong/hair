@@ -86,6 +86,7 @@ class ReservationPage extends StatelessWidget {
                           serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
+                          comment: reservation?.comment,
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
@@ -125,6 +126,7 @@ class ReservationPage extends StatelessWidget {
                           serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
+                          comment: reservation?.comment,
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
@@ -165,6 +167,7 @@ class ReservationPage extends StatelessWidget {
                           serveName: "内容:${reservation?.serveName}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
+                          comment: reservation?.comment,
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
                             GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
