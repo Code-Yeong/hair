@@ -33,10 +33,9 @@ class StaffReservationItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.only(top: 12.0, left: 12.0, right: 20.0, bottom: 12.0),
+        padding: EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0, bottom: 12.0),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+          color: Colors.blueGrey.withOpacity(0.2),
           border: Border.all(color: CommonColors.lineDividing),
         ),
         child: Column(
@@ -108,9 +107,12 @@ class StaffReservationItemWidget extends StatelessWidget {
                           }
                         },
                         child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                            color: getColorFromOrderStatus(status),
+                          ),
                           width: 70.0,
                           height: 30.0,
-                          color: getColorFromOrderStatus(status),
                           alignment: Alignment.center,
                           child: Text(getButtonText(status), style: TextStyle(fontSize: 16.0, color: Colors.white)),
                         ),

@@ -23,8 +23,8 @@ class StaffInfoPage extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       alignment: Alignment.center,
-                      color: CommonColors.bgGray,
-                      child: Text("个人中心", style: TextStyle(fontSize: 20.0, color: Colors.black)),
+                      color: Colors.blueGrey,
+                      child: Text("个人中心", style: TextStyle(fontSize: 20.0, color: Colors.white)),
                       height: 54.0,
                     ),
                     Divider(height: 1.0),
@@ -76,7 +76,6 @@ class StaffInfoPage extends StatelessWidget {
                             child: ListCell(
                               title: "地址管理",
                               showDivider: true,
-                              child: Text('${model?.selectedAddress?.address ?? ''}', style: TextStyle(fontSize: 16.0)),
                             ),
                           ),
                           GestureDetector(

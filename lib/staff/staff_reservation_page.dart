@@ -24,7 +24,7 @@ class StaffReservationPage extends StatelessWidget {
             title: TabBar(
               unselectedLabelColor: Colors.white70,
               labelColor: Colors.white,
-              indicatorColor: Colors.blue,
+              indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
                   child: Text(
@@ -98,7 +98,7 @@ class StaffReservationPage extends StatelessWidget {
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(
-                          height: 20.0,
+                          height: 10.0,
                         );
                       },
                     );
@@ -132,7 +132,7 @@ class StaffReservationPage extends StatelessWidget {
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(
-                          height: 20.0,
+                          height: 10.0,
                         );
                       },
                     );
@@ -165,7 +165,7 @@ class StaffReservationPage extends StatelessWidget {
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(
-                          height: 20.0,
+                          height: 10.0,
                         );
                       },
                     );
@@ -198,7 +198,7 @@ class StaffReservationPage extends StatelessWidget {
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(
-                          height: 20.0,
+                          height: 10.0,
                         );
                       },
                     );
