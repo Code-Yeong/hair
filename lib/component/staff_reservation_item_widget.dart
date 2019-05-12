@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hair/common/global_navigator.dart';
+import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/staff_dialog.dart';
 import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/redux/staff_reservation/s_reservation_action.dart';
@@ -120,6 +122,7 @@ class StaffReservationItemState extends State<StaffReservationItemWidget> {
                               );
                             } else if (globalStore.state.sReservationState.findById(widget.resId)?.verified == '1') {
                               print("服务码已验证,跳转服务流程页面");
+                              GlobalNavigator.shared.pushNamed(StaffRoute.qrPage);
                             } else {
                               print('判断条件有问题:${widget.resId}');
                               print('判断条件有问题:${globalStore.state.sReservationState.findById(widget.resId)}');
@@ -166,6 +169,10 @@ class StaffReservationItemState extends State<StaffReservationItemWidget> {
         break;
       case OrderStatus.processing:
         color = Colors.deepOrange;
+        break;
+      case OrderStatus.commenting:
+      case OrderStatus.commented:
+        color = Colors.green;
         break;
       default:
         color = Colors.black26;

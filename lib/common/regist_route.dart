@@ -16,6 +16,7 @@ import 'package:hair/customer/info/user_info_detail_page.dart';
 import 'package:hair/customer/reservation/reservation_detail_page.dart';
 import 'package:hair/customer/reservation_comment/reservation_coment_page.dart';
 import 'package:hair/customer/shop/show_detail_page.dart';
+import 'package:hair/staff/reservation/qr_page.dart';
 import 'package:hair/staff/reservation/staff_reservation_detail_page.dart';
 import 'package:hair/staff/reservation/staff_reservation_page.dart';
 import 'package:hair/staff/staff_home_page.dart';
@@ -70,6 +71,7 @@ class StaffRoute {
   static const String staffInfoPage = 'staffInfoPage';
   static const String staffReservationDetailPage = 'staffReservationDetailPage';
   static const String reservationComment = 'ReservationComment';
+  static const String qrPage = 'qrPage';
   static void registerPageRoute() {
     GlobalNavigator.shared.registerPageRoutes({
       staffHomePage: (_) => StaffHomePage(),
@@ -77,6 +79,7 @@ class StaffRoute {
       staffInfoPage: (_) => StaffInfoPage(),
       staffReservationDetailPage: (_) => StaffReservationDetailPage(),
       reservationComment: (_) => ReservationComment(),
+      qrPage: (_) => QrPage(),
     });
   }
 }

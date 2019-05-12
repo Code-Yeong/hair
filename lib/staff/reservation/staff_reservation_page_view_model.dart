@@ -44,8 +44,7 @@ class StaffReservationPageViewModel {
     if (this.reservationList.length <= 0) {
       return null;
     }
-    List<Reservation> list =
-        this.reservationList.where((reservation) => reservation.status == '3' || reservation.status == '4' || reservation.status == '5').toList();
+    List<Reservation> list = this.reservationList.where((reservation) => reservation.status == '3' || reservation.status == '4').toList();
     return list;
   }
 

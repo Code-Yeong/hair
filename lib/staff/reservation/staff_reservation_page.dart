@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:hair/common/global_navigator.dart';
-import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/staff_reservation_item_widget.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
@@ -92,7 +90,7 @@ class StaffReservationPage extends StatelessWidget {
                           serveTime: "${reservation?.serveTime}", //'2019年5月2日 10:00-12:00'
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
-                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+//                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
                           },
                         );
                       },
@@ -125,7 +123,7 @@ class StaffReservationPage extends StatelessWidget {
                           serveTime: "${reservation?.serveTime}", //'2019年5月2日 10:00-12:00'
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
-                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+//                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
                           },
                         );
                       },
@@ -158,7 +156,7 @@ class StaffReservationPage extends StatelessWidget {
                           serveTime: "${reservation?.serveTime}", //'2019年5月2日 10:00-12:00'
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
-                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+//                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
                           },
                         );
                       },
