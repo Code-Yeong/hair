@@ -15,10 +15,10 @@ import 'package:hair/customer/info/user_address_page.dart';
 import 'package:hair/customer/reservation/reservation_detail_page.dart';
 import 'package:hair/customer/reservation_comment/reservation_coment_page.dart';
 import 'package:hair/customer/shop/show_detail_page.dart';
+import 'package:hair/staff/reservation/staff_reservation_detail_page.dart';
+import 'package:hair/staff/reservation/staff_reservation_page.dart';
 import 'package:hair/staff/staff_home_page.dart';
 import 'package:hair/staff/staff_info_page.dart';
-import 'package:hair/staff/staff_reservation_detail_page.dart';
-import 'package:hair/staff/staff_reservation_page.dart';
 
 void registerRoutes() {
   MainRoute.registerPageRoute();

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hair/common/global_navigator.dart';
-import 'package:hair/common/regist_route.dart';
+import 'package:hair/component/staff_dialog.dart';
 import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/redux/staff_reservation/s_reservation_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
 
-class StaffReservationItemWidget extends StatelessWidget {
+class StaffReservationItemWidget extends StatefulWidget {
   final String resId;
   final String cusName;
   final OrderStatus status;
@@ -29,9 +28,14 @@ class StaffReservationItemWidget extends StatelessWidget {
   });
 
   @override
+  State createState() => StaffReservationItemState();
+}
+
+class StaffReservationItemState extends State<StaffReservationItemWidget> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         padding: EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0, bottom: 12.0),
         decoration: BoxDecoration(
@@ -52,15 +56,15 @@ class StaffReservationItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          '$cusName',
+                          '${widget.cusName}',
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text('  - $address', style: TextStyle(color: Colors.black26)),
-                        Text('  - $serviceType', style: TextStyle(color: Colors.black26)),
-                        Text('  - $serveName', style: TextStyle(color: Colors.black26)),
+                        Text('  - ${widget.address}', style: TextStyle(color: Colors.black26)),
+                        Text('  - ${widget.serviceType}', style: TextStyle(color: Colors.black26)),
+                        Text('  - ${widget.serveName}', style: TextStyle(color: Colors.black26)),
                       ],
                     ),
                   ),
@@ -69,9 +73,9 @@ class StaffReservationItemWidget extends StatelessWidget {
                       padding: EdgeInsets.only(top: 3.0, right: 10.0),
                       alignment: Alignment.topRight,
                       child: Text(
-                        '${getStaffOrderStatusText(status)}',
+                        '${getStaffOrderStatusText(widget.status)}',
                         style: TextStyle(
-                          color: getColorFromOrderStatus(status),
+                          color: getColorFromOrderStatus(widget.status),
                           fontSize: 16.0,
                         ),
                       ),
@@ -84,7 +88,7 @@ class StaffReservationItemWidget extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 10.0, right: 0.0, top: 0.0, bottom: 0.0),
                 child: Text(
-                  '${formatTime(serveTime)}',
+                  '${formatTime(widget.serveTime)}',
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -93,28 +97,46 @@ class StaffReservationItemWidget extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {},
-                child: showButton(status)
+                child: showButton(widget.status)
                     ? GestureDetector(
                         onTap: () {
-                          if (status == OrderStatus.waiting) {
-                            globalStore.dispatch(SBeginEditReservationStatusAction(status: '2', resId: resId));
-                          } else if (status == OrderStatus.processing) {
-                            print("跳转服务流程页面");
-                            globalStore.dispatch(new SSelectedReservationAction(rId: resId));
-                            GlobalNavigator.shared.pushNamed(StaffRoute.staffReservationDetailPage);
+                          if (widget.status == OrderStatus.waiting) {
+                            globalStore.dispatch(SBeginEditReservationStatusAction(status: '2', resId: widget.resId));
+                          } else if (widget.status == OrderStatus.processing) {
+//                            globalStore.dispatch(new SSelectedReservationAction(rId: widget.resId));
+//                            GlobalNavigator.shared.pushNamed(StaffRoute.staffReservationDetailPage);
 //                            GlobalNavigator.shared.pushNamed(StaffRoute.reservationDetailPage);
-//                            globalStore.dispatch(SBeginEditReservationStatusAction(status: '3'));
+                            if (globalStore.state.sReservationState.findById(widget.resId)?.verified == '0') {
+                              showDialog(
+                                context: context,
+                                builder: (_) => PPBDialog(
+                                      resId: widget.resId,
+                                      title: Text('请输入服务码', textAlign: TextAlign.center, style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600)),
+                                      description: Text(
+                                        '未到达指定地址前，请勿向客户索要服务码',
+//                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                              );
+                            } else if (globalStore.state.sReservationState.findById(widget.resId)?.verified == '1') {
+                              print("服务码已验证,跳转服务流程页面");
+                            } else {
+                              print('判断条件有问题:${widget.resId}');
+                              print('判断条件有问题:${globalStore.state.sReservationState.findById(widget.resId)}');
+                            }
+
+//
                           }
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(6.0)),
-                            color: getColorFromOrderStatus(status),
+                            color: getColorFromOrderStatus(widget.status),
                           ),
                           width: 70.0,
                           height: 30.0,
                           alignment: Alignment.center,
-                          child: Text(getButtonText(status), style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                          child: Text(getButtonText(widget.status), style: TextStyle(fontSize: 16.0, color: Colors.white)),
                         ),
                       )
                     : Container(),

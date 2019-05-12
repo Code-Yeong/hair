@@ -1,3 +1,4 @@
+import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/staff_reservation/s_reservation_action.dart';
 import 'package:hair/redux/staff_reservation/s_reservation_state.dart';
 import 'package:hair/utils/enum.dart';
@@ -8,9 +9,11 @@ final sReservationReducers = combineReducers<SReservationState>([
 //  new TypedReducer<SReservationState, ReceivedSReservationDetailAction>(_receivedSReservationDetail),
 //  new TypedReducer<SReservationState, FetchSReservationDetailFailedAction>(_loadFailedSReservationDetail),
   new TypedReducer<SReservationState, SSelectedReservationAction>(_selectedSReservation),
+  new TypedReducer<SReservationState, ReservationVerifySuccessAction>(_VerifyReservation),
 ]);
 
 SReservationState _receivedSReservationList(SReservationState state, SReceivedReservationListAction action) {
+  print("你在这里把订单输出:${action.sReservationList}");
   return state.copyWith(
     sReservationList: action.sReservationList,
     loadingStatus: LoadingStatus.success,
@@ -43,4 +46,16 @@ SReservationState _selectedSReservation(SReservationState state, SSelectedReserv
   return state.copyWith(
     selectedSReservationId: action.rId,
   );
+}
+
+SReservationState _VerifyReservation(SReservationState state, ReservationVerifySuccessAction action) {
+  Reservation reservation = state.findById(action.resId);
+  reservation = reservation.copyWith(verified: '1');
+  List<Reservation> newList = state.sReservationList.map((r) {
+    if (r.rId == action.resId) {
+      return reservation;
+    }
+    return r;
+  }).toList();
+  return state.copyWith(sReservationList: newList);
 }

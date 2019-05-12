@@ -34,6 +34,7 @@ dependencies:
   fluttertoast: ^3.0.4
   common_utils: ^1.1.1
   smooth_star_rating: 1.0.2
+  qr: ^1.1.0
 
 
 dev_dependencies:

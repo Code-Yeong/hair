@@ -8,7 +8,7 @@ import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_reservation/reservation_action.dart';
 import 'package:hair/redux/staff_reservation/s_reservation_action.dart';
 import 'package:hair/redux/store.dart';
-import 'package:hair/staff/staff_reservation_page_view_model.dart';
+import 'package:hair/staff/reservation/staff_reservation_page_view_model.dart';
 import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
 
@@ -28,7 +28,7 @@ class StaffReservationPage extends StatelessWidget {
               tabs: <Widget>[
                 Tab(
                   child: Text(
-                    '进行中',
+                    '待服务',
                     style: TextStyle(
                       fontSize: 17.0,
                     ),
@@ -36,7 +36,7 @@ class StaffReservationPage extends StatelessWidget {
                 ),
                 Tab(
                   child: Text(
-                    '待服务',
+                    '进行中',
                     style: TextStyle(
                       fontSize: 17.0,
                     ),
@@ -70,7 +70,7 @@ class StaffReservationPage extends StatelessWidget {
             padding: EdgeInsets.all(12.0),
             color: CommonColors.bgGray,
             child: TabBarView(children: <Widget>[
-              // Tab :进行中
+              // Tab :待服务
               StoreConnector<AppState, StaffReservationPageViewModel>(
                   onInit: (store) {
                     store.dispatch(new SBeginFetchReservationListAction());
@@ -79,9 +79,9 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.getProcessingList()?.length ?? 0,
+                      itemCount: viewModel.getWaitingList()?.length ?? 0,
                       itemBuilder: (context, index) {
-                        Reservation reservation = viewModel.getProcessingList()[index];
+                        Reservation reservation = viewModel.getWaitingList()[index];
                         return StaffReservationItemWidget(
                           resId: reservation?.rId,
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
@@ -103,8 +103,7 @@ class StaffReservationPage extends StatelessWidget {
                       },
                     );
                   }),
-
-              // Tab :待服务
+              // Tab :进行中
               StoreConnector<AppState, StaffReservationPageViewModel>(
                   onInit: (store) {
                     store.dispatch(new SBeginFetchReservationListAction());
@@ -113,9 +112,9 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.getWaitingList()?.length ?? 0,
+                      itemCount: viewModel.getProcessingList()?.length ?? 0,
                       itemBuilder: (context, index) {
-                        Reservation reservation = viewModel.getWaitingList()[index];
+                        Reservation reservation = viewModel.getProcessingList()[index];
                         return StaffReservationItemWidget(
                           resId: reservation?.rId,
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
@@ -177,7 +176,6 @@ class StaffReservationPage extends StatelessWidget {
                   },
                   converter: (store) => StaffReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
-//                    return Container(
                     return ListView.separated(
                       itemCount: viewModel.reservationList?.length ?? 0,
                       itemBuilder: (context, index) {
@@ -189,10 +187,10 @@ class StaffReservationPage extends StatelessWidget {
                           address: reservation?.adddress,
                           serviceType: reservation?.serviceType,
                           serveName: reservation?.serveName,
-                          serveTime: reservation?.serveTime, //'2019年5月2日 10:00-12:00'
+                          serveTime: reservation?.serveTime,
                           onTap: () {
                             globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
-                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+//                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
                           },
                         );
                       },

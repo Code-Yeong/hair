@@ -15,6 +15,7 @@ class Reservation {
   final String staffName;
   final String serveName;
   final String code;
+  final String verified;
 
   final String status;
   final String serviceType;
@@ -32,6 +33,7 @@ class Reservation {
       this.barberId,
       this.shopId,
       this.code,
+      this.verified,
       this.adddress,
       this.cusName,
       this.staffName,
@@ -58,6 +60,7 @@ class Reservation {
     String status,
     String serviceType,
     String code,
+    String verified,
     String money,
     String comment,
   }) {
@@ -77,6 +80,7 @@ class Reservation {
       serveName: serveName ?? this.serveName,
       status: status ?? this.status,
       code: code ?? this.code,
+      verified: verified ?? this.verified,
       serviceType: serviceType ?? this.serviceType,
       money: money ?? this.money,
       comment: comment ?? this.comment,
@@ -87,6 +91,7 @@ class Reservation {
     List<Reservation> reservationList = [];
 
     for (var item in obj) {
+      print("这里 ${item['verified']}");
       reservationList.add(Reservation(
         rId: item['id'].toString() ?? '',
         avatar: item['avatar'] ?? 'assets/images/barber.jpg',
@@ -96,6 +101,7 @@ class Reservation {
         commentTime: item['commentTime'] ?? '',
         cusId: item['cusId'] ?? '',
         code: item['code'] ?? '',
+        verified: item['verified'] ?? '',
         barberId: item['barberId'] ?? '',
         shopId: item['shopId'] ?? '',
         adddress: item['address'] ?? '', // ???
@@ -113,7 +119,7 @@ class Reservation {
 
   @override
   String toString() {
-    return 'Reservation{rId: $rId,code: $code, avatar: $avatar, createTime: $createTime, serveTime: $serveTime, finshedTime: $finshedTime, commentTime: $commentTime, cusId: $cusId, barberId: $barberId, shopId: $shopId, adddressId: $adddress, cusName: $cusName, staffName: $staffName, serveName: $serveName, status: $status, serviceType: $serviceType, money: $money, comment: $comment}';
+    return 'Reservation{rId: $rId,code: $code,verified:$verified, avatar: $avatar, createTime: $createTime, serveTime: $serveTime, finshedTime: $finshedTime, commentTime: $commentTime, cusId: $cusId, barberId: $barberId, shopId: $shopId, adddressId: $adddress, cusName: $cusName, staffName: $staffName, serveName: $serveName, status: $status, serviceType: $serviceType, money: $money, comment: $comment}';
   }
 
   @override
@@ -123,6 +129,7 @@ class Reservation {
           runtimeType == other.runtimeType &&
           rId == other.rId &&
           code == other.code &&
+          verified == other.verified &&
           avatar == other.avatar &&
           createTime == other.createTime &&
           serveTime == other.serveTime &&
@@ -145,6 +152,7 @@ class Reservation {
       rId.hashCode ^
       avatar.hashCode ^
       code.hashCode ^
+      verified.hashCode ^
       createTime.hashCode ^
       serveTime.hashCode ^
       finshedTime.hashCode ^

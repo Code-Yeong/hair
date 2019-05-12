@@ -44,5 +44,16 @@ class SReservationMiddleware extends MiddlewareClass<AppState> {
         print('修改订单信息失败');
       }
     }
+    // edit status
+    if (action is ReservationVerifyAction) {
+      var res = await ServerApi.api.verifyOrder(orderId: action.resId);
+      print("VERIFY订单res:$res");
+      if (res != null && res?.data['status'] == 100) {
+        print("VERIFY订单成功，返回res:$res");
+        globalStore.dispatch(new ReservationVerifySuccessAction(resId: action.resId));
+      } else {
+        print('VERIFY订单信息失败');
+      }
+    }
   }
 }

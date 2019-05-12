@@ -6,7 +6,7 @@ import 'package:hair/model/dart.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/store.dart';
-import 'package:hair/staff/staff_reservation_page_view_model.dart';
+import 'package:hair/staff/reservation/staff_reservation_page_view_model.dart';
 import 'package:hair/utils/enum.dart';
 import 'package:latlong/latlong.dart';
 import 'package:timeline_list/timeline.dart';
