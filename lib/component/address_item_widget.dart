@@ -21,7 +21,8 @@ class AddressItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: selected ? Colors.blueGrey : Colors.white,
+//        color: selected ? Colors.blueGrey : Colors.white,
+        color: Colors.white,
         border: Border(
           bottom: BorderSide(
             color: CommonColors.lineDividing.withOpacity(1.0),
@@ -37,34 +38,64 @@ class AddressItemWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
-                color: selected ? Colors.white : Colors.black,
+//                color: selected ? Colors.white : Colors.black,
+                color: Colors.black,
               ),
             ),
             Text(
               phone,
               style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
+//                color: selected ? Colors.white : Colors.black,
+                color: Colors.black.withOpacity(0.6),
               ),
             ),
           ]),
-          subtitle: Text(
-            address,
-            style: TextStyle(color: selected ? Colors.white : Colors.grey),
+          subtitle: Row(
+            children: <Widget>[
+              Offstage(
+                offstage: !selected,
+                child: Container(
+                  width: 40.0,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Text(
+                    '默认',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Text(
+                address,
+                style: TextStyle(
+//                  color: selected ? Colors.white : Colors.grey,
+                  fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
           trailing: Container(
-            width: 100.0,
+            width: 70.0,
+            padding: EdgeInsets.only(right: 10.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                IconButton(
-                  iconSize: 30.0,
-                  icon: Icon(
-                    Icons.delete_outline,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-//                    _deleteAddress(id, context);
-                  },
-                ),
+//                IconButton(
+//                  iconSize: 30.0,
+//                  icon: Icon(
+//                    Icons.delete_outline,
+//                    color: Colors.red,
+//                  ),
+//                  onPressed: () {
+////                    _deleteAddress(id, context);
+//                  },
+//                ),
                 IconButton(
                   iconSize: 30.0,
                   icon: Icon(

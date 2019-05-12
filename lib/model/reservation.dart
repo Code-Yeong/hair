@@ -14,6 +14,7 @@ class Reservation {
   final String cusName;
   final String staffName;
   final String serveName;
+  final String code;
 
   final String status;
   final String serviceType;
@@ -30,6 +31,7 @@ class Reservation {
       this.cusId,
       this.barberId,
       this.shopId,
+      this.code,
       this.adddress,
       this.cusName,
       this.staffName,
@@ -55,6 +57,7 @@ class Reservation {
     String serveName,
     String status,
     String serviceType,
+    String code,
     String money,
     String comment,
   }) {
@@ -73,6 +76,7 @@ class Reservation {
       staffName: staffName ?? this.staffName,
       serveName: serveName ?? this.serveName,
       status: status ?? this.status,
+      code: code ?? this.code,
       serviceType: serviceType ?? this.serviceType,
       money: money ?? this.money,
       comment: comment ?? this.comment,
@@ -91,6 +95,7 @@ class Reservation {
         finshedTime: item['finshedTime'] ?? '',
         commentTime: item['commentTime'] ?? '',
         cusId: item['cusId'] ?? '',
+        code: item['code'] ?? '',
         barberId: item['barberId'] ?? '',
         shopId: item['shopId'] ?? '',
         adddress: item['address'] ?? '', // ???
@@ -108,7 +113,7 @@ class Reservation {
 
   @override
   String toString() {
-    return 'Reservation{rId: $rId, avatar: $avatar, createTime: $createTime, serveTime: $serveTime, finshedTime: $finshedTime, commentTime: $commentTime, cusId: $cusId, barberId: $barberId, shopId: $shopId, adddressId: $adddress, cusName: $cusName, staffName: $staffName, serveName: $serveName, status: $status, serviceType: $serviceType, money: $money, comment: $comment}';
+    return 'Reservation{rId: $rId,code: $code, avatar: $avatar, createTime: $createTime, serveTime: $serveTime, finshedTime: $finshedTime, commentTime: $commentTime, cusId: $cusId, barberId: $barberId, shopId: $shopId, adddressId: $adddress, cusName: $cusName, staffName: $staffName, serveName: $serveName, status: $status, serviceType: $serviceType, money: $money, comment: $comment}';
   }
 
   @override
@@ -117,6 +122,7 @@ class Reservation {
       other is Reservation &&
           runtimeType == other.runtimeType &&
           rId == other.rId &&
+          code == other.code &&
           avatar == other.avatar &&
           createTime == other.createTime &&
           serveTime == other.serveTime &&
@@ -138,6 +144,7 @@ class Reservation {
   int get hashCode =>
       rId.hashCode ^
       avatar.hashCode ^
+      code.hashCode ^
       createTime.hashCode ^
       serveTime.hashCode ^
       finshedTime.hashCode ^

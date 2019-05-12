@@ -77,67 +77,41 @@ class _TimelinePageState extends State<ReservationDetailPage> {
     }
     int status = int.parse(reservation?.status ?? 0);
     for (int i = 0; i <= status; i++) {
-      list.add(
-        Doodle(
+      if (i == 1) {
+        list.add(Doodle(
           title: OrderStatusValue[i],
           time: DateTimeUtils.formatTimeForStr(time: reservation.createTime),
           child: Container(
             width: double.infinity,
-            height: i == 1 ? 150.0 : 50,
-            child: i == 1
-                ? Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(bottom: 10.0),
-                        child: Text(statusText[i]),
-                      ),
-                      Expanded(
-                        child: FlutterMap(
-                          options: MapOptions(
-                            center: LatLng(51.5, -0.09),
-                            zoom: 5.0,
-                          ),
-                          layers: [
-                            TileLayerOptions(
-                              urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                              subdomains: ['a', 'b', 'c'],
-                            ),
-                            MarkerLayerOptions(markers: markers)
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                : Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(i == 4 ? viewModel.selectedReservation?.comment : statusText[i]),
-                        ),
-                      ),
-                      i == 3
-                          ? Container(
-                              width: 60.0,
-                              height: 30.0,
-                              child: BottomOneButton(
-                                title: '去评价',
-                                fontSize: 14.0,
-                                onTap: () {
-//                                  GlobalNavigator.shared.pushNamed(StaffRoute.reservationComment);
-                                  Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) => ReservationComment(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          : Container(),
-                    ],
+            height: 150.0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '服务码:',
                   ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    viewModel.selectedReservation?.code,
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '服务码是您接受服务的凭证,请妥善保管好此码',
+                  ),
+                ),
+              ],
+            ),
           ),
           icon: i == status
               ? Icon(
@@ -147,8 +121,128 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                 )
               : Icon(Icons.check, color: Colors.white),
           iconBackground: i == status ? Colors.white : Colors.cyan,
-        ),
-      );
+        ));
+      } else if (i == 2) {
+        list.add(
+          Doodle(
+            title: OrderStatusValue[i],
+            time: DateTimeUtils.formatTimeForStr(time: reservation.createTime),
+            child: Container(
+              width: double.infinity,
+              height: 150.0,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    alignment: Alignment.centerLeft,
+                    child: Text('${reservation.staffName}${statusText[i]}'),
+                  ),
+                  Expanded(
+                    child: FlutterMap(
+                      options: MapOptions(
+                        center: LatLng(51.5, -0.09),
+                        zoom: 5.0,
+                      ),
+                      layers: [
+                        TileLayerOptions(
+                          urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          subdomains: ['a', 'b', 'c'],
+                        ),
+                        MarkerLayerOptions(markers: markers)
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            icon: i == status
+                ? Icon(
+                    Icons.directions_run,
+                    color: Colors.red,
+                    size: 20.0,
+                  )
+                : Icon(Icons.check, color: Colors.white),
+            iconBackground: i == status ? Colors.white : Colors.cyan,
+          ),
+        );
+      } else if (i == 3) {
+        list.add(
+          Doodle(
+            title: OrderStatusValue[i],
+            time: DateTimeUtils.formatTimeForStr(time: reservation.createTime),
+            child: Container(
+              width: double.infinity,
+              height: 50,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(i == 4 ? viewModel.selectedReservation?.comment : statusText[i]),
+                    ),
+                  ),
+                  Container(
+                    width: 60.0,
+                    height: 30.0,
+                    child: BottomOneButton(
+                      title: '去评价',
+                      fontSize: 14.0,
+                      onTap: () {
+//                                  GlobalNavigator.shared.pushNamed(StaffRoute.reservationComment);
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => ReservationComment(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            icon: i == status
+                ? Icon(
+                    Icons.directions_run,
+                    color: Colors.red,
+                    size: 20.0,
+                  )
+                : Icon(Icons.check, color: Colors.white),
+            iconBackground: i == status ? Colors.white : Colors.cyan,
+          ),
+        );
+      } else {
+        list.add(
+          Doodle(
+            title: OrderStatusValue[i],
+            time: DateTimeUtils.formatTimeForStr(time: reservation.createTime),
+            child: Container(
+              width: double.infinity,
+              height: 50,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(i == 4 ? viewModel.selectedReservation?.comment : statusText[i]),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            icon: i == status
+                ? Icon(
+                    Icons.directions_run,
+                    color: Colors.red,
+                    size: 20.0,
+                  )
+                : Icon(Icons.check, color: Colors.white),
+            iconBackground: i == status ? Colors.white : Colors.cyan,
+          ),
+        );
+      }
     }
     return list;
   }
