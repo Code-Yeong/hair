@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/config/server_api.dart';
@@ -50,15 +48,16 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
         store.dispatch(new LoginFailedAction());
         toastMsg = '登录失败，请重试';
       }
-      Fluttertoast.showToast(
-        msg: toastMsg,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
+      print("$toastMsg");
+//      Fluttertoast.showToast(
+//        msg: toastMsg,
+//        toastLength: Toast.LENGTH_LONG,
+//        gravity: ToastGravity.CENTER,
+//        timeInSecForIos: 1,
+//        backgroundColor: Colors.red,
+//        textColor: Colors.white,
+//        fontSize: 16.0,
+//      );
     }
 
     //  注册
