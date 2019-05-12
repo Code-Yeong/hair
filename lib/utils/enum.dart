@@ -67,3 +67,5 @@ List<String> statusText = [
   '',
   '订单已取消，期待您再次光临',
 ];
+
+const List<String> accountStatusText = ['禁用', '正常'];

@@ -49,3 +49,15 @@ class RemoveCusAddressInfoAction {
   final String addressId;
   RemoveCusAddressInfoAction({this.addressId});
 }
+
+class UpdateCusInfoAction {
+  final Customer cus;
+  UpdateCusInfoAction({this.cus});
+}
+
+class UpdateCusInfoSuccessAction {
+  Customer cus;
+  UpdateCusInfoSuccessAction({this.cus});
+}
+
+class UpdateCusInfoFailedAction {}

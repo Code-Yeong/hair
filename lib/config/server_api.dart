@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:hair/model/barber.dart';
+import 'package:hair/model/customer.dart';
 import 'package:hair/utils/enum.dart';
 
 //GET（SELECT）：从服务器取出资源（一项或多项）。
@@ -183,6 +185,27 @@ class ServerApi {
     return res;
   }
 
+  //修改用户信息（理发师或者客户）
+  Future<dynamic> updateUserInfo({Customer cus, Barber barber, Role role}) async {
+    String url;
+    var data;
+    if (role == Role.customer) {
+      url = 'users/update';
+      data = {
+        'name': cus.name,
+        'avatar': cus.avator,
+        'nickName': cus.nickName,
+        'phone': cus.phone,
+        'description': cus.description,
+        'sex': cus.gender,
+        'id': cus.id,
+      };
+    }
+    print("修改用户信息 Role：$role, data: $data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
+
   upLoadImage(File image) async {
     String path = image.path;
     var name = path.substring(path.lastIndexOf("/") + 1, path.length);
@@ -191,11 +214,6 @@ class ServerApi {
     FormData formData = new FormData.from({"file": new UploadFileInfo(new File(path), name, contentType: ContentType.parse("image/$suffix"))});
     Dio dio = new Dio();
     var respone = await dio.post("users/upload", data: formData);
-    if (respone.statusCode == 200) {
-//      Fluttertoast.showToast(
-//          msg: "图片上传成功",
-//          gravity: ToastGravity.CENTER,
-//          textColor: Colors.grey);
-    }
+    if (respone.statusCode == 200) {}
   }
 }

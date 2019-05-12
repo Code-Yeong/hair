@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
@@ -8,6 +10,7 @@ import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_info/cus_info_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
+import 'package:qrcode_reader/qrcode_reader.dart';
 
 class UserInfoPage extends StatelessWidget {
   @override
@@ -30,11 +33,36 @@ class UserInfoPage extends StatelessWidget {
                 color: CommonColors.bgGray,
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      color: CommonColors.bgGray,
-                      child: Text("个人中心", style: TextStyle(fontSize: 20.0, color: Colors.black)),
-                      height: 54.0,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: 50.0,
+                          child: null,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          color: CommonColors.bgGray,
+                          child: Text("个人中心", style: TextStyle(fontSize: 20.0, color: Colors.black)),
+                          height: 54.0,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Future<String> futureString = new QRCodeReader()
+                                .setAutoFocusIntervalInMs(200) // default 5000
+                                .setForceAutoFocus(true) // default false
+                                .setTorchEnabled(true) // default false
+                                .setHandlePermissions(true) // default true
+                                .setExecuteAfterPermissionGranted(true) // default true
+                                .scan();
+                            print("error:$futureString");
+                          },
+                          child: Container(
+                            width: 50.0,
+                            child: Icon(Icons.code),
+                          ),
+                        )
+                      ],
                     ),
                     Divider(height: 1.0),
                     Container(
@@ -77,6 +105,15 @@ class UserInfoPage extends StatelessWidget {
                     Expanded(
                       child: ListView(
                         children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              GlobalNavigator.shared.pushNamed(CustomerRoute.userInfoDetailPage);
+                            },
+                            child: ListCell(
+                              title: "个人信息",
+                              showDivider: true,
+                            ),
+                          ),
                           GestureDetector(
                             onTap: () {
                               globalStore.dispatch(BeginFetchCusInfoAction());

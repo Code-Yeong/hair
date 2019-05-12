@@ -59,7 +59,6 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
         textColor: Colors.white,
         fontSize: 16.0,
       );
-      print(toastMsg);
     }
 
     //  注册

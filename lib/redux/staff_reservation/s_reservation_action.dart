@@ -1,4 +1,5 @@
 import 'package:hair/model/reservation.dart';
+import 'package:hair/utils/enum.dart';
 
 //接收到所有订单列表的发出
 class SReceivedReservationListAction {
@@ -11,9 +12,10 @@ class SBeginFetchReservationListAction {}
 
 //要修改某个订单状态时发出
 class SBeginEditReservationStatusAction {
+  final Role role;
   final String status;
   final String resId;
-  SBeginEditReservationStatusAction({this.status, this.resId});
+  SBeginEditReservationStatusAction({this.status, this.resId, this.role = Role.barber});
 }
 
 ////要获取订单详细信息时调用

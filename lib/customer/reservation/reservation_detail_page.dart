@@ -9,7 +9,9 @@ import 'package:hair/customer/reservation_comment/reservation_coment_page.dart';
 import 'package:hair/model/dart.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
+import 'package:hair/redux/staff_reservation/s_reservation_action.dart';
 import 'package:hair/redux/store.dart';
+import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
 import 'package:latlong/latlong.dart';
 import 'package:timeline_list/timeline.dart';
@@ -59,7 +61,60 @@ class _TimelinePageState extends State<ReservationDetailPage> {
     Reservation reservation = globalStore.state.reservationState.findById(globalStore.state?.reservationState?.selectedReservationId);
     return Scaffold(
       appBar: AppBar(
-        title: Text('${reservation?.staffName ?? ""}'),
+        iconTheme: IconThemeData.fallback(),
+        title: Text(
+          '${reservation?.staffName ?? "sf"}',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: CommonColors.bgGray,
+        elevation: 1.0,
+        actions: <Widget>[
+          GestureDetector(
+            onTap: () {
+              showDialog<Null>(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return new AlertDialog(
+                    title: new Text('提示'),
+                    content: new SingleChildScrollView(
+                      child: new Text(
+                        '确认取消预约单吗？',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    actions: <Widget>[
+                      new FlatButton(
+                        child: new Text('点错了'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      new FlatButton(
+                        child: new Text(
+                          '确定',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        onPressed: () {
+                          globalStore.dispatch(SBeginEditReservationStatusAction(status: '5', resId: reservation.rId, role: Role.customer));
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Container(
+              alignment: Alignment.bottomRight,
+              padding: EdgeInsets.only(right: 12.0, bottom: 16.0),
+              child: Text(
+                '取消预约',
+                style: TextStyle(fontSize: 16.0, color: Colors.red),
+              ),
+            ),
+          )
+        ],
       ),
       body: StoreConnector<AppState, ReservationPageViewModel>(
         onInit: (store) {},
@@ -71,12 +126,22 @@ class _TimelinePageState extends State<ReservationDetailPage> {
 
   List<Doodle> _buildDoodles(markers, ReservationPageViewModel viewModel) {
     List<Doodle> list = [];
+    bool finished = false;
     Reservation reservation = viewModel.selectedReservation;
     if (reservation == null) {
       return list;
     }
     int status = int.parse(reservation?.status ?? 0);
+    if (status > 2) {
+      finished = true;
+    }
     for (int i = 0; i <= status; i++) {
+      if (status == 5) {
+        if (i == 2 || i == 3 || i == 4) {
+          continue;
+        }
+      }
+      print('finished:$finished');
       if (i == 1) {
         list.add(Doodle(
           title: OrderStatusValue[i],
@@ -99,6 +164,7 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                   child: Text(
                     viewModel.selectedReservation?.code,
                     style: TextStyle(
+                      color: Colors.deepOrangeAccent,
                       fontSize: 40.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -107,20 +173,20 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                 Container(
                   alignment: Alignment.center,
                   child: Text(
-                    '服务码是您接受服务的凭证,请妥善保管好此码',
+                    '理发师上门前请勿提供',
                   ),
                 ),
               ],
             ),
           ),
-          icon: i == status
+          icon: i == status && !finished
               ? Icon(
                   Icons.directions_run,
                   color: Colors.red,
                   size: 20.0,
                 )
               : Icon(Icons.check, color: Colors.white),
-          iconBackground: i == status ? Colors.white : Colors.cyan,
+          iconBackground: i == status && !finished ? Colors.white : Colors.cyan,
         ));
       } else if (i == 2) {
         list.add(
@@ -155,14 +221,14 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                 ],
               ),
             ),
-            icon: i == status
+            icon: i == status && !finished
                 ? Icon(
                     Icons.directions_run,
                     color: Colors.red,
                     size: 20.0,
                   )
                 : Icon(Icons.check, color: Colors.white),
-            iconBackground: i == status ? Colors.white : Colors.cyan,
+            iconBackground: i == status && !finished ? Colors.white : Colors.cyan,
           ),
         );
       } else if (i == 3) {
@@ -202,14 +268,14 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                 ],
               ),
             ),
-            icon: i == status
+            icon: i == status && !finished
                 ? Icon(
                     Icons.directions_run,
                     color: Colors.red,
                     size: 20.0,
                   )
                 : Icon(Icons.check, color: Colors.white),
-            iconBackground: i == status ? Colors.white : Colors.cyan,
+            iconBackground: i == status && !finished ? Colors.white : Colors.cyan,
           ),
         );
       } else {
@@ -232,14 +298,14 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                 ],
               ),
             ),
-            icon: i == status
+            icon: i == status && !finished
                 ? Icon(
                     Icons.directions_run,
                     color: Colors.red,
                     size: 20.0,
                   )
                 : Icon(Icons.check, color: Colors.white),
-            iconBackground: i == status ? Colors.white : Colors.cyan,
+            iconBackground: i == status && !finished ? Colors.white : Colors.cyan,
           ),
         );
       }

@@ -1,6 +1,7 @@
 import 'package:hair/config/server_api.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
+import 'package:hair/redux/cus_reservation/reservation_action.dart';
 import 'package:hair/redux/staff_reservation/s_reservation_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/enum.dart';
@@ -39,7 +40,11 @@ class SReservationMiddleware extends MiddlewareClass<AppState> {
       print("获取订单信息res:$res");
       if (res != null && res?.data['status'] == 100) {
         print("修改订单状态成功，返回res:$res");
-        globalStore.dispatch(new SBeginFetchReservationListAction());
+        if (action.role == Role.barber) {
+          globalStore.dispatch(new SBeginFetchReservationListAction());
+        } else if (action.role == Role.customer) {
+          globalStore.dispatch(new BeginFetchReservationListAction());
+        }
       } else {
         print('修改订单信息失败');
       }

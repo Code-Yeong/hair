@@ -14,6 +14,9 @@ final cusInfoReducers = combineReducers<CusInfoState>([
 //  new TypedReducer<CusInfoState, EditCusGenderInfoAction>(_editCusGender),
 //  new TypedReducer<CusInfoState, EditCusPhoneInfoAction>(_editCusPhone),
 //  new TypedReducer<CusInfoState, EditCusAddressInfoAction>(_editCusAddress),
+  new TypedReducer<CusInfoState, UpdateCusInfoSuccessAction>(_editCusInfoSuccess),
+  new TypedReducer<CusInfoState, UpdateCusInfoFailedAction>(_editCusInfoFailed),
+  new TypedReducer<CusInfoState, UpdateCusInfoAction>(_editCusInfo),
 ]);
 
 CusInfoState _init(CusInfoState state, InitCusInfoAction action) {
@@ -46,6 +49,25 @@ CusInfoState _receivedAddressList(CusInfoState state, ReceivedAddressListAction 
   print("新的地址集合: ${state.customer?.copyWith(addrList: action.addressList)}");
   return state.copyWith(
     customer: state.customer?.copyWith(addrList: action.addressList),
+  );
+}
+
+CusInfoState _editCusInfoSuccess(CusInfoState state, UpdateCusInfoSuccessAction action) {
+  return state.copyWith(
+    loadingStatus: LoadingStatus.success,
+    customer: action.cus,
+  );
+}
+
+CusInfoState _editCusInfoFailed(CusInfoState state, UpdateCusInfoFailedAction action) {
+  return state.copyWith(
+    loadingStatus: LoadingStatus.failed,
+  );
+}
+
+CusInfoState _editCusInfo(CusInfoState state, UpdateCusInfoAction action) {
+  return state.copyWith(
+    loadingStatus: LoadingStatus.loading,
   );
 }
 

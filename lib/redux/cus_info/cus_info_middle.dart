@@ -4,6 +4,7 @@ import 'package:hair/model/address.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_info/cus_info_action.dart';
 import 'package:hair/redux/store.dart';
+import 'package:hair/utils/enum.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createCusInfoMiddle() {
@@ -75,6 +76,21 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
         globalStore.dispatch(new CusAddressChangedAction());
       } else {
         print('地址删除失败');
+      }
+    }
+
+    if (action is UpdateCusInfoAction) {
+      var res = await ServerApi.api.updateUserInfo(
+        cus: action.cus,
+        role: Role.customer,
+      );
+      print("网络请求修改地址 response:${res?.data}");
+      if (res != null && res?.data['status'] == 100) {
+        print('信息修改成功');
+        globalStore.dispatch(new UpdateCusInfoSuccessAction(cus: action.cus));
+      } else {
+        globalStore.dispatch(new UpdateCusInfoFailedAction());
+        print('信息修改失败');
       }
     }
   }
