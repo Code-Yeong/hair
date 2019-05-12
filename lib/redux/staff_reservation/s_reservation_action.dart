@@ -18,6 +18,18 @@ class SBeginEditReservationStatusAction {
   SBeginEditReservationStatusAction({this.status, this.resId, this.role = Role.barber});
 }
 
+//要修改某个订单verified时发出
+class ReservationVerifyAction {
+  final String resId;
+  ReservationVerifyAction({this.resId});
+}
+
+//修改某个订单verified成功发出
+class ReservationVerifySuccessAction {
+  final String resId;
+  ReservationVerifySuccessAction({this.resId});
+}
+
 ////要获取订单详细信息时调用
 //class SBeginFetchReservationDetailAction {
 //  String sReservationId;

@@ -29,7 +29,7 @@ class SReservationState {
   }
 
   Reservation findById(String id) {
-    if (selectedSReservationId == null) {
+    if (id == null) {
       return null;
     }
     List<Reservation> selectedReservationList = this.sReservationList.where((reservation) => reservation.rId == id).toList();
