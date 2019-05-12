@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/login/login_view_model.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/one_button.dart';
+import 'package:hair/config/server_api.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/login/login_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/enum.dart';
+import 'package:image_picker/image_picker.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -177,21 +180,10 @@ class LoginPageState extends State<LoginPage> {
                             title: "登录",
                             disabled: false,
                             onTap: () {
-                              globalStore.dispatch(new BeginLoginAction(phone: _phone, password: _password));
-//                  store.state.globalNavigator.pushNamed(CustomerRoute.customerHomePage);
-//                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-//                    return CustomerHomePage();
-//                  }));
+                              getImage();
+//                              globalStore.dispatch(new BeginLoginAction(phone: _phone, password: _password));
                             },
                           ),
-//                          SizedBox(height: 12.0),
-//                          BottomOneButton(
-//                            title: "员工登录",
-//                            disabled: false,
-//                            onTap: () {
-//                              GlobalNavigator.shared.pushNamed(StaffRoute.staffHomePage);
-//                            },
-//                          ),
                         ],
                       ),
                     ],
@@ -201,5 +193,19 @@ class LoginPageState extends State<LoginPage> {
             }),
       ),
     );
+  }
+
+  Future getImage() async {
+    Fluttertoast.showToast(
+        msg: "This is Center Short Toast",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    print('image:$image');
+    ServerApi.api.upLoadImage(image);
   }
 }

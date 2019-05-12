@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:hair/utils/enum.dart';
 
@@ -179,5 +181,21 @@ class ServerApi {
     print("评价订单的data ：$data");
     Response res = await _dio.post(url, data: data);
     return res;
+  }
+
+  upLoadImage(File image) async {
+    String path = image.path;
+    var name = path.substring(path.lastIndexOf("/") + 1, path.length);
+    var suffix = name.substring(name.lastIndexOf(".") + 1, name.length);
+
+    FormData formData = new FormData.from({"file": new UploadFileInfo(new File(path), name, contentType: ContentType.parse("image/$suffix"))});
+    Dio dio = new Dio();
+    var respone = await dio.post("users/upload", data: formData);
+    if (respone.statusCode == 200) {
+//      Fluttertoast.showToast(
+//          msg: "图片上传成功",
+//          gravity: ToastGravity.CENTER,
+//          textColor: Colors.grey);
+    }
   }
 }
