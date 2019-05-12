@@ -34,7 +34,8 @@ dependencies:
   fluttertoast: ^3.0.4
   common_utils: ^1.1.1
   smooth_star_rating: 1.0.2
-  qrcode_reader: ^0.4.4
+#  qrcode_reader: ^0.4.4
+  qrscan: ^0.1.5
   qr: ^1.1.0
 
 

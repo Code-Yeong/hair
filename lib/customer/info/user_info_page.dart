@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
@@ -10,7 +8,7 @@ import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_info/cus_info_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
-import 'package:qrcode_reader/qrcode_reader.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 
 class UserInfoPage extends StatelessWidget {
   @override
@@ -47,15 +45,9 @@ class UserInfoPage extends StatelessWidget {
                           height: 54.0,
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Future<String> futureString = new QRCodeReader()
-                                .setAutoFocusIntervalInMs(200) // default 5000
-                                .setForceAutoFocus(true) // default false
-                                .setTorchEnabled(true) // default false
-                                .setHandlePermissions(true) // default true
-                                .setExecuteAfterPermissionGranted(true) // default true
-                                .scan();
-                            print("error:$futureString");
+                          onTap: () async {
+                            String barcode = await scanner.scan();
+                            print("error:$barcode");
                           },
                           child: Container(
                             width: 50.0,
