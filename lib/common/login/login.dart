@@ -17,7 +17,6 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   String _phone;
   String _password;
-  bool _isStaff = false;
   Color _staffColor = Colors.green;
   Color _customerColor = Colors.blueAccent;
 
@@ -28,6 +27,7 @@ class LoginPageState extends State<LoginPage> {
         body: StoreConnector<AppState, LoginViewModel>(
             converter: (store) => LoginViewModel.fromStore(store),
             builder: (context, model) {
+              bool _isStaff = globalStore.state.loginState.role == Role.barber;
               return Container(
                 color: Colors.grey,
                 child: Container(
@@ -150,6 +150,7 @@ class LoginPageState extends State<LoginPage> {
                                           onChanged: (newValue) {
                                             setState(() {
                                               _isStaff = newValue;
+                                              globalStore.dispatch(ChangeRoleAction(role: _isStaff ? Role.barber : Role.customer));
                                             });
                                           },
                                         ),
@@ -176,7 +177,7 @@ class LoginPageState extends State<LoginPage> {
                             title: "登录",
                             disabled: false,
                             onTap: () {
-                              globalStore.dispatch(new BeginLoginAction(role: _isStaff ? Role.barber : Role.customer, phone: _phone, password: _password));
+                              globalStore.dispatch(new BeginLoginAction(phone: _phone, password: _password));
 //                  store.state.globalNavigator.pushNamed(CustomerRoute.customerHomePage);
 //                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
 //                    return CustomerHomePage();

@@ -17,8 +17,8 @@ class ServerApi {
   final Dio _dio = new Dio(options);
 //  final Dio _dio = new Dio();
 
-  Future<Response> customerRegist({String phone, String name, String password}) async {
-    String url = 'users/regist';
+  Future<Response> regist({String phone, String name, String password, Role role}) async {
+    String url = role == Role.customer ? 'users/regist' : 'barber/regist';
     var data = {
       'phone': phone,
       'name': name,
@@ -28,8 +28,8 @@ class ServerApi {
     return res;
   }
 
-  Future<dynamic> customerSignIn({String phone, String password}) async {
-    String url = 'users/login';
+  Future<dynamic> signIn({Role role, String phone, String password}) async {
+    String url = role == Role.customer ? 'users/login' : 'barber/login';
     var data = {
       'phone': phone,
       'password': password,
@@ -144,7 +144,7 @@ class ServerApi {
   }
 
   //查询理发师对应的"所有未完成"订单
-  Future<dynamic> getBarberUnStartOrder({String id, Role role}) async {
+  Future<dynamic> getBarberUnStartOrder({String id}) async {
     String url;
     String idName;
     url = 'order/getBarberUnStartOrder';
@@ -162,7 +162,7 @@ class ServerApi {
       'id': orderId,
       'status': status,
     };
-//    print("修改订单的data ：$data");
+    print("修改订单的data ：$data");
     Response res = await _dio.post(url, data: data);
     return res;
   }

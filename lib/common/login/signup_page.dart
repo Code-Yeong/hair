@@ -13,22 +13,17 @@ class SignupPage extends StatefulWidget {
 class SignupPageState extends State<SignupPage> {
   TextEditingController phoneController, nameController, passwordController;
   String textPhone, textName, textPassword;
-  bool _isStaff = false;
   Color _staffColor = Colors.green;
   Color _customerColor = Colors.blueAccent;
 
   @override
   void initState() {
     super.initState();
-//    phoneController = new TextEditingController();
-//    phoneController.addListener((){
-//    });
-//    nameController = new TextEditingController();
-//    passwordController = new TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
+    bool _isStaff = globalStore.state.loginState.role == Role.barber;
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -182,6 +177,7 @@ class SignupPageState extends State<SignupPage> {
                                     onChanged: (newValue) {
                                       setState(() {
                                         _isStaff = newValue;
+                                        globalStore.dispatch(ChangeRoleAction(role: _isStaff ? Role.barber : Role.customer));
                                       });
                                     },
                                   ),
@@ -211,7 +207,6 @@ class SignupPageState extends State<SignupPage> {
                       disabled: _isDisabled(),
                       onTap: () {
                         globalStore.dispatch(new BeginSignupAction(
-                          role: !_isStaff ? Role.barber : Role.customer,
                           phone: textPhone,
                           name: textName,
                           password: textPassword,

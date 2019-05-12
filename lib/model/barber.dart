@@ -48,6 +48,7 @@ class Barber {
   });
 
   static Barber fromObj(obj) {
+    print(obj);
     return Barber(
       id: obj['id'] ?? '',
       name: obj['name'] ?? '',

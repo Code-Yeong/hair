@@ -79,10 +79,11 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.getProcessingList()?.length,
+                      itemCount: viewModel.getProcessingList()?.length ?? 0,
                       itemBuilder: (context, index) {
                         Reservation reservation = viewModel.getProcessingList()[index];
                         return StaffReservationItemWidget(
+                          resId: reservation?.rId,
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
                           address: "${reservation?.adddress}",
@@ -112,10 +113,11 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.getWaitingList()?.length,
+                      itemCount: viewModel.getWaitingList()?.length ?? 0,
                       itemBuilder: (context, index) {
                         Reservation reservation = viewModel.getWaitingList()[index];
                         return StaffReservationItemWidget(
+                          resId: reservation?.rId,
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
                           address: "${reservation?.adddress}",
@@ -144,10 +146,11 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.getCompleteList()?.length,
+                      itemCount: viewModel.getCompleteList()?.length ?? 0,
                       itemBuilder: (context, index) {
                         Reservation reservation = viewModel.getCompleteList()[index];
                         return StaffReservationItemWidget(
+                          resId: reservation?.rId,
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
                           address: "${reservation?.adddress}",
@@ -176,7 +179,7 @@ class StaffReservationPage extends StatelessWidget {
                   builder: (context, viewModel) {
 //                    return Container(
                     return ListView.separated(
-                      itemCount: viewModel.reservationList?.length,
+                      itemCount: viewModel.reservationList?.length ?? 0,
                       itemBuilder: (context, index) {
                         Reservation reservation = viewModel.reservationList[index];
                         return StaffReservationItemWidget(
