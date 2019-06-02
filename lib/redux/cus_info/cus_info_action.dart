@@ -61,3 +61,12 @@ class UpdateCusInfoSuccessAction {
 }
 
 class UpdateCusInfoFailedAction {}
+
+//------------
+//修改头像
+class BeginEditAvatarAction {}
+
+class EditAvatarSuccessAction {
+  final String avatarUrl;
+  EditAvatarSuccessAction({this.avatarUrl});
+}

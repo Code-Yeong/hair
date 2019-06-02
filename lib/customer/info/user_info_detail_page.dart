@@ -1,8 +1,10 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/component/list_cell.dart';
+import 'package:hair/component/time_zone.dart';
+import 'package:hair/component/toast.dart';
 import 'package:hair/customer/info/user_info_page_view_model.dart';
-import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/model/customer.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_info/cus_info_action.dart';
@@ -69,15 +71,19 @@ class UserInfoDetailPageState extends State<UserInfoDetailPage> {
                               });
                               Navigator.of(context).pop();
                               if (name == null || name.length == 0) {
+                                showToast(text: '请输入正确的姓名');
                                 return;
                               }
                               if (nickName == null || nickName.length == 0) {
+                                showToast(text: '请输入正确的昵称');
                                 return;
                               }
                               if (description == null || description.length == 0) {
+                                showToast(text: '请输入正确的签名');
                                 return;
                               }
-                              if (phone == null || phone.length == 0) {
+                              if (phone == null || phone.length == 0 || !RegexUtil.isMobileExact(phone)) {
+                                showToast(text: '请输入正确的手机号');
                                 return;
                               }
                               Customer newCustomer = cus?.copyWith(name: name, nickName: nickName, phone: phone, description: description);
@@ -186,7 +192,7 @@ class UserInfoDetailPageState extends State<UserInfoDetailPage> {
                                     },
                                   ),
                                 )
-                              : Text('${cus?.name}'),
+                              : Text('${cus?.phone}'),
                         ),
                       ),
                       GestureDetector(

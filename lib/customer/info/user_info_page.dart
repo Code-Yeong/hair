@@ -1,14 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/list_cell.dart';
+import 'package:hair/component/scan.dart';
 import 'package:hair/customer/info/user_info_page_view_model.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_info/cus_info_action.dart';
+import 'package:hair/redux/cus_reservation/reservation_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 
 class UserInfoPage extends StatelessWidget {
   @override
@@ -26,6 +29,7 @@ class UserInfoPage extends StatelessWidget {
       body: StoreConnector<AppState, UserInfoPageViewModel>(
           converter: (store) => UserInfoPageViewModel.fromStore(store),
           builder: (context, model) {
+            print('avatar:${model.customer?.avator}');
             return SafeArea(
               child: Container(
                 color: CommonColors.bgGray,
@@ -46,12 +50,18 @@ class UserInfoPage extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            String barcode = await scanner.scan();
-                            print("error:$barcode");
+                            String result = await scanQrCode();
+                            if (result != null) {
+                              print('result:$result');
+                              var map = json.decode(result);
+                              globalStore.dispatch(
+                                  new ScanFinishedAction(rId: int.parse(map['rid']), cusId: int.parse(map['cusId']), barberId: int.parse(map['barberid'])));
+                            }
                           },
                           child: Container(
-                            width: 50.0,
-                            child: Icon(Icons.code),
+                            width: 25.0,
+                            margin: const EdgeInsets.only(right: 20.0),
+                            child: Image.asset('assets/images/scan.png'),
                           ),
                         )
                       ],
@@ -68,9 +78,14 @@ class UserInfoPage extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          CircleAvatar(
-                            backgroundImage: AssetImage('assets/images/barber.jpg'),
-                            radius: 30.0,
+                          GestureDetector(
+                            onTap: () {
+                              globalStore.dispatch(new BeginEditAvatarAction());
+                            },
+                            child: CircleAvatar(
+                              backgroundImage: model.customer?.avator != null ? NetworkImage(model.customer.avator) : null,
+                              radius: 30.0,
+                            ),
                           ),
                           SizedBox(
                             width: 50.0,
@@ -125,7 +140,9 @@ class UserInfoPage extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              GlobalNavigator.shared.pushNamed(CustomerRoute.walletPage);
+                            },
                             child: ListCell(
                               title: "我的钱包",
                               showDivider: true,

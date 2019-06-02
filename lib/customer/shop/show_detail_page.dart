@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:hair/common/barber_comment_page/barber_comment_page.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/empty_widget.dart';
@@ -116,9 +117,11 @@ class ShopDetailPage extends StatelessWidget {
                                     return Container(
                                       margin: EdgeInsets.only(bottom: 20.0),
                                       child: BarberItem(
+                                        batberid: barber?.id,
                                         avatar: barber?.avatar,
                                         name: barber?.name,
                                         score: barber?.score,
+                                        shopAvatar: shop.avatar,
                                         orderCount: barber?.orderCount,
                                         onTap: () {
                                           globalStore.dispatch(new SetCurrentBarberAction(barber: barber));
@@ -184,12 +187,14 @@ class ShopDetailPage extends StatelessWidget {
 }
 
 class BarberItem extends StatelessWidget {
+  final String batberid;
   final String avatar;
   final String name;
+  final String shopAvatar;
   final num score;
   final num orderCount;
   final VoidCallback onTap;
-  BarberItem({this.avatar, this.name, this.score, this.orderCount, this.onTap});
+  BarberItem({this.batberid, this.avatar, this.name, this.score, this.orderCount, this.shopAvatar, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -201,59 +206,73 @@ class BarberItem extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
         border: Border.all(color: CommonColors.lineDividing),
       ),
-      child: Row(
-        children: <Widget>[
-          CircleAvatar(
-            radius: 30.0,
-            backgroundImage: NetworkImage('$avatar'),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(left: 12.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text("$name", style: TextStyle(fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold)),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) {
+              return BarberCommentPage(
+                barberId: batberid,
+                barberAvatar: avatar,
+                barberName: name,
+                shopAvatar: shopAvatar,
+              );
+            }),
+          );
+        },
+        child: Row(
+          children: <Widget>[
+            CircleAvatar(
+              radius: 30.0,
+              backgroundImage: NetworkImage('$avatar'),
+            ),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(left: 12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text("$name", style: TextStyle(fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold)),
 //                      SizedBox(
 //                        width: 10.0,
 //                      ),
 //                      Text("$orderCount单", style: TextStyle(fontSize: 17.0, color: Colors.grey)),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      StarsWidget(
-                        score: score,
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        StarsWidget(
+                          score: score,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          GestureDetector(
-            onTap: onTap,
-            child: Container(
-              height: 40.0,
-              width: 80.0,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                color: Colors.blueAccent,
+            GestureDetector(
+              onTap: onTap,
+              child: Container(
+                height: 40.0,
+                width: 80.0,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                  color: Colors.blueAccent,
+                ),
+                child: Text(
+                  "立即预约",
+                  style: TextStyle(color: Colors.white, fontSize: 16.0),
+                ),
               ),
-              child: Text(
-                "立即预约",
-                style: TextStyle(color: Colors.white, fontSize: 16.0),
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

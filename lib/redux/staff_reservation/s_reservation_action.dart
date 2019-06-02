@@ -1,3 +1,4 @@
+import 'package:hair/model/comment.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/utils/enum.dart';
 
@@ -49,4 +50,18 @@ class SFetchReservationDetailFailedAction {}
 class SSelectedReservationAction {
   final String rId;
   SSelectedReservationAction({this.rId});
+}
+
+//获取订单的扫码情况,state里面已经保存了订单id,所以不用再传id了
+class SQueryScanResultAction {}
+
+//根据理发师id查询订单评论信息
+class FetchBarberCommentAction {
+  final String barberId;
+  FetchBarberCommentAction({this.barberId});
+}
+
+class ReceivedBarberCommentAction {
+  final List<Comment> commentList;
+  ReceivedBarberCommentAction({this.commentList});
 }

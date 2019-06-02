@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:hair/common/global_navigator.dart';
+import 'package:hair/component/toast.dart';
 import 'package:hair/config/server_api.dart';
 import 'package:hair/model/address.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/cus_info/cus_info_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/enum.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createCusInfoMiddle() {
@@ -91,6 +95,22 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
       } else {
         globalStore.dispatch(new UpdateCusInfoFailedAction());
         print('信息修改失败');
+      }
+    }
+
+    if (action is BeginEditAvatarAction) {
+      String userId = store.state.cusInfoState.customer.id;
+      Role role = Role.customer;
+      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      var res = await ServerApi.api.upLoadImage(image: image, id: userId, role: role);
+      print(res.data);
+      var result = json.decode(res.data);
+      if (result['status'] == 106) {
+        String avatarUrl = result['data']['url'];
+        store.dispatch(new EditAvatarSuccessAction(avatarUrl: avatarUrl));
+        showToast(text: '头像修改成功');
+      } else {
+        showToast(text: '头像修改失败');
       }
     }
   }

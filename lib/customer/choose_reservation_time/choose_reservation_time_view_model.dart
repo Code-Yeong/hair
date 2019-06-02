@@ -1,4 +1,4 @@
-import 'package:hair/customer/reservation/time_zone.dart';
+import 'package:hair/component/time_zone.dart';
 import 'package:hair/model/address.dart';
 import 'package:hair/model/barber.dart';
 import 'package:hair/model/reservation.dart';

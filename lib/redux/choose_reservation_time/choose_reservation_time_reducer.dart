@@ -1,4 +1,4 @@
-import 'package:hair/customer/reservation/time_zone.dart';
+import 'package:hair/component/time_zone.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_state.dart';
 import 'package:hair/utils/enum.dart';

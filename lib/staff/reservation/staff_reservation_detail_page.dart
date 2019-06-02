@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:hair/customer/reservation/time_zone.dart';
+import 'package:hair/component/time_zone.dart';
 import 'package:hair/model/dart.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';

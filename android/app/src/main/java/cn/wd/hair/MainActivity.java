@@ -28,6 +28,7 @@ public class MainActivity extends FlutterActivity {
     Log.e("TAG",sHA1(this));
     mapView.onCreate(savedInstanceState);
     ViewRegistrant.registerWith(this,mapView);
+    GeneratedPluginRegistrant.registerWith(this);
   }
 
   public boolean onKeyDown(int keyCode, KeyEvent event) {

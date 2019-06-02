@@ -30,6 +30,14 @@ class SelectedReservationAction {
   SelectedReservationAction({this.rId});
 }
 
+//扫码确认订单
+class ScanFinishedAction {
+  num rId;
+  num cusId;
+  num barberId;
+  ScanFinishedAction({this.rId, this.cusId, this.barberId});
+}
+
 //评价某个订单
 class CommentReservationAction {
   final String resId;

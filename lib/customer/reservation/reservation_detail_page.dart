@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/component/one_button.dart';
+import 'package:hair/component/time_zone.dart';
 import 'package:hair/customer/reservation/reservation_page_view_model.dart';
-import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/customer/reservation_comment/reservation_coment_page.dart';
 import 'package:hair/model/dart.dart';
 import 'package:hair/model/reservation.dart';
@@ -109,7 +109,7 @@ class _TimelinePageState extends State<ReservationDetailPage> {
               alignment: Alignment.bottomRight,
               padding: EdgeInsets.only(right: 12.0, bottom: 16.0),
               child: Text(
-                '取消预约',
+                int.parse(reservation.status) <= 2 ? '取消预约' : '',
                 style: TextStyle(fontSize: 16.0, color: Colors.red),
               ),
             ),
@@ -141,7 +141,6 @@ class _TimelinePageState extends State<ReservationDetailPage> {
           continue;
         }
       }
-      print('finished:$finished');
       if (i == 1) {
         list.add(Doodle(
           title: OrderStatusValue[i],
@@ -248,21 +247,24 @@ class _TimelinePageState extends State<ReservationDetailPage> {
                       child: Text(i == 4 ? viewModel.selectedReservation?.comment : statusText[i]),
                     ),
                   ),
-                  Container(
-                    width: 60.0,
-                    height: 30.0,
-                    child: BottomOneButton(
-                      title: '去评价',
-                      fontSize: 14.0,
-                      onTap: () {
+                  Offstage(
+                    offstage: status == 4,
+                    child: Container(
+                      width: 60.0,
+                      height: 30.0,
+                      child: BottomOneButton(
+                        title: '去评价',
+                        fontSize: 14.0,
+                        onTap: () {
 //                                  GlobalNavigator.shared.pushNamed(StaffRoute.reservationComment);
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => ReservationComment(),
-                          ),
-                        );
-                      },
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => ReservationComment(),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

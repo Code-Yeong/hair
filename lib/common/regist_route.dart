@@ -16,6 +16,7 @@ import 'package:hair/customer/info/user_info_detail_page.dart';
 import 'package:hair/customer/reservation/reservation_detail_page.dart';
 import 'package:hair/customer/reservation_comment/reservation_coment_page.dart';
 import 'package:hair/customer/shop/show_detail_page.dart';
+import 'package:hair/customer/wallet/wallet_page.dart';
 import 'package:hair/staff/reservation/qr_page.dart';
 import 'package:hair/staff/reservation/staff_reservation_detail_page.dart';
 import 'package:hair/staff/reservation/staff_reservation_page.dart';
@@ -50,6 +51,7 @@ class CustomerRoute {
   static const String userAddressEditPage = 'userAddressEditPage';
   static const String reservationDetailPage = 'reservationDetailPage';
   static const String userInfoDetailPage = 'UserInfoDetailPage';
+  static const String walletPage = 'WalletPage';
   static void registerPageRoute() {
     GlobalNavigator.shared.registerPageRoutes({
       shopDetailPage: (context) => ShopDetailPage(),
@@ -60,6 +62,7 @@ class CustomerRoute {
       userAddressEditPage: (_) => UserAddressEditPage(addPage: true),
       reservationDetailPage: (_) => ReservationDetailPage(),
       userInfoDetailPage: (_) => UserInfoDetailPage(),
+      walletPage: (_) => WalletPage(),
     });
   }
 }

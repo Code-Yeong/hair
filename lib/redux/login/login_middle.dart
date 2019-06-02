@@ -1,5 +1,6 @@
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
+import 'package:hair/component/toast.dart';
 import 'package:hair/config/server_api.dart';
 import 'package:hair/model/barber.dart';
 import 'package:hair/model/customer.dart';
@@ -32,13 +33,11 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
       if (res != null && res?.data['status'] == 100) {
         if (role == Role.customer) {
           Customer customer = Customer.fromObj(res?.data['result']);
-//          print("正在登录的 coustomer id=${customer.id}");
           store.dispatch(new LoginSuccessAction());
           store.dispatch(new ReceivedCusInfoAction(customer: customer));
           GlobalNavigator.shared.pushNamed(CustomerRoute.customerHomePage);
         } else {
           Barber barber = Barber.fromObj(res?.data['result']);
-//          print("正在登录的 barber id=${barber.id}");
           store.dispatch(new LoginSuccessAction());
           store.dispatch(new ReceivedStaffInfoAction(staff: barber));
           GlobalNavigator.shared.pushNamed(StaffRoute.staffHomePage);
@@ -48,16 +47,7 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
         store.dispatch(new LoginFailedAction());
         toastMsg = '登录失败，请重试';
       }
-      print("$toastMsg");
-//      Fluttertoast.showToast(
-//        msg: toastMsg,
-//        toastLength: Toast.LENGTH_LONG,
-//        gravity: ToastGravity.CENTER,
-//        timeInSecForIos: 1,
-//        backgroundColor: Colors.red,
-//        textColor: Colors.white,
-//        fontSize: 16.0,
-//      );
+      showToast(text: toastMsg);
     }
 
     //  注册
@@ -74,8 +64,7 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
         store.dispatch(SignupFailedAction());
         toastMsg = '提交失败，请重试';
       }
-
-      print(toastMsg);
+      showToast(text: toastMsg);
     }
   }
 }

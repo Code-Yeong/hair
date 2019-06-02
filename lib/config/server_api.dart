@@ -196,6 +196,31 @@ class ServerApi {
     return res;
   }
 
+  //用户扫码确认订单
+  Future<dynamic> scanFinishReservation({num rId, num cusId, num barberId}) async {
+    String url = 'order/scan';
+    var data = {
+      'rId': rId,
+      'cusId': cusId,
+      'barberId': barberId,
+    };
+    print("用户扫码请求数据 ：$data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
+
+  Future<dynamic> listenReservationStatus({String rId}) async {
+    String url = 'order/listen/status';
+    print('正在监听当前订单扫码状态');
+
+    var data = {
+      'rId': rId,
+    };
+
+    Response res = await _dio.get(url, queryParameters: data);
+    return res;
+  }
+
   //修改用户信息（理发师或者客户）
   Future<dynamic> updateUserInfo({Customer cus, Barber barber, Role role}) async {
     String url;
@@ -217,14 +242,36 @@ class ServerApi {
     return res;
   }
 
-  upLoadImage(File image) async {
+  //根据理发师id查询评论内容
+  Future<dynamic> getBarberComment({String barberId}) async {
+    String url = 'order/comments/barber';
+    var data = {
+      'barberId': barberId,
+    };
+    print("根据理发师id查询评论内容, data: $data");
+    Response res = await _dio.get(url, queryParameters: data);
+    return res;
+  }
+
+  upLoadImage({File image, String id, Role role}) async {
+    String url = 'http://wd.chivan.cn:3000/file/upload/avatar';
     String path = image.path;
     var name = path.substring(path.lastIndexOf("/") + 1, path.length);
     var suffix = name.substring(name.lastIndexOf(".") + 1, name.length);
+    FormData formData = new FormData.from(
+      {
+        "id": id,
+        "role": role.index,
+        "image": new UploadFileInfo(
+          new File(path),
+          name,
+        ),
+      },
+    );
 
-    FormData formData = new FormData.from({"file": new UploadFileInfo(new File(path), name, contentType: ContentType.parse("image/$suffix"))});
+    print('${new File(path)}');
     Dio dio = new Dio();
-    var respone = await dio.post("users/upload", data: formData);
-    if (respone.statusCode == 200) {}
+    Response res = await dio.post(url, data: formData);
+    return res;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hair/customer/reservation/time_zone.dart';
+import 'package:hair/component/time_zone.dart';
 import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
 

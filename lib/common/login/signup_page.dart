@@ -1,6 +1,8 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/component/one_button.dart';
+import 'package:hair/component/toast.dart';
 import 'package:hair/redux/login/login_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/enum.dart';
@@ -84,7 +86,7 @@ class SignupPageState extends State<SignupPage> {
                                     width: 100.0,
                                     child: new TextField(
                                       onSubmitted: null,
-                                      decoration: new InputDecoration.collapsed(hintText: '输入手机号码'),
+                                      decoration: new InputDecoration.collapsed(hintText: '输入11位手机号码'),
                                       style: new TextStyle(fontSize: 16.0, color: Colors.black),
                                       maxLines: 1,
                                       onChanged: (str) {
@@ -138,7 +140,7 @@ class SignupPageState extends State<SignupPage> {
                                     child: new TextField(
 //                      controller: _textController,
                                       onSubmitted: null,
-                                      decoration: new InputDecoration.collapsed(hintText: '输入密码'),
+                                      decoration: new InputDecoration.collapsed(hintText: '输入密码(8-10位)'),
                                       style: new TextStyle(fontSize: 16.0, color: Colors.black),
                                       maxLines: 1,
                                       onChanged: (str) {
@@ -206,6 +208,19 @@ class SignupPageState extends State<SignupPage> {
                       title: "注册",
                       disabled: _isDisabled(),
                       onTap: () {
+                        if (!RegexUtil.isMobileExact(textPhone)) {
+                          showToast(text: '请输入正确的手机号');
+                          return;
+                        }
+                        if (textName != null && textName.length == 0) {
+                          showToast(text: '请输入正确的姓名');
+                          return;
+                        }
+                        if (textPassword == null || textPassword.length < 6 || textPassword.length > 10) {
+                          showToast(text: '请输入正确的密码');
+                          return;
+                        }
+
                         globalStore.dispatch(new BeginSignupAction(
                           phone: textPhone,
                           name: textName,

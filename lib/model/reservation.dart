@@ -91,7 +91,6 @@ class Reservation {
     List<Reservation> reservationList = [];
 
     for (var item in obj) {
-      print("这里 ${item['verified']}");
       reservationList.add(Reservation(
         rId: item['id'].toString() ?? '',
         avatar: item['avatar'] ?? 'assets/images/barber.jpg',
@@ -101,7 +100,7 @@ class Reservation {
         commentTime: item['commentTime'] ?? '',
         cusId: item['cusId'] ?? '',
         code: item['code'] ?? '',
-        verified: item['verified'] ?? '',
+        verified: item['verified'] ?? '0',
         barberId: item['barberId'] ?? '',
         shopId: item['shopId'] ?? '',
         adddress: item['address'] ?? '', // ???

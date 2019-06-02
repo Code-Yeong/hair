@@ -4,6 +4,7 @@ import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/empty_widget.dart';
 import 'package:hair/component/reservation_item_widget.dart';
+import 'package:hair/component/toast.dart';
 import 'package:hair/customer/reservation/reservation_page_view_model.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
@@ -88,8 +89,12 @@ class ReservationPage extends StatelessWidget {
                           money: int.parse(reservation?.money),
                           comment: reservation?.comment,
                           onTap: () {
-                            globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
-                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+                            if (int.parse(reservation.status) != 5) {
+                              globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
+                              GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+                            } else {
+                              showToast(text: '无法查看已关闭的订单哦!');
+                            }
                           },
                         );
                       },
@@ -128,8 +133,12 @@ class ReservationPage extends StatelessWidget {
                           money: int.parse(reservation?.money),
                           comment: reservation?.comment,
                           onTap: () {
-                            globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
-                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+                            if (int.parse(reservation.status) != 5) {
+                              globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
+                              GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+                            } else {
+                              showToast(text: '无法查看已关闭的订单哦!');
+                            }
                           },
                         );
                       },
@@ -169,8 +178,12 @@ class ReservationPage extends StatelessWidget {
                           money: int.parse(reservation?.money),
                           comment: reservation?.comment,
                           onTap: () {
-                            globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
-                            GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+                            if (int.parse(reservation.status) != 5) {
+                              globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
+                              GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+                            } else {
+                              showToast(text: '无法查看已关闭的订单哦!');
+                            }
                           },
                         );
                       },

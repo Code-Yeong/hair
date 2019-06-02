@@ -10,6 +10,7 @@ final sReservationReducers = combineReducers<SReservationState>([
 //  new TypedReducer<SReservationState, FetchSReservationDetailFailedAction>(_loadFailedSReservationDetail),
   new TypedReducer<SReservationState, SSelectedReservationAction>(_selectedSReservation),
   new TypedReducer<SReservationState, ReservationVerifySuccessAction>(_VerifyReservation),
+  new TypedReducer<SReservationState, ReceivedBarberCommentAction>(_receivedCommentList),
 ]);
 
 SReservationState _receivedSReservationList(SReservationState state, SReceivedReservationListAction action) {
@@ -58,4 +59,11 @@ SReservationState _VerifyReservation(SReservationState state, ReservationVerifyS
     return r;
   }).toList();
   return state.copyWith(sReservationList: newList);
+}
+
+SReservationState _receivedCommentList(SReservationState state, ReceivedBarberCommentAction action) {
+  print('fuzhi:${action.commentList.length}');
+  return state.copyWith(
+    barberCommentList: action.commentList,
+  );
 }

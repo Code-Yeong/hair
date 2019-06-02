@@ -1,4 +1,6 @@
+import 'package:audioplayer/audioplayer.dart';
 import 'package:hair/common/global_navigator.dart';
+import 'package:hair/component/toast.dart';
 import 'package:hair/config/server_api.dart';
 import 'package:hair/model/reservation.dart';
 import 'package:hair/redux/app/app_state.dart';
@@ -33,13 +35,25 @@ class ReservationMiddleware extends MiddlewareClass<AppState> {
 
     if (action is CommentReservationAction) {
       var res = await ServerApi.api.commentOrder(orderId: action.resId, shopScore: action.shopScore, barberScore: action.barberScore, content: action.content);
-      print("评价订单res:$res");
       if (res != null && res?.data['status'] == 100) {
-        print("评价成功，返回订单detail:$res");
+        showToast(text: "评价成功");
         store.dispatch(BeginFetchReservationListAction());
         GlobalNavigator.shared.pop();
       } else {
-        print('评价订单失败');
+        showToast(text: "评价失败,请重试");
+      }
+    }
+
+    if (action is ScanFinishedAction) {
+      AudioPlayer player = new AudioPlayer();
+      await player.play('assets/audio/scan.mp3', isLocal: true);
+      var res = await ServerApi.api.scanFinishReservation(rId: action.rId, cusId: action.cusId, barberId: action.barberId);
+      print('scan result:$res');
+      if (res != null && res?.data['status'] == 100) {
+        showToast(text: "订单已完成");
+        store.dispatch(BeginFetchReservationListAction());
+      } else {
+        showToast(text: "订单确认失败,请重试");
       }
     }
   }

@@ -4,8 +4,9 @@ import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/one_button.dart';
 import 'package:hair/component/time_item_widget.dart';
+import 'package:hair/component/time_zone.dart';
+import 'package:hair/component/toast.dart';
 import 'package:hair/customer/choose_reservation_time/choose_reservation_time_view_model.dart';
-import 'package:hair/customer/reservation/time_zone.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/redux/store.dart';
@@ -338,6 +339,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         selected: selectedItem == '$block-1',
         onTap: () {
           if (viewModel.isReserved(block, 1)) {
+            showToast(text: '该时间段已被预约!');
             return;
           }
           _selectedTime(block, 1);
@@ -349,6 +351,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         selected: selectedItem == '$block-2',
         onTap: () {
           if (viewModel.isReserved(block, 2)) {
+            showToast(text: '该时间段已被预约!');
             return;
           }
           _selectedTime(block, 2);
@@ -360,6 +363,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         selected: selectedItem == '$block-3',
         onTap: () {
           if (viewModel.isReserved(block, 3)) {
+            showToast(text: '该时间段已被预约!');
             return;
           }
           _selectedTime(block, 3);
@@ -371,6 +375,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         selected: selectedItem == '$block-4',
         onTap: () {
           if (viewModel.isReserved(block, 4)) {
+            showToast(text: '该时间段已被预约!');
             return;
           }
           _selectedTime(block, 4);
@@ -382,6 +387,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
         selected: selectedItem == '$block-5',
         onTap: () {
           if (viewModel.isReserved(block, 5)) {
+            showToast(text: '该时间段已被预约!');
             return;
           }
           _selectedTime(block, 5);

@@ -69,3 +69,37 @@ List<String> statusText = [
 ];
 
 const List<String> accountStatusText = ['禁用', '正常'];
+
+enum CouponStatus {
+  unCollected,
+  collected,
+  unUsed,
+  used,
+  expired,
+}
+
+CouponStatus buildCouponStatusType(int value) {
+  return CouponStatus.values[value];
+}
+
+String getCouponStatusText(CouponStatus status) {
+  String text = '';
+  switch (status) {
+    case CouponStatus.unCollected:
+      text = '待领取';
+      break;
+    case CouponStatus.collected:
+      text = '已领取';
+      break;
+    case CouponStatus.unUsed:
+      text = '未使用';
+      break;
+    case CouponStatus.used:
+      text = '已使用';
+      break;
+    case CouponStatus.expired:
+      text = '已过期';
+      break;
+  }
+  return text;
+}

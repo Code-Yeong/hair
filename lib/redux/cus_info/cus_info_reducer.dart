@@ -1,3 +1,4 @@
+import 'package:hair/model/customer.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/redux/cus_info/cus_info_action.dart';
 import 'package:hair/redux/cus_info/cus_info_state.dart';
@@ -17,6 +18,7 @@ final cusInfoReducers = combineReducers<CusInfoState>([
   new TypedReducer<CusInfoState, UpdateCusInfoSuccessAction>(_editCusInfoSuccess),
   new TypedReducer<CusInfoState, UpdateCusInfoFailedAction>(_editCusInfoFailed),
   new TypedReducer<CusInfoState, UpdateCusInfoAction>(_editCusInfo),
+  new TypedReducer<CusInfoState, EditAvatarSuccessAction>(_editAvatar),
 ]);
 
 CusInfoState _init(CusInfoState state, InitCusInfoAction action) {
@@ -68,6 +70,14 @@ CusInfoState _editCusInfoFailed(CusInfoState state, UpdateCusInfoFailedAction ac
 CusInfoState _editCusInfo(CusInfoState state, UpdateCusInfoAction action) {
   return state.copyWith(
     loadingStatus: LoadingStatus.loading,
+  );
+}
+
+CusInfoState _editAvatar(CusInfoState state, EditAvatarSuccessAction action) {
+  Customer oldCus = state.customer;
+  Customer newCus = oldCus.copyWith(avator: action.avatarUrl);
+  return state.copyWith(
+    customer: newCus,
   );
 }
 

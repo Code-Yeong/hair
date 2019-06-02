@@ -176,7 +176,7 @@ class LoginPageState extends State<LoginPage> {
                             bgColor: _isStaff ? _staffColor : _customerColor,
                             title: "登录",
                             disabled: false,
-                            onTap: () {
+                            onTap: () async {
                               globalStore.dispatch(new BeginLoginAction(phone: _phone, password: _password));
                             },
                           ),
