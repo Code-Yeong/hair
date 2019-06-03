@@ -274,4 +274,26 @@ class ServerApi {
     Response res = await dio.post(url, data: formData);
     return res;
   }
+
+  staffVerify({File image, String id, String name, String idCard}) async {
+    String url = 'http://wd.chivan.cn:3000/file/barber/verify';
+    String path = image.path;
+    var _name = path.substring(path.lastIndexOf("/") + 1, path.length);
+    var suffix = name.substring(name.lastIndexOf(".") + 1, name.length);
+    FormData formData = new FormData.from(
+      {
+        "id": id,
+        "name": name,
+        'idcard': idCard,
+        "image": new UploadFileInfo(
+          new File(path),
+          _name,
+        ),
+      },
+    );
+
+    Dio dio = new Dio();
+    Response res = await dio.post(url, data: formData);
+    return res;
+  }
 }

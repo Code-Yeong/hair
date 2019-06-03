@@ -9,6 +9,9 @@ final staffInfoReducers = combineReducers<StaffInfoState>([
   new TypedReducer<StaffInfoState, BeginFetchStaffInfoAction>(_beginFetch),
   new TypedReducer<StaffInfoState, ReceivedStaffInfoAction>(_received),
   new TypedReducer<StaffInfoState, StaffInfoLoadingErrorAction>(_errorLoading),
+  new TypedReducer<StaffInfoState, BeginVerifyAction>(_beginVerify),
+  new TypedReducer<StaffInfoState, VerifySuccessAction>(_verifySuccess),
+  new TypedReducer<StaffInfoState, VerifyFailedAction>(_verifyFailed),
 //  new TypedReducer<StaffInfoState, EditStaffGenderInfoAction>(_editStaffGender),
 //  new TypedReducer<StaffInfoState, EditStaffPhoneInfoAction>(_editStaffPhone),
 //  new TypedReducer<StaffInfoState, EditStaffAddressInfoAction>(_editStaffAddress),
@@ -64,3 +67,15 @@ StaffInfoState _errorLoading(StaffInfoState state, StaffInfoLoadingErrorAction a
 //    StaffInfoState state, EditStaffAddressInfoAction action) {
 //  return state.copyWith();
 //}
+
+StaffInfoState _verifySuccess(StaffInfoState state, VerifySuccessAction action) {
+  return state.copyWith(loadingStatus: LoadingStatus.success);
+}
+
+StaffInfoState _verifyFailed(StaffInfoState state, VerifyFailedAction action) {
+  return state.copyWith(loadingStatus: LoadingStatus.failed);
+}
+
+StaffInfoState _beginVerify(StaffInfoState state, BeginVerifyAction action) {
+  return state.copyWith(loadingStatus: LoadingStatus.loading);
+}
