@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hair/staff/info/staff_info_page.dart';
 import 'package:hair/staff/reservation/staff_reservation_page.dart';
-import 'package:hair/staff/staff_info_page.dart';
+import 'package:hair/staff/shop/staff_shop_page.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class StaffHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
           body: TabBarView(children: <Widget>[
+            Container(
+              height: 200.0,
+              key: PageStorageKey("page0"),
+              child: StaffShopPage(),
+            ),
             Container(
               height: 200.0,
               key: PageStorageKey("page1"),
@@ -35,7 +41,11 @@ class StaffHomePage extends StatelessWidget {
               },
               tabs: <Widget>[
                 Tab(
-                  text: '首页',
+                  text: '店铺',
+                  icon: Icon(Icons.calendar_today),
+                ),
+                Tab(
+                  text: '订单',
                   icon: Icon(Icons.calendar_today),
                 ),
                 Tab(

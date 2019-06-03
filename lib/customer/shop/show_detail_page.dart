@@ -255,22 +255,24 @@ class BarberItem extends StatelessWidget {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: onTap,
-              child: Container(
-                height: 40.0,
-                width: 80.0,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                  color: Colors.blueAccent,
-                ),
-                child: Text(
-                  "立即预约",
-                  style: TextStyle(color: Colors.white, fontSize: 16.0),
-                ),
-              ),
-            )
+            onTap != null
+                ? GestureDetector(
+                    onTap: onTap,
+                    child: Container(
+                      height: 40.0,
+                      width: 80.0,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                        color: Colors.blueAccent,
+                      ),
+                      child: Text(
+                        "立即预约",
+                        style: TextStyle(color: Colors.white, fontSize: 16.0),
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

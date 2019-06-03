@@ -5,8 +5,6 @@ import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/list_cell.dart';
 import 'package:hair/customer/info/user_info_page_view_model.dart';
 import 'package:hair/redux/app/app_state.dart';
-import 'package:hair/redux/cus_info/cus_info_action.dart';
-import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 
 class StaffInfoPage extends StatelessWidget {
@@ -70,25 +68,32 @@ class StaffInfoPage extends StatelessWidget {
                         children: <Widget>[
                           GestureDetector(
                             onTap: () {
-                              globalStore.dispatch(BeginFetchCusInfoAction());
-                              GlobalNavigator.shared.pushNamed(CustomerRoute.userAddressPage);
+//                              globalStore.dispatch(BeginFetchCusInfoAction());
+                              GlobalNavigator.shared.pushNamed(StaffRoute.staffVerifyPage);
                             },
                             child: ListCell(
-                              title: "地址管理",
+                              title: "认证状态",
                               showDivider: true,
+                              child: Text(
+                                model?.barber?.status == null || model?.barber?.status == 1 ? '去认证' : (model?.barber?.status == 2 ? '已认证' : '禁用'),
+                                style: TextStyle(color: model?.barber?.status != 2 ? Colors.red : Colors.green),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              GlobalNavigator.shared.pushNamed(CustomerRoute.walletPage);
+                            },
+                            child: ListCell(
+                              title: "我的钱包",
+                              showDivider: true,
+                              child: Text('${model?.barber?.money ?? 0}元'),
                             ),
                           ),
                           GestureDetector(
                             onTap: () {},
                             child: ListCell(
                               title: "安全中心",
-                              showDivider: true,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: ListCell(
-                              title: "我的钱包",
                               showDivider: true,
                             ),
                           ),

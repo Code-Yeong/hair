@@ -5,7 +5,7 @@ class Barber {
   final String phone;
   final String password;
   final String avatar;
-  final num status;
+  final num status; //0:为认证 1:已认证 2：禁用
   final num level;
   final num sex;
   final num score;
@@ -56,7 +56,7 @@ class Barber {
       phone: obj['phone'] ?? '',
       password: obj['password'] ?? '',
       avatar: obj['avatar'] ?? '',
-      status: obj['status'] ?? 1,
+      status: obj['status'] ?? 0,
       level: obj['level'] ?? 1,
       sex: obj['sex'] ?? 0,
       score: obj['score'] ?? 0,
