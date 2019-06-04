@@ -37,6 +37,9 @@ class BeginVerifyAction {
   BeginVerifyAction({this.name, this.idCard, this.certificate});
 }
 
-class VerifySuccessAction {}
+class VerifySuccessAction {
+  Barber barber;
+  VerifySuccessAction({this.barber});
+}
 
 class VerifyFailedAction {}

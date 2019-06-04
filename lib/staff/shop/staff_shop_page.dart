@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:hair/common/global_navigator.dart';
+import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/empty_widget.dart';
 import 'package:hair/customer/shop/show_detail_page.dart';
 import 'package:hair/model/barber.dart';
@@ -124,6 +126,9 @@ class StaffShopPage extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
+                              onTap: () {
+                                GlobalNavigator.shared.pushNamed(StaffRoute.staffJoinShop);
+                              },
                               child: Container(
                                 color: Colors.white,
                                 width: 100.0,

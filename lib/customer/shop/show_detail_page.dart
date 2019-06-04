@@ -4,6 +4,7 @@ import 'package:hair/common/barber_comment_page/barber_comment_page.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/empty_widget.dart';
+import 'package:hair/component/one_button.dart';
 import 'package:hair/component/stars_widget.dart';
 import 'package:hair/customer/shop/shop_list_page_view_model.dart';
 import 'package:hair/model/barber.dart';
@@ -13,6 +14,7 @@ import 'package:hair/redux/choose_reservation_time/choose_reservation_time_actio
 import 'package:hair/redux/shop/shop_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
+import 'package:hair/utils/enum.dart';
 
 class ShopDetailPage extends StatelessWidget {
   final String shopName;
@@ -30,6 +32,8 @@ class ShopDetailPage extends StatelessWidget {
           converter: (store) => ShopListPageViewModel.fromStore(store),
           builder: (context, model) {
 //            print('selectedShop:${model.selectedShop.toString()}');
+            Role role = globalStore.state.loginState.role;
+            print('role:$role');
             Shop shop = model.selectedShop;
             return Container(
               color: CommonColors.bgGray,
@@ -123,45 +127,55 @@ class ShopDetailPage extends StatelessWidget {
                                         score: barber?.score,
                                         shopAvatar: shop.avatar,
                                         orderCount: barber?.orderCount,
-                                        onTap: () {
-                                          globalStore.dispatch(new SetCurrentBarberAction(barber: barber));
-                                          GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
-                                        },
+                                        onTap: role == Role.customer
+                                            ? () {
+                                                globalStore.dispatch(new SetCurrentBarberAction(barber: barber));
+                                                GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
+                                              }
+                                            : null,
                                       ),
                                     );
                                   },
                                 ),
                               ),
                       ),
-                      Container(
-                        height: 70.0,
-                        padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Checkbox(
-                                  value: true,
-                                  onChanged: null,
-                                  activeColor: Colors.white,
-                                ),
-                                Text('洗剪吹'),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Checkbox(
-                                  value: false,
-                                  onChanged: null,
-                                  activeColor: Colors.white,
-                                ),
-                                Text('烫染'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
+                      role == Role.customer
+                          ? Container(
+                              height: 70.0,
+                              padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Checkbox(
+                                        value: true,
+                                        onChanged: null,
+                                        activeColor: Colors.white,
+                                      ),
+                                      Text('洗剪吹'),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Checkbox(
+                                        value: false,
+                                        onChanged: null,
+                                        activeColor: Colors.white,
+                                      ),
+                                      Text('烫染'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              padding: EdgeInsets.all(12.0),
+                              child: BottomOneButton(
+                                title: '申请加入',
+                                onTap: () {},
+                              ),
+                            )
                     ],
                   ),
                   Positioned(

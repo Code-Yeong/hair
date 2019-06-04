@@ -48,7 +48,7 @@ class Barber {
   });
 
   static Barber fromObj(obj) {
-    print(obj);
+//    print(obj);
     return Barber(
       id: obj['id'] ?? '',
       name: obj['name'] ?? '',
@@ -72,6 +72,20 @@ class Barber {
       registTime: obj['regist_time'] ?? '',
       lastModify: obj['last_modify'] ?? '',
       lastLogin: obj['last_login'] ?? '',
+    );
+  }
+
+  Barber copyWidth({
+    String name,
+    num status,
+    String idCard,
+    String certificate,
+  }) {
+    return Barber(
+      name: name ?? this.name,
+      status: status ?? this.status,
+      idCard: idCard ?? this.idCard,
+      certificate: certificate ?? this.certificate,
     );
   }
 

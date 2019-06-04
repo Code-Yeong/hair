@@ -69,7 +69,7 @@ StaffInfoState _errorLoading(StaffInfoState state, StaffInfoLoadingErrorAction a
 //}
 
 StaffInfoState _verifySuccess(StaffInfoState state, VerifySuccessAction action) {
-  return state.copyWith(loadingStatus: LoadingStatus.success);
+  return state.copyWith(loadingStatus: LoadingStatus.success, barber: action.barber);
 }
 
 StaffInfoState _verifyFailed(StaffInfoState state, VerifyFailedAction action) {
