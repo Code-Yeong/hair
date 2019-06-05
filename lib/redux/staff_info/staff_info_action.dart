@@ -43,3 +43,28 @@ class VerifySuccessAction {
 }
 
 class VerifyFailedAction {}
+
+enum HandleType {
+  cancel,
+  apply,
+}
+
+//申请/取消加入店铺
+class BeginOrCancelApplyShop {
+  String shopId; //店铺Id
+  String bid; //理发师id
+  HandleType handleType;
+  BeginOrCancelApplyShop({this.shopId, this.bid, this.handleType});
+}
+
+//申请提交成功，等待审核
+class ApplyShopFinishedAction {
+  HandleType handleType;
+  ApplyShopFinishedAction({this.handleType});
+}
+
+//申请提交成功，等待审核
+class ApplyShopFailedAction {
+  HandleType handleType;
+  ApplyShopFailedAction({this.handleType});
+}

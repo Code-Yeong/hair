@@ -296,4 +296,16 @@ class ServerApi {
     Response res = await dio.post(url, data: formData);
     return res;
   }
+
+  applyOrCancelShop({String bId, String shopId, num handle}) async {
+    String url = 'barber/join/shop';
+    var data = {
+      'id': bId,
+      'shopId': shopId,
+      'handle': handle,
+    };
+    print("申请或取消加入店铺 data: $data");
+    Response res = await _dio.post(url, data: data);
+    return res;
+  }
 }

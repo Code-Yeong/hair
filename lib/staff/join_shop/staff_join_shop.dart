@@ -15,6 +15,15 @@ class StaffJoinShop extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData.fallback(),
+          title: Text(
+            "店铺列表",
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: CommonColors.bgGray,
+          elevation: 1.0,
+        ),
         body: StoreConnector<AppState, ShopListPageViewModel>(
           onInit: (store) {
             store.dispatch(new BeginFetchShopListAction());

@@ -5,6 +5,7 @@ import 'package:hair/config/server_api.dart';
 import 'package:hair/model/barber.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/staff_info/staff_info_action.dart';
+import 'package:hair/redux/store.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createStaffInfoMiddle() {
@@ -35,6 +36,21 @@ class StaffInfoMiddle extends MiddlewareClass<AppState> {
         print('failed');
         store.dispatch(new VerifyFailedAction());
         showToast(text: '认证失败');
+      }
+    }
+    if (action is BeginOrCancelApplyShop) {
+      var res = await ServerApi.api.applyOrCancelShop(bId: action.bid, shopId: action.shopId, handle: action.handleType.index);
+      print('申请结果：$res');
+      if (res != null && res?.data['status'] == 100) {
+        if (action.handleType == HandleType.apply) {
+          showToast(text: '申请成功,等待审核');
+        } else {
+          showToast(text: '取消成功');
+        }
+        globalStore.dispatch(new ApplyShopFinishedAction(handleType: action.handleType));
+      } else {
+        globalStore.dispatch(new ApplyShopFailedAction(handleType: action.handleType));
+        showToast(text: '申请提交失败');
       }
     }
   }

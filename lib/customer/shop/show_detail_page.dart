@@ -12,6 +12,7 @@ import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/redux/shop/shop_action.dart';
+import 'package:hair/redux/staff_info/staff_info_action.dart';
 import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
@@ -34,6 +35,7 @@ class ShopDetailPage extends StatelessWidget {
 //            print('selectedShop:${model.selectedShop.toString()}');
             Role role = globalStore.state.loginState.role;
             print('role:$role');
+            Barber barber = globalStore.state.staffInfoState?.barber;
             Shop shop = model.selectedShop;
             return Container(
               color: CommonColors.bgGray,
@@ -172,8 +174,17 @@ class ShopDetailPage extends StatelessWidget {
                           : Container(
                               padding: EdgeInsets.all(12.0),
                               child: BottomOneButton(
-                                title: '申请加入',
-                                onTap: () {},
+                                disabled: barber.shopStatus != "0",
+                                title: barber.shopStatus == "0" ? '申请加入${barber.shopStatus}' : "等待审核${barber.shopStatus}",
+                                onTap: () {
+                                  if (barber.shopStatus == "0") {
+                                    //申请加入
+                                    globalStore.dispatch(BeginOrCancelApplyShop(bid: barber?.id, shopId: shop.id, handleType: HandleType.apply));
+                                  } else {
+                                    //取消申请
+                                    globalStore.dispatch(BeginOrCancelApplyShop(bid: barber?.id, shopId: shop.id, handleType: HandleType.cancel));
+                                  }
+                                },
                               ),
                             )
                     ],
