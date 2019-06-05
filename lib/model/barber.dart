@@ -13,6 +13,7 @@ class Barber {
   final num money;
   final String address;
   final String shop;
+  final String shopStatus; //0:未加入任何店铺， 1：正在申请加入店铺 2：申请通过
   final String idCard;
   final String certificate;
   final num long; //经度
@@ -20,6 +21,8 @@ class Barber {
   final String description;
   final String registTime;
   final String lastLogin;
+  final String submitTime; //申请加入店铺的时间
+  final String admitTime; //申请通过的时间
   final String lastModify;
 
   Barber({
@@ -37,6 +40,7 @@ class Barber {
     this.orderCount,
     this.address,
     this.shop,
+    this.shopStatus,
     this.idCard,
     this.certificate,
     this.long,
@@ -45,6 +49,8 @@ class Barber {
     this.registTime,
     this.lastLogin,
     this.lastModify,
+    this.submitTime,
+    this.admitTime,
   });
 
   static Barber fromObj(obj) {
@@ -64,6 +70,7 @@ class Barber {
       money: obj['money'] ?? 0,
       address: obj['address'] ?? '',
       shop: obj['shop'].toString() ?? '',
+      shopStatus: obj['shop']?.toString() ?? '0',
       idCard: obj['idcard'] ?? '',
       certificate: obj['certificate'] ?? '',
       long: obj['longitude'] ?? 0,
@@ -72,6 +79,8 @@ class Barber {
       registTime: obj['regist_time'] ?? '',
       lastModify: obj['last_modify'] ?? '',
       lastLogin: obj['last_login'] ?? '',
+      submitTime: obj['submitTime'] ?? '',
+      admitTime: obj['admitTime'] ?? '',
     );
   }
 
@@ -80,12 +89,14 @@ class Barber {
     num status,
     String idCard,
     String certificate,
+    String shopStatus,
   }) {
     return Barber(
       name: name ?? this.name,
       status: status ?? this.status,
       idCard: idCard ?? this.idCard,
       certificate: certificate ?? this.certificate,
+      shopStatus: shopStatus ?? this.shopStatus,
     );
   }
 

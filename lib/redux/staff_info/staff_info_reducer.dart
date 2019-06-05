@@ -1,3 +1,4 @@
+import 'package:hair/model/barber.dart';
 import 'package:hair/redux/choose_reservation_time/choose_reservation_time_action.dart';
 import 'package:hair/redux/staff_info/staff_info_action.dart';
 import 'package:hair/redux/staff_info/staff_info_state.dart';
@@ -12,6 +13,9 @@ final staffInfoReducers = combineReducers<StaffInfoState>([
   new TypedReducer<StaffInfoState, BeginVerifyAction>(_beginVerify),
   new TypedReducer<StaffInfoState, VerifySuccessAction>(_verifySuccess),
   new TypedReducer<StaffInfoState, VerifyFailedAction>(_verifyFailed),
+  new TypedReducer<StaffInfoState, BeginOrCancelApplyShop>(_applyOrCancel),
+  new TypedReducer<StaffInfoState, ApplyShopFinishedAction>(_applyFinished),
+  new TypedReducer<StaffInfoState, ApplyShopFailedAction>(_applyFailed),
 //  new TypedReducer<StaffInfoState, EditStaffGenderInfoAction>(_editStaffGender),
 //  new TypedReducer<StaffInfoState, EditStaffPhoneInfoAction>(_editStaffPhone),
 //  new TypedReducer<StaffInfoState, EditStaffAddressInfoAction>(_editStaffAddress),
@@ -78,4 +82,25 @@ StaffInfoState _verifyFailed(StaffInfoState state, VerifyFailedAction action) {
 
 StaffInfoState _beginVerify(StaffInfoState state, BeginVerifyAction action) {
   return state.copyWith(loadingStatus: LoadingStatus.loading);
+}
+
+StaffInfoState _applyOrCancel(StaffInfoState state, BeginOrCancelApplyShop action) {
+  return state.copyWith(
+    commitStatus: CommitStatus.committing,
+  );
+}
+
+StaffInfoState _applyFinished(StaffInfoState state, ApplyShopFinishedAction action) {
+  Barber oldBarber = state.barber;
+  Barber newBarber = oldBarber.copyWidth(shopStatus: '${action.handleType.index}');
+  return state.copyWith(
+    commitStatus: CommitStatus.success,
+    barber: newBarber,
+  );
+}
+
+StaffInfoState _applyFailed(StaffInfoState state, ApplyShopFailedAction action) {
+  return state.copyWith(
+    commitStatus: CommitStatus.init,
+  );
 }
