@@ -91,8 +91,10 @@ StaffInfoState _applyOrCancel(StaffInfoState state, BeginOrCancelApplyShop actio
 }
 
 StaffInfoState _applyFinished(StaffInfoState state, ApplyShopFinishedAction action) {
+  print('new ShopStatufdsfdsf');
   Barber oldBarber = state.barber;
   Barber newBarber = oldBarber.copyWidth(shopStatus: '${action.handleType.index}');
+  print('new ShopStatu:${newBarber.shopStatus}');
   return state.copyWith(
     commitStatus: CommitStatus.success,
     barber: newBarber,

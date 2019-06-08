@@ -174,8 +174,8 @@ class ShopDetailPage extends StatelessWidget {
                           : Container(
                               padding: EdgeInsets.all(12.0),
                               child: BottomOneButton(
-                                disabled: barber.shopStatus != "0",
-                                title: barber.shopStatus == "0" ? '申请加入${barber.shopStatus}' : "等待审核${barber.shopStatus}",
+//                                disabled: barber.shopStatus != "0",
+                                title: barber.shopStatus == "0" ? '申请加入' : "取消申请",
                                 onTap: () {
                                   if (barber.shopStatus == "0") {
                                     //申请加入
