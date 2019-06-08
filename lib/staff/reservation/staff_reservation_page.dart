@@ -82,6 +82,7 @@ class StaffReservationPage extends StatelessWidget {
                         Reservation reservation = viewModel.getWaitingList()[index];
                         return StaffReservationItemWidget(
                           resId: reservation?.rId,
+                          avatar: reservation.avatar,
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
                           address: "${reservation?.adddress}",
@@ -114,6 +115,7 @@ class StaffReservationPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         Reservation reservation = viewModel.getProcessingList()[index];
                         return StaffReservationItemWidget(
+                          avatar: reservation.avatar,
                           resId: reservation?.rId,
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
@@ -148,6 +150,7 @@ class StaffReservationPage extends StatelessWidget {
                         Reservation reservation = viewModel.getCompleteList()[index];
                         return StaffReservationItemWidget(
                           resId: reservation?.rId,
+                          avatar: reservation.avatar,
                           cusName: "${reservation?.cusName}", // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
                           address: "${reservation?.adddress}",
@@ -180,6 +183,7 @@ class StaffReservationPage extends StatelessWidget {
                         Reservation reservation = viewModel.reservationList[index];
                         return StaffReservationItemWidget(
                           resId: reservation?.rId,
+                          avatar: reservation.avatar,
                           cusName: reservation?.cusName, // TODO 解析staff name
                           status: buildOrderStatusType(int.parse(reservation.status)),
                           address: reservation?.adddress,

@@ -21,6 +21,11 @@ class LoginPageState extends State<LoginPage> {
   Color _customerColor = Colors.blueAccent;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

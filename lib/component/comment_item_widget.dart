@@ -37,7 +37,7 @@ class CommentItemWidget extends StatelessWidget {
 //            height: 20.0,
             padding: EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 CircleAvatar(
                   radius: 30.0,
@@ -47,22 +47,39 @@ class CommentItemWidget extends StatelessWidget {
                   width: 5.0,
                 ),
                 Container(
-                  child: Text('${name}'),
-                ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: time != null && time.length > 0 ? Text('${DateTimeUtils.formatTimeForStr(time: time)}') : Container(),
+                  height: 60.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        flex: 2,
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '${name ?? '匿名'}',
+                            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          child: time != null && time.length > 0 ? Text('${DateTimeUtils.formatTimeForStr(time: time)}') : Container(),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                )
               ],
             ),
           ),
           Container(
-            constraints: BoxConstraints(minHeight: 20.0, maxHeight: 50.0),
-            alignment: Alignment.topLeft,
-            padding: EdgeInsets.all(8.0),
-            child: Text('$comment'),
+            constraints: BoxConstraints(minHeight: 20.0, maxHeight: 80.0),
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.all(16.0),
+            child: Text('$comment', style: TextStyle(fontSize: 18.0)),
           ),
           Container(
             height: 50.0,
@@ -75,7 +92,12 @@ class CommentItemWidget extends StatelessWidget {
                   onTap: () {
                     showToast(text: '删除评论，评论内容:$rId');
                   },
-                  child: deletable ? Text('删除') : Container(),
+                  child: deletable
+                      ? Text(
+                          '删除',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      : Container(),
                 )
               ],
             ),

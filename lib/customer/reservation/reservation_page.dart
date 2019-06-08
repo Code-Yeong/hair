@@ -85,6 +85,7 @@ class ReservationPage extends StatelessWidget {
                           status: buildOrderStatusType(int.parse(reservation.status)), //???
                           serviceType: "内容:${reservation?.serviceType}",
                           serveName: "内容:${reservation?.serveName}",
+                          serveTime: "${reservation?.serveTime}",
                           createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
                           money: int.parse(reservation?.money),
                           comment: reservation?.comment,

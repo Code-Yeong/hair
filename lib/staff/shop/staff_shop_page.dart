@@ -126,8 +126,45 @@ class StaffShopPage extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
-                                GlobalNavigator.shared.pushNamed(StaffRoute.staffJoinShop);
+                              onTap: () async {
+                                var store = StoreProvider.of<AppState>(context);
+                                var status = store.state.staffInfoState.barber.status;
+                                if (status != null && status == 2) {
+                                  GlobalNavigator.shared.pushNamed(StaffRoute.staffJoinShop);
+                                } else {
+                                  showDialog<Null>(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: new Text('提示'),
+                                          content: new SingleChildScrollView(
+                                            child: new Text(
+                                              '您还未通过职业认证？',
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            new FlatButton(
+                                              child: new Text('取消'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            new FlatButton(
+                                              child: new Text(
+                                                '去认证',
+                                                style: TextStyle(color: Colors.red),
+                                              ),
+                                              onPressed: () {
+                                                GlobalNavigator.shared.pushNamed(StaffRoute.staffVerifyPage);
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                }
                               },
                               child: Container(
                                 color: Colors.white,
