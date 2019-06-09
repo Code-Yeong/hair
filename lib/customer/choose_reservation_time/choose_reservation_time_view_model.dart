@@ -14,6 +14,7 @@ class ChooseReservationTimeViewModel {
   final LoadingStatus loadingStatus;
   final List<Address> userAddressList;
   final Barber currentBarber;
+  final String serveName;
 
   ChooseReservationTimeViewModel({
     this.orderList,
@@ -22,6 +23,7 @@ class ChooseReservationTimeViewModel {
     this.loadingStatus,
     this.userAddressList,
     this.currentBarber,
+    this.serveName,
   });
 
   static ChooseReservationTimeViewModel fromStore(Store<AppState> store) {
@@ -32,6 +34,7 @@ class ChooseReservationTimeViewModel {
       loadingStatus: store.state.chooseReservationTimeState.loadingStatus,
       userAddressList: store.state.cusInfoState.customer?.addrList ?? [],
       currentBarber: store.state.chooseReservationTimeState.currentBarber,
+      serveName: store.state.chooseReservationTimeState.serveName,
     );
   }
 

@@ -1,15 +1,18 @@
+import 'package:hair/model/Serve.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:redux/redux.dart';
 
 class ShopListPageViewModel {
   final List<Shop> shopList;
+  final List<Serve> serveList;
   final String selectedShopId;
-  ShopListPageViewModel({this.shopList, this.selectedShopId});
+  ShopListPageViewModel({this.shopList, this.serveList, this.selectedShopId});
 
   static ShopListPageViewModel fromStore(Store<AppState> store) {
     return ShopListPageViewModel(
       shopList: store.state.shopState.shopList ?? [],
+      serveList: store.state.shopState.serveList ?? [],
       selectedShopId: store.state.shopState.selectedShopId ?? null,
     );
   }

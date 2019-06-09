@@ -253,6 +253,14 @@ class ServerApi {
     return res;
   }
 
+  //根据理发师id查询评论内容
+  Future<dynamic> getServeList() async {
+    String url = 'serve/list';
+    print("查询所有服务类型list");
+    Response res = await _dio.get(url);
+    return res;
+  }
+
   upLoadImage({File image, String id, Role role}) async {
     String url = 'http://wd.chivan.cn:3000/file/upload/avatar';
     String path = image.path;

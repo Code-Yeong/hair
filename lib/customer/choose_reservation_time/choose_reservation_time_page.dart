@@ -78,7 +78,7 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
                                             width: 5.0,
                                           ),
                                           Text(
-                                            '理发',
+                                            '${viewModel.serveName}',
                                             style: TextStyle(
                                               fontSize: 18.0,
                                               color: Colors.black,

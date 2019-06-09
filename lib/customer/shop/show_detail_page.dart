@@ -6,7 +6,9 @@ import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/empty_widget.dart';
 import 'package:hair/component/one_button.dart';
 import 'package:hair/component/stars_widget.dart';
+import 'package:hair/component/toast.dart';
 import 'package:hair/customer/shop/shop_list_page_view_model.dart';
+import 'package:hair/model/Serve.dart';
 import 'package:hair/model/barber.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
@@ -17,11 +19,17 @@ import 'package:hair/redux/store.dart';
 import 'package:hair/utils/common_colors.dart';
 import 'package:hair/utils/enum.dart';
 
-class ShopDetailPage extends StatelessWidget {
+class ShopDetailPage extends StatefulWidget {
   final String shopName;
   final String shopId;
 
   ShopDetailPage({this.shopId, this.shopName});
+
+  @override
+  _ShopDetailPageState createState() => _ShopDetailPageState();
+}
+
+class _ShopDetailPageState extends State<ShopDetailPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,6 +37,7 @@ class ShopDetailPage extends StatelessWidget {
         body: StoreConnector<AppState, ShopListPageViewModel>(
           onInit: (store) {
             store.dispatch(new BeginFetchShopDetailAction());
+            store.dispatch(new BeginFetchServeListAction());
           },
           converter: (store) => ShopListPageViewModel.fromStore(store),
           builder: (context, model) {
@@ -131,7 +140,11 @@ class ShopDetailPage extends StatelessWidget {
                                         orderCount: barber?.orderCount,
                                         onTap: role == Role.customer
                                             ? () {
-                                                globalStore.dispatch(new SetCurrentBarberAction(barber: barber));
+                                                if (selectedId == '') {
+                                                  showToast(text: '请选择服务类型');
+                                                  return;
+                                                }
+                                                globalStore.dispatch(new SetCurrentBarberAction(barber: barber, serveName: serveName));
                                                 GlobalNavigator.shared.pushNamed(CustomerRoute.chooseReservationTimePage);
                                               }
                                             : null,
@@ -143,32 +156,13 @@ class ShopDetailPage extends StatelessWidget {
                       ),
                       role == Role.customer
                           ? Container(
-                              height: 70.0,
-                              padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      Checkbox(
-                                        value: true,
-                                        onChanged: null,
-                                        activeColor: Colors.white,
-                                      ),
-                                      Text('洗剪吹'),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Checkbox(
-                                        value: false,
-                                        onChanged: null,
-                                        activeColor: Colors.white,
-                                      ),
-                                      Text('烫染'),
-                                    ],
-                                  ),
-                                ],
+                              alignment: Alignment.center,
+                              height: 60.0,
+//                              padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: GridView.count(
+                                crossAxisCount: 3,
+                                childAspectRatio: 5,
+                                children: _buildServeTypeList(model, barber),
                               ),
                             )
                           : Container(
@@ -208,6 +202,42 @@ class ShopDetailPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String selectedId = '';
+  String serveName = '';
+
+  _buildServeTypeList(ShopListPageViewModel viewModel, Barber barber) {
+    List<Serve> list = viewModel.serveList;
+    num sex = (barber?.sex ?? 0) + 1;
+    return list.map((item) {
+      if (item.type.startsWith('$sex')) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Checkbox(
+              value: selectedId == item.id,
+              checkColor: Colors.blue,
+              onChanged: (checked) {
+                if (checked) {
+                  serveName = item.name;
+                  selectedId = item.id;
+                } else {
+                  serveName = '';
+                  selectedId = '';
+                }
+                setState(() {});
+              },
+              activeColor: Colors.white,
+            ),
+            Text('${item.name}(${item.money}元)'),
+          ],
+        );
+      } else {
+        return Container();
+      }
+    }).toList();
   }
 }
 
