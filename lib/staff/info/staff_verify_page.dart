@@ -58,7 +58,7 @@ class _StaffVerifyPageState extends State<StaffVerifyPage> {
                         Container(
                           padding: EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
-                          child: viewModel.barber.status == 1
+                          child: viewModel.barber.status == 0
                               ? new TextField(
                                   onSubmitted: null,
                                   decoration: new InputDecoration.collapsed(
@@ -93,7 +93,7 @@ class _StaffVerifyPageState extends State<StaffVerifyPage> {
                         Container(
                           padding: EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
-                          child: viewModel.barber.status == 1
+                          child: viewModel.barber.status == 0
                               ? TextField(
                                   onSubmitted: null,
                                   decoration: new InputDecoration.collapsed(
@@ -145,12 +145,12 @@ class _StaffVerifyPageState extends State<StaffVerifyPage> {
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.blueGrey, width: 1.0),
                             ),
-                            child: viewModel.barber.status == 1
+                            child: viewModel.barber.status == 0
                                 ? (_image == null ? Image.asset('assets/images/plus.png') : Image.file(_image))
                                 : Image.network(viewModel.barber.certificate),
                           ),
                         ),
-                        viewModel.barber.status == 1
+                        viewModel.barber.status == 0
                             ? Container(
                                 width: double.infinity,
                                 alignment: Alignment.center,

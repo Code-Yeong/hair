@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hair/common/global_navigator.dart';
@@ -332,67 +333,79 @@ class _ChooseReservationTimePage extends State<ChooseReservationTimePage> {
   }
 
   List<Widget> buildTimeItemListBlock(ChooseReservationTimeViewModel viewModel, int block) {
+    var currentHour = DateUtil.getDateTime('${DateTime.now()}').hour;
+    print("current hour:${currentHour}");
     return <Widget>[
-      TimeItemWidget(
-        text: '10:00-12:00',
-        disabled: viewModel.isReserved(block, 1),
-        selected: selectedItem == '$block-1',
-        onTap: () {
-          if (viewModel.isReserved(block, 1)) {
-            showToast(text: '该时间段已被预约!');
-            return;
-          }
-          _selectedTime(block, 1);
-        },
-      ),
-      TimeItemWidget(
-        text: '12:00-14:00',
-        disabled: viewModel.isReserved(block, 2),
-        selected: selectedItem == '$block-2',
-        onTap: () {
-          if (viewModel.isReserved(block, 2)) {
-            showToast(text: '该时间段已被预约!');
-            return;
-          }
-          _selectedTime(block, 2);
-        },
-      ),
-      TimeItemWidget(
-        text: '14:00-16:00',
-        disabled: viewModel.isReserved(block, 3),
-        selected: selectedItem == '$block-3',
-        onTap: () {
-          if (viewModel.isReserved(block, 3)) {
-            showToast(text: '该时间段已被预约!');
-            return;
-          }
-          _selectedTime(block, 3);
-        },
-      ),
-      TimeItemWidget(
-        text: '16:00-18:00',
-        disabled: viewModel.isReserved(block, 4),
-        selected: selectedItem == '$block-4',
-        onTap: () {
-          if (viewModel.isReserved(block, 4)) {
-            showToast(text: '该时间段已被预约!');
-            return;
-          }
-          _selectedTime(block, 4);
-        },
-      ),
-      TimeItemWidget(
-        text: '18:00-20:00',
-        disabled: viewModel.isReserved(block, 5),
-        selected: selectedItem == '$block-5',
-        onTap: () {
-          if (viewModel.isReserved(block, 5)) {
-            showToast(text: '该时间段已被预约!');
-            return;
-          }
-          _selectedTime(block, 5);
-        },
-      ),
+      !(currentHour > 10 && block == 1)
+          ? TimeItemWidget(
+              text: '10:00-12:00',
+              disabled: viewModel.isReserved(block, 1),
+              selected: selectedItem == '$block-1',
+              onTap: () {
+                if (viewModel.isReserved(block, 1)) {
+                  showToast(text: '该时间段已被预约!');
+                  return;
+                }
+                _selectedTime(block, 1);
+              },
+            )
+          : Container(),
+      !(currentHour > 12 && block == 1)
+          ? TimeItemWidget(
+              text: '12:00-14:00',
+              disabled: viewModel.isReserved(block, 2),
+              selected: selectedItem == '$block-2',
+              onTap: () {
+                if (viewModel.isReserved(block, 2)) {
+                  showToast(text: '该时间段已被预约!');
+                  return;
+                }
+                _selectedTime(block, 2);
+              },
+            )
+          : Container(),
+      !(currentHour > 14 && block == 1)
+          ? TimeItemWidget(
+              text: '14:00-16:00',
+              disabled: viewModel.isReserved(block, 3),
+              selected: selectedItem == '$block-3',
+              onTap: () {
+                if (viewModel.isReserved(block, 3)) {
+                  showToast(text: '该时间段已被预约!');
+                  return;
+                }
+                _selectedTime(block, 3);
+              },
+            )
+          : Container(),
+      !(currentHour > 16 && block == 1)
+          ? TimeItemWidget(
+              text: '16:00-18:00',
+              disabled: viewModel.isReserved(block, 4),
+              selected: selectedItem == '$block-4',
+              onTap: () {
+                if (viewModel.isReserved(block, 4)) {
+                  showToast(text: '该时间段已被预约!');
+                  return;
+                }
+                _selectedTime(block, 4);
+              },
+            )
+          : Container(),
+      !(currentHour > 18 && block == 1)
+          ? TimeItemWidget(
+              text: '18:00-20:00',
+              disabled: viewModel.isReserved(block, 5),
+              selected: selectedItem == '$block-5',
+              onTap: () {
+                if (viewModel.isReserved(block, 5)) {
+                  showToast(text: '该时间段已被预约!');
+                  return;
+                }
+                _selectedTime(block, 5);
+              },
+            )
+          : Container(),
     ];
   }
 }

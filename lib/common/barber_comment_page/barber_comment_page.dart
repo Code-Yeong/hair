@@ -46,7 +46,7 @@ class _BarberCommentPageState extends State<BarberCommentPage> {
                       ),
                       background: Stack(
                         children: <Widget>[
-                          Image.asset(
+                          Image.network(
                             '${widget.shopAvatar}',
                             fit: BoxFit.cover,
                           ),
@@ -61,7 +61,7 @@ class _BarberCommentPageState extends State<BarberCommentPage> {
                             bottom: 40.0,
                             child: CircleAvatar(
                               radius: 30.0,
-                              backgroundImage: AssetImage(
+                              backgroundImage: NetworkImage(
                                 '${widget.barberAvatar}',
                               ),
                             ),

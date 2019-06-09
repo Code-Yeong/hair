@@ -70,7 +70,7 @@ class Barber {
       money: obj['money'] ?? 0,
       address: obj['address'] ?? '',
       shop: obj['shop'].toString() ?? '',
-      shopStatus: obj['shop']?.toString() ?? '0',
+      shopStatus: obj['shopStatus']?.toString() ?? '0',
       idCard: obj['idcard'] ?? '',
       certificate: obj['certificate'] ?? '',
       long: obj['longitude'] ?? 0,
@@ -90,6 +90,26 @@ class Barber {
     String idCard,
     String certificate,
     String shopStatus,
+    String id,
+    String nickName,
+    String phone,
+    String password,
+    String avatar,
+    num level,
+    num sex,
+    num score,
+    num orderCount,
+    num money,
+    String address,
+    String shop,
+    num long, //经度
+    num alti, //纬度
+    String description,
+    String registTime,
+    String lastLogin,
+    String submitTime, //申请加入店铺的时间
+    String admitTime, //申请通过的时间
+    String lastModify,
   }) {
     return Barber(
       name: name ?? this.name,
@@ -97,6 +117,26 @@ class Barber {
       idCard: idCard ?? this.idCard,
       certificate: certificate ?? this.certificate,
       shopStatus: shopStatus ?? this.shopStatus,
+      id: id ?? this.id,
+      nickName: nickName ?? this.nickName,
+      phone: phone ?? this.phone,
+      password: password ?? this.password,
+      avatar: avatar ?? this.avatar,
+      level: level ?? this.level,
+      sex: sex ?? this.sex,
+      score: score ?? this.score,
+      orderCount: orderCount ?? this.orderCount,
+      money: money ?? this.money,
+      address: address ?? this.address,
+      shop: shop ?? this.shop,
+      long: long ?? this.long,
+      alti: alti ?? this.alti,
+      description: description ?? this.description,
+      registTime: registTime ?? this.registTime,
+      lastLogin: lastLogin ?? this.lastLogin,
+      submitTime: submitTime ?? this.submitTime,
+      admitTime: admitTime ?? this.admitTime,
+      lastModify: lastModify ?? this.lastModify,
     );
   }
 

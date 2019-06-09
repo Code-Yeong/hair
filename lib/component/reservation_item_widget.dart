@@ -11,6 +11,7 @@ class ReservationItemWidget extends StatelessWidget {
   final OrderStatus status;
   final String serviceType;
   final String serveName;
+  final String serveTime;
   final num money;
   final String comment;
   final VoidCallback onTap;
@@ -20,6 +21,7 @@ class ReservationItemWidget extends StatelessWidget {
     this.staffName,
     this.shopName,
     this.serveName,
+    this.serveTime,
     this.createTime,
     this.status,
     this.money,
@@ -98,7 +100,29 @@ class ReservationItemWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '¥$money 元',
+                    '金额:¥$money 元',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    '服务时间:',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '${_buildTime(serveTime)}',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
@@ -111,5 +135,20 @@ class ReservationItemWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _buildTime(String timeStr) {
+    if (timeStr == null) {
+      return '未知';
+    }
+    try {
+      List<String> data = timeStr.split('-');
+      String time = timeArea[int.parse(data[1])];
+      String date = DateTimeUtils.getDayFromStr(timeInMillSecondStr: data[0]);
+      return '$date $time';
+    } catch (e) {
+      print(e);
+    }
+    return '未知';
   }
 }

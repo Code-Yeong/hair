@@ -41,6 +41,7 @@ dependencies:
   audioplayer: ^0.5.2
   image_picker:
   loading: ^1.0.1
+  shared_preferences:
 
 
 dev_dependencies:

@@ -4,6 +4,7 @@ import 'package:hair/common/global_navigator.dart';
 import 'package:hair/common/regist_route.dart';
 import 'package:hair/component/empty_widget.dart';
 import 'package:hair/customer/shop/shop_list_page_view_model.dart';
+import 'package:hair/model/barber.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/shop/shop_action.dart';
@@ -53,19 +54,41 @@ class StaffJoinShop extends StatelessWidget {
                         : ListView.builder(
                             itemCount: viewModel.shopList.length,
                             itemBuilder: (context, index) {
+                              Barber barber = globalStore.state.staffInfoState.barber;
                               Shop shop = viewModel.shopList[index];
-                              return Container(
-                                margin: EdgeInsets.only(bottom: 20.0),
-                                child: ShopItem(
-                                  showName: "${shop.name}",
-                                  picture: "${shop.avatar}",
-                                  status: shop.status,
-                                  onTap: () {
-                                    globalStore.dispatch(new SelectedShopAction(id: shop?.id));
-                                    GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
-                                  },
-                                ),
-                              );
+//                              print('status:${barber.shopStatus}');
+                              if (barber.shopStatus == '1') {
+                                print('barber shop:${barber.shop}, list shop:${shop.id}');
+                                if (shop.id == barber.shop) {
+                                  return Container(
+                                    margin: EdgeInsets.only(bottom: 20.0),
+                                    child: ShopItem(
+                                      showName: "${shop.name}",
+                                      picture: "${shop.avatar}",
+                                      status: shop.status,
+                                      onTap: () {
+                                        globalStore.dispatch(new SelectedShopAction(id: shop?.id));
+                                        GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
+                                      },
+                                    ),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              } else {
+                                return Container(
+                                  margin: EdgeInsets.only(bottom: 20.0),
+                                  child: ShopItem(
+                                    showName: "${shop.name}",
+                                    picture: "${shop.avatar}",
+                                    status: shop.status,
+                                    onTap: () {
+                                      globalStore.dispatch(new SelectedShopAction(id: shop?.id));
+                                      GlobalNavigator.shared.pushNamed(CustomerRoute.showShopDetailPage);
+                                    },
+                                  ),
+                                );
+                              }
                             },
                           ),
                   ),

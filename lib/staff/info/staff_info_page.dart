@@ -75,7 +75,7 @@ class StaffInfoPage extends StatelessWidget {
                               title: "认证状态",
                               showDivider: true,
                               child: Text(
-                                model?.barber?.status == null || model?.barber?.status == 1 ? '去认证' : (model?.barber?.status == 2 ? '已认证' : '禁用'),
+                                model?.barber?.status == null || model?.barber?.status == 1 ? '待审核' : (model?.barber?.status == 2 ? '已认证' : '去认证'),
                                 style: TextStyle(color: model?.barber?.status != 2 ? Colors.red : Colors.green),
                               ),
                             ),
