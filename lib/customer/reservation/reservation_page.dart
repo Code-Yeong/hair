@@ -18,7 +18,7 @@ class ReservationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -29,7 +29,7 @@ class ReservationPage extends StatelessWidget {
               tabs: <Widget>[
                 Tab(
                   child: Text(
-                    '全部订单',
+                    '进行中',
                     style: TextStyle(
                       fontSize: 18.0,
                     ),
@@ -51,6 +51,14 @@ class ReservationPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                Tab(
+                  child: Text(
+                    '全部订单',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
               ],
             ),
             backgroundColor: CommonColors.bgGray,
@@ -60,24 +68,23 @@ class ReservationPage extends StatelessWidget {
             padding: EdgeInsets.all(12.0),
             color: CommonColors.bgGray,
             child: TabBarView(children: <Widget>[
+              //进行中
               StoreConnector<AppState, ReservationPageViewModel>(
                   onInit: (store) {
                     store.dispatch(new BeginFetchReservationListAction());
                   },
                   converter: (store) => ReservationPageViewModel.fromStore(store),
                   builder: (context, viewModel) {
-//                    return Container(
-                    if (viewModel.reservationList?.length == 0) {
+                    List<Reservation> reservationList = viewModel.getProcessingList();
+                    if (reservationList.length == 0) {
                       return EmptyWidget(
                         text: "没有订单哦",
                       );
                     }
                     return ListView.separated(
-                      itemCount: viewModel.reservationList?.length,
+                      itemCount: reservationList?.length,
                       itemBuilder: (context, index) {
-                        Reservation reservation = viewModel.reservationList[index];
-
-                        ///这里只传参数，不拼接字符串，需要修改
+                        Reservation reservation = reservationList[index];
                         return ReservationItemWidget(
                           avatar: reservation?.avatar,
                           shopName: viewModel.getShopName(reservation?.shopId),
@@ -168,6 +175,51 @@ class ReservationPage extends StatelessWidget {
                       itemCount: reservationList?.length ?? 0,
                       itemBuilder: (context, index) {
                         Reservation reservation = reservationList[index];
+                        return ReservationItemWidget(
+                          avatar: reservation?.avatar,
+                          shopName: viewModel.getShopName(reservation?.shopId),
+                          staffName: reservation?.staffName,
+                          status: buildOrderStatusType(int.parse(reservation.status)), //???
+                          serviceType: "内容:${reservation?.serviceType}",
+                          serveName: "内容:${reservation?.serveName}",
+                          createTime: "${reservation?.createTime}", //'2019年5月2日 10:00-12:00'
+                          money: int.parse(reservation?.money),
+                          comment: reservation?.comment,
+                          onTap: () {
+                            if (int.parse(reservation.status) != 5) {
+                              globalStore.dispatch(new SelectedReservationAction(rId: reservation?.rId));
+                              GlobalNavigator.shared.pushNamed(CustomerRoute.reservationDetailPage);
+                            } else {
+                              showToast(text: '无法查看已关闭的订单哦!');
+                            }
+                          },
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          height: 20.0,
+                        );
+                      },
+                    );
+                  }),
+              StoreConnector<AppState, ReservationPageViewModel>(
+                  onInit: (store) {
+                    store.dispatch(new BeginFetchReservationListAction());
+                  },
+                  converter: (store) => ReservationPageViewModel.fromStore(store),
+                  builder: (context, viewModel) {
+//                    return Container(
+                    if (viewModel.reservationList?.length == 0) {
+                      return EmptyWidget(
+                        text: "没有订单哦",
+                      );
+                    }
+                    return ListView.separated(
+                      itemCount: viewModel.reservationList?.length,
+                      itemBuilder: (context, index) {
+                        Reservation reservation = viewModel.reservationList[index];
+
+                        ///这里只传参数，不拼接字符串，需要修改
                         return ReservationItemWidget(
                           avatar: reservation?.avatar,
                           shopName: viewModel.getShopName(reservation?.shopId),

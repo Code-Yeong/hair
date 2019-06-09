@@ -24,6 +24,14 @@ class ReservationPageViewModel {
     return "";
   }
 
+  List<Reservation> getProcessingList() {
+    if (this.reservationList.length <= 0) {
+      return [];
+    }
+    List<Reservation> list = this.reservationList.where((reservation) => reservation.status == '1' || reservation.status == '2').toList();
+    return list;
+  }
+
   List<Reservation> getCommentingList() {
     if (this.reservationList.length <= 0) {
       return [];
