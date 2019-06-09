@@ -10,6 +10,7 @@ class ChooseReservationTimeState {
   final Barber currentBarber;
   final LoadingStatus loadingStatus;
   final bool enableOnTapPop;
+  final String serveName;
 
   ChooseReservationTimeState({
     this.orderList,
@@ -18,6 +19,7 @@ class ChooseReservationTimeState {
     this.selectedTime,
     this.loadingStatus,
     this.enableOnTapPop,
+    this.serveName,
   });
 
   factory ChooseReservationTimeState.initial() {
@@ -28,6 +30,7 @@ class ChooseReservationTimeState {
       loadingStatus: LoadingStatus.init,
       currentBarber: null,
       enableOnTapPop: false,
+      serveName: '',
     );
   }
 
@@ -39,6 +42,7 @@ class ChooseReservationTimeState {
     Barber currentBarber,
     bool enableOnTapPop,
     String serveAddress,
+    String serveName,
   }) {
     return ChooseReservationTimeState(
       orderList: orderList ?? this.orderList,
@@ -47,6 +51,7 @@ class ChooseReservationTimeState {
       loadingStatus: loadingStatus ?? this.loadingStatus,
       currentBarber: currentBarber ?? this.currentBarber,
       enableOnTapPop: enableOnTapPop ?? this.enableOnTapPop,
+      serveName: serveName ?? this.serveName,
     );
   }
 }

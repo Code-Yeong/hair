@@ -1,4 +1,5 @@
 import 'package:hair/config/server_api.dart';
+import 'package:hair/model/Serve.dart';
 import 'package:hair/model/shop.dart';
 import 'package:hair/redux/app/app_state.dart';
 import 'package:hair/redux/shop/shop_action.dart';
@@ -42,6 +43,18 @@ class ShopMiddleware extends MiddlewareClass<AppState> {
         globalStore.dispatch(new ReceivedShopDetailAction(shop: shop));
       } else {
         print('获取商铺信息失败');
+      }
+    }
+
+    //获取服务类型列表
+    if (action is BeginFetchServeListAction) {
+      var res = await ServerApi.api.getServeList();
+      if (res != null && res?.data['status'] == 100) {
+        List<Serve> serveList = Serve.fromObjList(res?.data['result']);
+        store.dispatch(new ReceivedServeListAction(serveList: serveList));
+      } else {
+        store.dispatch(new FetchServeListFailedAction());
+        print('获取服务类型信息失败');
       }
     }
   }

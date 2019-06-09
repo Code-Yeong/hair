@@ -9,6 +9,7 @@ final shopReducers = combineReducers<ShopState>([
   new TypedReducer<ShopState, ReceivedShopDetailAction>(_receivedShopDetail),
   new TypedReducer<ShopState, FetchShopDetailFailedAction>(_loadFailedShopDetail),
   new TypedReducer<ShopState, SelectedShopAction>(_selectedShop),
+  new TypedReducer<ShopState, ReceivedServeListAction>(_fetchServeList),
 ]);
 
 ShopState _receivedShopList(ShopState state, ReceivedShopListAction action) {
@@ -42,5 +43,11 @@ ShopState _loadFailedShopDetail(ShopState state, FetchShopDetailFailedAction act
 ShopState _selectedShop(ShopState state, SelectedShopAction action) {
   return state.copyWith(
     selectedShopId: action.id,
+  );
+}
+
+ShopState _fetchServeList(ShopState state, ReceivedServeListAction action) {
+  return state.copyWith(
+    serveList: action.serveList,
   );
 }

@@ -12,7 +12,8 @@ class InitChooseReservationAction {}
 
 class SetCurrentBarberAction {
   final Barber barber;
-  SetCurrentBarberAction({this.barber});
+  final String serveName;
+  SetCurrentBarberAction({this.barber, this.serveName});
 }
 
 class BeginFetchChooseReservationDataAction {

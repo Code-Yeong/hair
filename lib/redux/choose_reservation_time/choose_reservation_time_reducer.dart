@@ -82,7 +82,10 @@ ChooseReservationTimeState _commitFailed(ChooseReservationTimeState state, Commi
 }
 
 ChooseReservationTimeState _setCurrentBarber(ChooseReservationTimeState state, SetCurrentBarberAction action) {
-  return state.copyWith(currentBarber: action.barber);
+  return state.copyWith(
+    currentBarber: action.barber,
+    serveName: action.serveName,
+  );
 }
 
 ChooseReservationTimeState _setAddressOnTap(ChooseReservationTimeState state, SetAddressAction action) {
