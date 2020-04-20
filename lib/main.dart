@@ -7,6 +7,8 @@ import 'package:hair/redux/store.dart';
 import 'app.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runZoned<Future<void>>(
     () async {
       //同步的初始化

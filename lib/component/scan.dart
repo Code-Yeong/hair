@@ -6,11 +6,12 @@ import 'package:hair/component/toast.dart';
 
 Future<String> scanQrCode() async {
   try {
-    String barcode = await BarcodeScanner.scan();
+    ScanResult result = await BarcodeScanner.scan();
+    String barcode = result.rawContent;
     showToast(text: "扫码成功");
     return barcode;
   } on PlatformException catch (e) {
-    if (e.code == BarcodeScanner.CameraAccessDenied) {
+    if (e.code == BarcodeScanner.cameraAccessDenied) {
       showToast(text: '请打开相机使用权限');
     } else {
       showToast(text: "扫码失败");

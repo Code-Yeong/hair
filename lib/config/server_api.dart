@@ -14,7 +14,8 @@ class ServerApi {
   ServerApi();
   static ServerApi get api => ServerApi();
   static BaseOptions options = new BaseOptions(
-    baseUrl: "http://wd.chivan.cn:3000/",
+    baseUrl: "http://192.168.1.104:3000/",
+//    baseUrl: "http://wd.chivan.cn:3000/",
     connectTimeout: 5000,
     receiveTimeout: 3000,
   );
@@ -262,46 +263,39 @@ class ServerApi {
   }
 
   upLoadImage({File image, String id, Role role}) async {
-    String url = 'http://wd.chivan.cn:3000/file/upload/avatar';
+    String url = 'file/upload/avatar';
     String path = image.path;
     var name = path.substring(path.lastIndexOf("/") + 1, path.length);
     var suffix = name.substring(name.lastIndexOf(".") + 1, name.length);
-    FormData formData = new FormData.from(
+    FormData formData = new FormData.fromMap(
       {
         "id": id,
         "role": role.index,
-        "image": new UploadFileInfo(
-          new File(path),
-          name,
-        ),
+        "image": await MultipartFile.fromFile(path, filename: suffix),
       },
     );
-
-    print('${new File(path)}');
-    Dio dio = new Dio();
-    Response res = await dio.post(url, data: formData);
+    Response res = await _dio.post(url, data: formData);
     return res;
   }
 
   staffVerify({File image, String id, String name, String idCard}) async {
-    String url = 'http://wd.chivan.cn:3000/file/barber/verify';
+    String url = 'file/barber/verify';
+//    String url = 'http://wd.chivan.cn:3000/file/barber/verify';
     String path = image.path;
     var _name = path.substring(path.lastIndexOf("/") + 1, path.length);
     var suffix = name.substring(name.lastIndexOf(".") + 1, name.length);
-    FormData formData = new FormData.from(
+    FormData formData = new FormData.fromMap(
       {
         "id": id,
         "name": name,
         'idcard': idCard,
-        "image": new UploadFileInfo(
-          new File(path),
-          _name,
-        ),
+        "image": await MultipartFile.fromFile(path, filename: _name),
       },
     );
 
-    Dio dio = new Dio();
-    Response res = await dio.post(url, data: formData);
+//    Dio dio = new Dio();
+    print('${new File(path)}');
+    Response res = await _dio.post(url, data: formData);
     return res;
   }
 

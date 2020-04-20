@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.wd.hair">
 
@@ -14,7 +15,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="androidx.multidex.MultiDexApplication"
         android:label="hair"
         android:icon="@mipmap/ic_launcher">
         <meta-data

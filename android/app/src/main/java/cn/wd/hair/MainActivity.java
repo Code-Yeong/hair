@@ -17,10 +17,12 @@ import java.util.Locale;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;
+import io.flutter.view.FlutterMain;
 
 public class MainActivity extends FlutterActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    FlutterMain.startInitialization(this); //Added line
     super.onCreate(savedInstanceState);
     //GeneratedPluginRegistrant.registerWith(this);
     MapsInitializer.setApiKey("4c94d7360ca0f31c39ab56229dc75ec8");

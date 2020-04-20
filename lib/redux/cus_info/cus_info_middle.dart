@@ -103,7 +103,6 @@ class CusInfoMiddle extends MiddlewareClass<AppState> {
       Role role = Role.customer;
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
       var res = await ServerApi.api.upLoadImage(image: image, id: userId, role: role);
-      print(res.data);
       var result = json.decode(res.data);
       if (result['status'] == 106) {
         String avatarUrl = result['data']['url'];

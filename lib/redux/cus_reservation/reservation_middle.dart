@@ -1,4 +1,4 @@
-import 'package:audioplayer/audioplayer.dart';
+//import 'package:audioplayer/audioplayer.dart';
 import 'package:hair/common/global_navigator.dart';
 import 'package:hair/component/toast.dart';
 import 'package:hair/config/server_api.dart';
@@ -45,8 +45,8 @@ class ReservationMiddleware extends MiddlewareClass<AppState> {
     }
 
     if (action is ScanFinishedAction) {
-      AudioPlayer player = new AudioPlayer();
-      await player.play('assets/audio/scan.mp3', isLocal: true);
+//      AudioPlayer player = new AudioPlayer();
+//      await player.play('assets/audio/scan.mp3', isLocal: true);
       var res = await ServerApi.api.scanFinishReservation(rId: action.rId, cusId: action.cusId, barberId: action.barberId);
       print('scan result:$res');
       if (res != null && res?.data['status'] == 100) {
